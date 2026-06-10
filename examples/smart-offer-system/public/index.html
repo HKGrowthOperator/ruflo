@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Offer System — Dashboard</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="/">Smart Offer System</a></h1>
+    <nav>
+      <a href="/" class="active">Dashboard</a>
+      <a href="/lead.html">Neue Anfrage</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="cards" id="stats"></div>
+
+    <h2>Angebote</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nummer</th><th>Kunde</th><th>Leistung</th><th>Summe</th><th>Status</th><th>Follow-up</th>
+        </tr>
+      </thead>
+      <tbody id="angebote"><tr><td colspan="6" class="leer">Lade…</td></tr></tbody>
+    </table>
+
+    <h2>Offene Vertriebsaufgaben</h2>
+    <div id="aufgaben" class="panel"><span class="hinweis">Lade…</span></div>
+
+    <h2>Outbox — Erinnerungs-Entwürfe</h2>
+    <div id="outbox" class="panel"><span class="hinweis">Lade…</span></div>
+  </main>
+
+  <script>
+    const eur = (n) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(n || 0);
+    const datum = (iso) => iso ? new Date(iso).toLocaleDateString('de-DE') : '—';
+    const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    async function laden() {
+      const [dash, offers, tasks, outbox] = await Promise.all([
+        fetch('/api/dashboard').then((r) => r.json()),
+        fetch('/api/offers').then((r) => r.json()),
+        fetch('/api/tasks').then((r) => r.json()),
+        fetch('/api/outbox').then((r) => r.json())
+      ]);
+
+      const s = dash.stats;
+      document.getElementById('stats').innerHTML = `
+        <div class="card"><div class="label">Offen</div><div class="value">${s.offen}</div></div>
+        <div class="card"><div class="label">Gewonnen</div><div class="value">${s.gewonnen}</div></div>
+        <div class="card"><div class="label">Verloren</div><div class="value">${s.verloren}</div></div>
+        <div class="card accent"><div class="label">Abschlussquote</div><div class="value">${s.abschlussquote === null ? '—' : s.abschlussquote + ' %'}</div></div>
+        <div class="card"><div class="label">Offenes Volumen</div><div class="value">${eur(s.offenesVolumen)}</div></div>
+        <div class="card"><div class="label">Gewonnenes Volumen</div><div class="value">${eur(s.gewonnenesVolumen)}</div></div>`;
+
+      const tbody = document.getElementById('angebote');
+      if (!offers.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="leer">Noch keine Angebote — <a href="/lead.html">erste Anfrage erfassen</a></td></tr>';
+      } else {
+        tbody.innerHTML = offers.map((o) => `
+          <tr class="klickbar" onclick="location.href='/angebot.html?id=${o.id}'">
+            <td class="mono">${esc(o.nummer)}</td>
+            <td>${esc(o.kunde.firma || o.kunde.email || '—')}</td>
+            <td>${esc(o.leistung || '—')}</td>
+            <td>${eur(o.summe)}</td>
+            <td><span class="badge ${o.status}">${esc(o.status)}</span></td>
+            <td>${o.faelligeFollowUps.length ? '<span class="badge faellig">fällig</span>' : datum(o.versendetAm)}</td>
+          </tr>`).join('');
+      }
+
+      const offeneAufgaben = tasks.filter((t) => !t.erledigt);
+      document.getElementById('aufgaben').innerHTML = offeneAufgaben.length
+        ? offeneAufgaben.map((t) => `
+            <p><strong>${esc(t.titel)}</strong><br />
+            <span class="hinweis">${esc(t.beschreibung)}</span><br />
+            <button class="neutral" onclick="erledigt('${t.id}')">Erledigt</button></p>`).join('<hr style="border:none;border-top:1px solid var(--line)" />')
+        : '<span class="hinweis">Keine offenen Aufgaben.</span>';
+
+      const entwuerfe = outbox.filter((m) => m.status === 'entwurf');
+      document.getElementById('outbox').innerHTML = entwuerfe.length
+        ? entwuerfe.map((m) => `
+            <p><strong>${esc(m.betreff)}</strong> <span class="hinweis">an ${esc(m.an || '(keine E-Mail)')} · ${datum(m.erstelltAm)}</span></p>
+            <pre class="mailtext">${esc(m.text)}</pre>`).join('')
+        : '<span class="hinweis">Keine Entwürfe in der Outbox.</span>';
+    }
+
+    async function erledigt(id) {
+      await fetch(`/api/tasks/${id}/done`, { method: 'POST' });
+      laden();
+    }
+
+    laden();
+  </script>
+</body>
+</html>

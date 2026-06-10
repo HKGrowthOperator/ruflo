@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Angebot prüfen — Smart Offer System</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="/">Smart Offer System</a></h1>
+    <nav>
+      <a href="/">Dashboard</a>
+      <a href="/lead.html">Neue Anfrage</a>
+    </nav>
+  </header>
+
+  <main id="inhalt"><div class="leer">Lade Angebot…</div></main>
+
+  <script>
+    const id = new URLSearchParams(location.search).get('id');
+    const eur = (n) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(n || 0);
+    const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    let angebot = null;
+
+    async function laden() {
+      const res = await fetch('/api/offers/' + id);
+      if (!res.ok) {
+        document.getElementById('inhalt').innerHTML = '<div class="meldung fehler">Angebot nicht gefunden.</div>';
+        return;
+      }
+      angebot = await res.json();
+      render();
+    }
+
+    function statusAktionen() {
+      const a = [];
+      if (angebot.status === 'entwurf') {
+        a.push('<button onclick="speichernUndStatus(\'geprueft\')">Prüfung abschließen ✓</button>');
+      }
+      if (angebot.status === 'geprueft') {
+        a.push('<button onclick="setzeStatus(\'versendet\')">Als versendet markieren</button>');
+        a.push('<button class="neutral" onclick="setzeStatus(\'entwurf\')">Zurück zu Entwurf</button>');
+      }
+      if (angebot.status === 'versendet') {
+        a.push('<button onclick="setzeStatus(\'gewonnen\')">Gewonnen 🎉</button>');
+      }
+      if (['entwurf', 'geprueft', 'versendet'].includes(angebot.status)) {
+        a.push('<button class="sekundaer" onclick="setzeStatus(\'verloren\')">Verloren</button>');
+      }
+      a.push(`<a class="btn sekundaer" href="/api/offers/${angebot.id}/pdf" target="_blank">PDF öffnen</a>`);
+      return a.join(' ');
+    }
+
+    function render() {
+      const o = angebot;
+      const bearbeitbar = ['entwurf', 'geprueft'].includes(o.status);
+      const summe = o.positionen.reduce((s, p) => s + (p.menge || 0) * (p.einzelpreis || 0), 0);
+
+      document.getElementById('inhalt').innerHTML = `
+        <div class="panel">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px">
+            <h2 style="margin:0">Angebot <span class="mono">${esc(o.nummer)}</span></h2>
+            <span class="badge ${o.status}">${esc(o.status)}</span>
+          </div>
+          <p class="hinweis">
+            Erstellt am ${new Date(o.erstelltAm).toLocaleString('de-DE')}
+            · Quelle: ${esc(o.lead.quelle)}
+            · Extraktion: ${o.extraktion.methode === 'claude' ? 'Claude AI' : 'Heuristik'}
+          </p>
+          <div class="aktionen">${statusAktionen()}</div>
+          <div id="meldung"></div>
+        </div>
+
+        <div class="panel">
+          <h2 style="margin-top:0">Kunde</h2>
+          <div class="zeile">
+            <div class="feld"><label>Firma</label><input id="k_firma" value="${esc(o.kunde.firma)}" ${bearbeitbar ? '' : 'disabled'} /></div>
+            <div class="feld"><label>Ansprechpartner</label><input id="k_ap" value="${esc(o.kunde.ansprechpartner)}" ${bearbeitbar ? '' : 'disabled'} /></div>
+            <div class="feld"><label>E-Mail</label><input id="k_email" value="${esc(o.kunde.email)}" ${bearbeitbar ? '' : 'disabled'} /></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 style="margin-top:0">Von der AI erkannt — bitte prüfen</h2>
+          <div class="zeile">
+            <div class="feld"><label>Leistung</label><input id="e_leistung" value="${esc(o.extraktion.leistung)}" ${bearbeitbar ? '' : 'disabled'} /></div>
+            <div class="feld"><label>Zahlungsmodell</label><input id="e_zahlung" value="${esc(o.extraktion.zahlungsmodell || '')}" ${bearbeitbar ? '' : 'disabled'} /></div>
+            <div class="feld"><label>Lieferzeit</label><input id="e_lieferzeit" value="${esc(o.extraktion.lieferzeit || '')}" ${bearbeitbar ? '' : 'disabled'} /></div>
+          </div>
+          <div class="feld"><label>Zusammenfassung der Anforderungen</label>
+            <textarea id="e_zusammenfassung" ${bearbeitbar ? '' : 'disabled'}>${esc(o.extraktion.zusammenfassung)}</textarea>
+          </div>
+          <details><summary class="hinweis">Original-Anfrage anzeigen</summary>
+            <pre class="mailtext">${esc(o.lead.beschreibung)}</pre>
+          </details>
+        </div>
+
+        <div class="panel">
+          <h2 style="margin-top:0">Positionen</h2>
+          <table>
+            <thead><tr><th>Beschreibung</th><th style="width:90px">Menge</th><th style="width:140px">Einzelpreis €</th><th style="width:120px">Gesamt</th><th></th></tr></thead>
+            <tbody id="positionen">
+              ${o.positionen.map((p, i) => `
+                <tr>
+                  <td><input data-i="${i}" data-f="beschreibung" value="${esc(p.beschreibung)}" ${bearbeitbar ? '' : 'disabled'} /></td>
+                  <td><input data-i="${i}" data-f="menge" type="number" min="0" step="1" value="${p.menge}" ${bearbeitbar ? '' : 'disabled'} /></td>
+                  <td><input data-i="${i}" data-f="einzelpreis" type="number" min="0" step="0.01" value="${p.einzelpreis}" ${bearbeitbar ? '' : 'disabled'} /></td>
+                  <td>${eur((p.menge || 0) * (p.einzelpreis || 0))}</td>
+                  <td>${bearbeitbar && o.positionen.length > 1 ? `<button class="neutral" onclick="posEntfernen(${i})">✕</button>` : ''}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+          <p style="text-align:right"><strong>Gesamtsumme (netto): ${eur(summe)}</strong></p>
+          ${bearbeitbar ? '<button class="neutral" onclick="posHinzufuegen()">+ Position</button>' : ''}
+        </div>
+
+        <div class="panel">
+          <h2 style="margin-top:0">Angebotstexte</h2>
+          <div class="feld"><label>Einleitung</label><textarea id="t_intro" ${bearbeitbar ? '' : 'disabled'}>${esc(o.texte.intro)}</textarea></div>
+          <div class="zeile">
+            <div class="feld"><label>Zahlungsbedingungen</label><textarea id="t_zahlung" style="min-height:70px" ${bearbeitbar ? '' : 'disabled'}>${esc(o.texte.zahlungsbedingungen)}</textarea></div>
+            <div class="feld"><label>Umsetzung / Lieferzeit</label><textarea id="t_lieferzeit" style="min-height:70px" ${bearbeitbar ? '' : 'disabled'}>${esc(o.texte.lieferzeit)}</textarea></div>
+          </div>
+          ${bearbeitbar ? '<button onclick="speichern()">Änderungen speichern</button>' : ''}
+        </div>
+
+        <div class="panel">
+          <h2 style="margin-top:0">Verlauf</h2>
+          ${o.verlauf.map((v) => `<p class="hinweis">${new Date(v.am).toLocaleString('de-DE')} — ${esc(v.ereignis)}</p>`).join('')}
+        </div>`;
+    }
+
+    function patchAusFormular() {
+      const lesen = (id) => document.getElementById(id)?.value ?? '';
+      const positionen = [];
+      document.querySelectorAll('#positionen input').forEach((inp) => {
+        const i = Number(inp.dataset.i);
+        positionen[i] = positionen[i] || {};
+        positionen[i][inp.dataset.f] = inp.dataset.f === 'beschreibung' ? inp.value : Number(inp.value);
+      });
+      return {
+        kunde: { firma: lesen('k_firma'), ansprechpartner: lesen('k_ap'), email: lesen('k_email') },
+        extraktion: {
+          leistung: lesen('e_leistung'),
+          zahlungsmodell: lesen('e_zahlung'),
+          lieferzeit: lesen('e_lieferzeit'),
+          zusammenfassung: lesen('e_zusammenfassung')
+        },
+        positionen,
+        texte: { intro: lesen('t_intro'), zahlungsbedingungen: lesen('t_zahlung'), lieferzeit: lesen('t_lieferzeit') }
+      };
+    }
+
+    async function speichern() {
+      const res = await fetch('/api/offers/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(patchAusFormular())
+      });
+      angebot = await res.json();
+      render();
+      document.getElementById('meldung').innerHTML = '<div class="meldung ok">Gespeichert.</div>';
+    }
+
+    async function setzeStatus(status) {
+      const res = await fetch(`/api/offers/${id}/status`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        document.getElementById('meldung').innerHTML = '<div class="meldung fehler">' + esc(data.fehler) + '</div>';
+        return;
+      }
+      angebot = data;
+      render();
+    }
+
+    async function speichernUndStatus(status) {
+      await fetch('/api/offers/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(patchAusFormular())
+      });
+      await setzeStatus(status);
+    }
+
+    function posHinzufuegen() {
+      angebot.positionen.push({ beschreibung: '', menge: 1, einzelpreis: 0 });
+      render();
+    }
+
+    function posEntfernen(i) {
+      angebot.positionen.splice(i, 1);
+      render();
+    }
+
+    laden();
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neue Anfrage — Smart Offer System</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="/">Smart Offer System</a></h1>
+    <nav>
+      <a href="/">Dashboard</a>
+      <a href="/lead.html" class="active">Neue Anfrage</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="panel">
+      <h2 style="margin-top:0">Neue Anfrage erfassen</h2>
+      <p class="hinweis">
+        Notizen aus Telefonat, WhatsApp oder E-Mail einfach unten einfügen —
+        die AI erkennt Leistung, Preis, Zahlungsmodell und Lieferzeit und erstellt
+        sofort einen Angebotsentwurf zur Prüfung.
+      </p>
+
+      <form id="leadForm">
+        <div class="zeile">
+          <div class="feld">
+            <label for="firma">Firma</label>
+            <input id="firma" name="firma" placeholder="z. B. Old Rocket GmbH" />
+          </div>
+          <div class="feld">
+            <label for="ansprechpartner">Ansprechpartner</label>
+            <input id="ansprechpartner" name="ansprechpartner" placeholder="z. B. Frau Müller" />
+          </div>
+        </div>
+        <div class="zeile">
+          <div class="feld">
+            <label for="email">E-Mail</label>
+            <input id="email" name="email" type="email" placeholder="kontakt@firma.de" />
+          </div>
+          <div class="feld">
+            <label for="telefon">Telefon</label>
+            <input id="telefon" name="telefon" />
+          </div>
+          <div class="feld">
+            <label for="quelle">Quelle</label>
+            <select id="quelle" name="quelle">
+              <option value="formular">Webformular</option>
+              <option value="telefon">Telefonat</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="email">E-Mail</option>
+              <option value="empfehlung">Empfehlung</option>
+            </select>
+          </div>
+        </div>
+        <div class="feld">
+          <label for="beschreibung">Anfrage / Gesprächsnotizen *</label>
+          <textarea id="beschreibung" name="beschreibung" required
+            placeholder="z. B.: Old Rocket möchte einen Website Relaunch. Budget ca. 4.900 €, Zahlung 50/50, Umsetzung in 3 Wochen gewünscht…"></textarea>
+        </div>
+        <button type="submit" id="absenden">Angebotsentwurf erstellen</button>
+      </form>
+
+      <div id="meldung"></div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('leadForm');
+    const meldung = document.getElementById('meldung');
+    const button = document.getElementById('absenden');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      button.disabled = true;
+      button.textContent = 'AI analysiert Anfrage…';
+      meldung.innerHTML = '';
+
+      const daten = Object.fromEntries(new FormData(form).entries());
+      try {
+        const res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(daten)
+        });
+        const angebot = await res.json();
+        if (!res.ok) throw new Error(angebot.fehler || 'Unbekannter Fehler');
+        meldung.innerHTML = '<div class="meldung ok">Angebotsentwurf erstellt — weiter zur Prüfung…</div>';
+        location.href = '/angebot.html?id=' + angebot.id;
+      } catch (err) {
+        meldung.innerHTML = '<div class="meldung fehler">' + err.message + '</div>';
+        button.disabled = false;
+        button.textContent = 'Angebotsentwurf erstellen';
+      }
+    });
+  </script>
+</body>
+</html>
