@@ -18,13 +18,15 @@
   <main id="inhalt"><div class="leer">Lade Angebot…</div></main>
 
   <script>
+    // In eigener App: window.SOS_API_BASE vor diesem Script setzen, z. B. '/angebote/api'
+    const API = window.SOS_API_BASE || '/api';
     const id = new URLSearchParams(location.search).get('id');
     const eur = (n) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(n || 0);
     const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     let angebot = null;
 
     async function laden() {
-      const res = await fetch('/api/offers/' + id);
+      const res = await fetch(API + '/offers/' + id);
       if (!res.ok) {
         document.getElementById('inhalt').innerHTML = '<div class="meldung fehler">Angebot nicht gefunden.</div>';
         return;
@@ -48,7 +50,7 @@
       if (['entwurf', 'geprueft', 'versendet'].includes(angebot.status)) {
         a.push('<button class="sekundaer" onclick="setzeStatus(\'verloren\')">Verloren</button>');
       }
-      a.push(`<a class="btn sekundaer" href="/api/offers/${angebot.id}/pdf" target="_blank">PDF öffnen</a>`);
+      a.push(`<a class="btn sekundaer" href="${API}/offers/${angebot.id}/pdf" target="_blank">PDF öffnen</a>`);
       return a.join(' ');
     }
 
@@ -153,7 +155,7 @@
     }
 
     async function speichern() {
-      const res = await fetch('/api/offers/' + id, {
+      const res = await fetch(API + '/offers/' + id, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(patchAusFormular())
@@ -164,7 +166,7 @@
     }
 
     async function setzeStatus(status) {
-      const res = await fetch(`/api/offers/${id}/status`, {
+      const res = await fetch(`${API}/offers/${id}/status`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })
@@ -179,7 +181,7 @@
     }
 
     async function speichernUndStatus(status) {
-      await fetch('/api/offers/' + id, {
+      await fetch(API + '/offers/' + id, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(patchAusFormular())

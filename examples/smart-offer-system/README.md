@@ -55,6 +55,52 @@ Offene / gewonnene / verlorene Angebote, Abschlussquote, offenes und gewonnenes 
 | `POST` | `/api/followups/run` | Follow-ups sofort prüfen |
 | `GET` | `/api/dashboard` / `/api/outbox` / `/api/tasks` | Auswertung |
 
+## In deine eigene App einbauen
+
+Den kompletten Ordner (oder nur `src/`) in deine App kopieren — keine Dependencies nötig.
+Der gesamte Kern ist über eine Factory nutzbar:
+
+```js
+import { createOfferSystem } from './smart-offer-system/src/index.mjs';
+
+const sos = createOfferSystem({
+  dataDir: './data/angebote',                 // wohin die JSON-Daten sollen
+  settings: { firma: 'HK Growth Operator' }   // optionale Overrides
+});
+sos.startFollowUpTimer();                     // Follow-ups stündlich prüfen
+```
+
+**Variante A — als API in Express einhängen:**
+
+```js
+app.use('/angebote/api', (req, res) => sos.handleRequest(req, res));
+```
+
+Der Handler ist Präfix-unabhängig (`/offers`, `/leads`, … funktionieren unter jedem Mount-Pfad).
+Die HTML-Seiten aus `public/` kannst du mitkopieren und per
+`<script>window.SOS_API_BASE = '/angebote/api'</script>` (vor dem Seiten-Script) auf deine API zeigen lassen.
+
+**Variante B — direkt programmatisch, ohne HTTP:**
+
+```js
+const angebot = await sos.createLead({
+  firma: 'Old Rocket',
+  email: 'kontakt@oldrocket.de',
+  beschreibung: 'Website Relaunch, ca. 4.900 €, 50/50, 3 Wochen'
+});
+
+sos.changeStatus(angebot.id, 'geprueft');
+sos.changeStatus(angebot.id, 'versendet');
+
+const pdfBuffer = sos.renderPdf(angebot.id);  // direkt speichern/versenden
+const { stats } = sos.stats();                // fürs eigene Dashboard
+sos.processFollowUps();                       // fällige Erinnerungen/Aufgaben
+```
+
+**Variante C — nur einzelne Bausteine:** `index.mjs` exportiert auch `extract`,
+`renderOfferPdf`, `runFollowUps` usw. einzeln, falls du z. B. nur die
+PDF-Erzeugung oder nur die AI-Extraktion brauchst.
+
 ## Anpassen
 
 - **Textbausteine, Leistungs-Keywords, Status**: `src/templates.mjs`

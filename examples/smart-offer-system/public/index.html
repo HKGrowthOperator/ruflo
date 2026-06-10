@@ -36,16 +36,18 @@
   </main>
 
   <script>
+    // In eigener App: window.SOS_API_BASE vor diesem Script setzen, z. B. '/angebote/api'
+    const API = window.SOS_API_BASE || '/api';
     const eur = (n) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(n || 0);
     const datum = (iso) => iso ? new Date(iso).toLocaleDateString('de-DE') : '—';
     const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
     async function laden() {
       const [dash, offers, tasks, outbox] = await Promise.all([
-        fetch('/api/dashboard').then((r) => r.json()),
-        fetch('/api/offers').then((r) => r.json()),
-        fetch('/api/tasks').then((r) => r.json()),
-        fetch('/api/outbox').then((r) => r.json())
+        fetch(API + '/dashboard').then((r) => r.json()),
+        fetch(API + '/offers').then((r) => r.json()),
+        fetch(API + '/tasks').then((r) => r.json()),
+        fetch(API + '/outbox').then((r) => r.json())
       ]);
 
       const s = dash.stats;
@@ -89,7 +91,7 @@
     }
 
     async function erledigt(id) {
-      await fetch(`/api/tasks/${id}/done`, { method: 'POST' });
+      await fetch(`${API}/tasks/${id}/done`, { method: 'POST' });
       laden();
     }
 

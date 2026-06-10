@@ -68,6 +68,8 @@
   </main>
 
   <script>
+    // In eigener App: window.SOS_API_BASE vor diesem Script setzen, z. B. '/angebote/api'
+    const API = window.SOS_API_BASE || '/api';
     const form = document.getElementById('leadForm');
     const meldung = document.getElementById('meldung');
     const button = document.getElementById('absenden');
@@ -80,7 +82,7 @@
 
       const daten = Object.fromEntries(new FormData(form).entries());
       try {
-        const res = await fetch('/api/leads', {
+        const res = await fetch(API + '/leads', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(daten)
