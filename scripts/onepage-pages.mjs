@@ -39,7 +39,9 @@
  *       sobald der Host auf der Allowlist steht.
  *
  *   node scripts/onepage-pages.mjs list
- *       Listet alle Projekte / Seiten.
+ *       Listet alle Projekte / Seiten (mit verbundener Domain je Projekt).
+ *       Optional auf eine der Webseiten einschränken:
+ *           node scripts/onepage-pages.mjs list --domain=kunde-a.de
  *
  *   node scripts/onepage-pages.mjs get <projectId>
  *       Holt ein einzelnes Projekt.
@@ -57,6 +59,8 @@ const FLAGS = new Set(argv.filter((a) => a.startsWith('--')));
 const ARGS = argv.filter((a) => !a.startsWith('--'));
 const RAW_JSON = FLAGS.has('--json');
 const VERBOSE = FLAGS.has('--verbose');
+// --domain=<substr> filtert die Projektliste auf eine der verbundenen Domains.
+const DOMAIN_FILTER = (argv.find((a) => a.startsWith('--domain=')) || '').split('=')[1] || '';
 
 const TIMEOUT_MS = 15000;
 
@@ -199,6 +203,23 @@ async function cmdProbe() {
   }
 }
 
+/** Holt die verbundene Domain/URL eines Projekts aus diversen möglichen Feldern. */
+function projectDomain(p) {
+  const cands = [
+    p.domain,
+    p.custom_domain,
+    p.customDomain,
+    p.host,
+    p.url,
+    p.published_url,
+    p.publishedUrl,
+    Array.isArray(p.domains) ? p.domains[0]?.name ?? p.domains[0] : undefined,
+  ].filter(Boolean);
+  let d = cands[0];
+  if (!d) return '';
+  return String(d).replace(/^https?:\/\//, '').replace(/\/+$/, '');
+}
+
 // ── Befehl: list ───────────────────────────────────────────────────────────
 async function cmdList() {
   requireKey();
@@ -208,16 +229,29 @@ async function cmdList() {
     console.log(JSON.stringify(data, null, 2));
     return;
   }
-  const items = Array.isArray(data) ? data : data?.data || data?.projects || data?.items || [];
+  let items = Array.isArray(data) ? data : data?.data || data?.projects || data?.items || [];
+  if (DOMAIN_FILTER) {
+    const q = DOMAIN_FILTER.toLowerCase();
+    items = items.filter(
+      (p) =>
+        projectDomain(p).toLowerCase().includes(q) ||
+        String(p.name ?? p.title ?? '').toLowerCase().includes(q),
+    );
+  }
   if (!items.length) {
-    console.log('Keine Projekte gefunden (oder unerwartetes Antwortformat — mit --json prüfen).');
+    console.log(
+      DOMAIN_FILTER
+        ? `Kein Projekt passt zu --domain="${DOMAIN_FILTER}".`
+        : 'Keine Projekte gefunden (oder unerwartetes Antwortformat — mit --json prüfen).',
+    );
     return;
   }
-  console.log(`${items.length} Projekt(e):`);
+  console.log(`${items.length} Projekt(e)${DOMAIN_FILTER ? ` (Filter: "${DOMAIN_FILTER}")` : ''}:`);
   for (const p of items) {
     const id = p.id ?? p.uuid ?? p._id ?? '?';
     const name = p.name ?? p.title ?? p.slug ?? '(ohne Namen)';
-    console.log(`  • ${String(id).padEnd(38)} ${name}`);
+    const domain = projectDomain(p);
+    console.log(`  • ${String(id).padEnd(38)} ${name}${domain ? `  ↳ ${domain}` : ''}`);
   }
 }
 
@@ -245,10 +279,10 @@ if (!cmd || cmd === 'help' || FLAGS.has('--help')) {
       '',
       'Befehle:',
       '  probe            Echte API-Basis + Auth-Variante automatisch finden',
-      '  list             Alle Projekte/Seiten auflisten',
+      '  list             Alle Projekte/Seiten auflisten (mit Domain je Projekt)',
       '  get <projectId>  Ein einzelnes Projekt holen',
       '',
-      'Flags:  --json  --verbose',
+      'Flags:  --json  --verbose  --domain=<substr>  (list nach Domain filtern)',
       '',
       'Setup:  export ONEPAGE_API_KEY=\'dein-key\'  (niemals committen)',
     ].join('\n'),
