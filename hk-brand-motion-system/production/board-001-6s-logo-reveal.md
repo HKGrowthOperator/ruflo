@@ -21,10 +21,14 @@
 ## Status legend
 `blocked` → `todo` → `prompted` → `guard-pass` → `rendered` → `approved`
 
+## Working defaults (PROPOSED — see brief §15)
+D1 **8s** · D2 **dark-premium** *(provisional, pending brandkit)* · D3 **one subtle pulse** ·
+D4 **organic leaves** · D5 **no end tagline** · D6 **linger on roots** · D7 **16:9 first**.
+
 ## Blockers
-- **Assets:** transparent logo PNG/SVG, exact hex, font (if tagline) — all `WAITING_FOR_ASSET`.
-- **Decisions:** D1 duration · D2 background · D3 flow pulse · D4 crown style · D5 tagline ·
-  D6 build emphasis · D7 derivative formats now/later (see brief §15).
+- **Assets (hard blocker):** transparent logo PNG/SVG, exact hex — `WAITING_FOR_ASSET`.
+- **Decisions:** D1–D7 have proposed defaults above; awaiting confirm/override. D2 stays
+  provisional until brandkit/background is in repo. No font needed (D5 = no tagline).
 
 ## Notes
 - Flow pulse (AI as tool) stops before the crown — crown is organic-only.

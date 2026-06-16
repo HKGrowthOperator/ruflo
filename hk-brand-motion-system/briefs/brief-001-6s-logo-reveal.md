@@ -154,3 +154,20 @@ Run via `logo-consistency-guard`. All must be ✅ before prompts are written:
 
 > No Higgsfield prompts will be written until D1–D7 are decided and §14 guard items that depend
 > on assets are resolved.
+
+### Working defaults (PROPOSED — confirm or override)
+To keep the piece ready to move the moment assets land, these are the assumed defaults. They
+are **not locked** — reply with any overrides and I'll update before prompts.
+
+| # | Decision | Proposed default | Why |
+|---|----------|------------------|-----|
+| D1 | Duration | **8s** | Room for roots→crown story without dragging |
+| D2 | Background | **Dark-premium** *(pending brandkit)* | Makes flow pulse + crown light read; premium feel |
+| D3 | Flow pulse | **One subtle pulse** | AI as a tool, restrained = premium |
+| D4 | Crown style | **Stylized organic leaves** | Closest to the real logo crown; clearly "life, not tech" |
+| D5 | Tagline | **No end tagline** | Keeps reveal clean; tagline can live in derivative versions |
+| D6 | Build emphasis | **Linger slightly on roots** | Foundation-first is the core message |
+| D7 | Derivative formats | **16:9 first**, then 9:16 + 1:1 | Lock the master before adapting |
+
+> If you confirm these, the only remaining blocker is assets (§12). D2 stays provisional until
+> brandkit hex/background is in repo.
