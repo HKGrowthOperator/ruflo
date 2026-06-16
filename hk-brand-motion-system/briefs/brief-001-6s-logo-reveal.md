@@ -111,9 +111,10 @@ automation pulse below.
 ## 12. Asset requirements
 | Asset | Needed for | State |
 |-------|-----------|-------|
-| Transparent logo **PNG** (high-res) | Logo anchor, final lock-up | `WAITING_FOR_ASSET` |
-| Vector **SVG** master | Crisp scaling, exact H/K geometry | `WAITING_FOR_ASSET` |
-| Exact brand **hex colors** | Palette, crown vs flow accents | `WAITING_FOR_ASSET` |
+| Reference renders (detailed) | Geometry/symbolism/palette reference — **RECEIVED 2026-06-16** | ✅ analyzed in `assets/brandkit/brandkit-reference.md`; files still need to be committed to `assets/logo/` |
+| Transparent logo **PNG** (high-res) | Logo anchor, final lock-up | `WAITING_FOR_FILE` (upload the render's transparent version) |
+| Vector **SVG** master (simplified) | Crisp scaling, exact H/K geometry, animation-safe | `WAITING_FOR_ASSET` (does not exist yet — see D8) |
+| Exact brand **hex colors** | Palette, crown vs flow accents | `WAITING_FOR_ASSET` (approximate eyedropped values recorded in brandkit-reference) |
 | **Font** file(s) + weights | Optional tagline lock-up | `WAITING_FOR_ASSET` |
 | Logo **clear-space / lock-up rules** | Safe-margin, no-crop guarantee | `WAITING_FOR_ASSET` |
 | Logo **do's & don'ts** reference | Distortion guard accuracy | `WAITING_FOR_ASSET` |
@@ -130,6 +131,10 @@ automation pulse below.
 - **Crown contamination** — flow lines/glow bleeding into the crown (breaks §9).
 - **Effect overload** burying the mark and killing the premium feel.
 - **Color drift** if generated before exact hex is locked (`WAITING_FOR_ASSET`).
+- **🔴 Detail-consistency (NEW, from reference):** the provided logo is a highly detailed
+  illustrative carved-relief render (individual leaves, fine roots, gold bevels). Generative
+  video cannot hold this micro-detail identical across frames → high risk of morphing leaves,
+  shifting roots, warping H/K, flickering bevels. **Mitigation = D8.**
 
 ## 14. Guard checklist (before any prompt generation)
 Run via `logo-consistency-guard`. All must be ✅ before prompts are written:
@@ -151,6 +156,10 @@ Run via `logo-consistency-guard`. All must be ✅ before prompts are written:
 - **D5 — Tagline:** does the reveal end on a text tagline? If yes, supply DE text + font.
 - **D6 — Build order emphasis:** equal timing vs lingering longer on roots (foundation story)?
 - **D7 — Derivative formats now or later:** ship 16:9 only first, or 16:9 + 9:16 + 1:1 together?
+- **D8 — Animation master (NEW, important):** animate from a **simplified flat vector** (safer,
+  recommended) and use the detailed render as the static hero/end-frame — OR animate the
+  **detailed render directly** (higher distortion risk, more guard rejections)? See
+  `assets/brandkit/brandkit-reference.md` for the full risk note.
 
 > No Higgsfield prompts will be written until D1–D7 are decided and §14 guard items that depend
 > on assets are resolved.

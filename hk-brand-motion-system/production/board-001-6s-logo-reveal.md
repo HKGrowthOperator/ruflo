@@ -26,9 +26,12 @@ D1 **8s** · D2 **dark-premium** *(provisional, pending brandkit)* · D3 **one s
 D4 **organic leaves** · D5 **no end tagline** · D6 **linger on roots** · D7 **16:9 first**.
 
 ## Blockers
-- **Assets (hard blocker):** transparent logo PNG/SVG, exact hex — `WAITING_FOR_ASSET`.
-- **Decisions:** D1–D7 have proposed defaults above; awaiting confirm/override. D2 stays
-  provisional until brandkit/background is in repo. No font needed (D5 = no tagline).
+- **Logo reference RECEIVED (2026-06-16):** analyzed in `assets/brandkit/brandkit-reference.md`
+  (geometry, symbolism, approx palette confirmed). Detailed illustrative render — see D8.
+- **Assets (hard blocker):** actual files not yet committed to `assets/logo/`; **simplified
+  vector master + official hex** still `WAITING_FOR_ASSET`.
+- **Decisions:** D1–D7 have proposed defaults; **D8 (vector vs detailed render) is now the
+  key open decision** and gates how prompts are written. D2 leans warm-dark-olive per reference.
 
 ## Notes
 - Flow pulse (AI as tool) stops before the crown — crown is organic-only.
