@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  HK Logo Reveal — STORYBOARD (8s, Option A) — DRAFT, provisional palette.
+  Built entirely from the draft vector master (no video, no generative AI).
+  4 beats: S1 Roots -> S2 Trunk+H/K -> S3 Branches+flow pulse -> S4 Crown+lock-up.
+  Palette = approximate (replace with official hex). Flow pulse = cool accent, stops before crown.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1064 1200" width="1064" height="1200" font-family="Georgia, 'Times New Roman', serif">
+  <defs>
+    <linearGradient id="trunk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4A6B33"/><stop offset="1" stop-color="#3F5E2E"/>
+    </linearGradient>
+
+    <g id="crown">
+      <ellipse cx="256" cy="150" rx="150" ry="92" fill="#5E7A3A"/>
+      <ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/>
+      <ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/>
+      <ellipse cx="256" cy="120" rx="110" ry="74" fill="#8C9A57"/>
+      <ellipse cx="210" cy="110" rx="62" ry="48" fill="#B9C77E"/>
+      <ellipse cx="312" cy="120" rx="58" ry="44" fill="#A6B86C"/>
+      <ellipse cx="256" cy="96" rx="66" ry="46" fill="#C8D58E"/>
+      <path d="M256 92 q14 -26 0 -50 q-14 24 0 50 Z" fill="#DCE3B0"/>
+      <path d="M196 120 q-22 -16 -44 -8 q18 16 44 8 Z" fill="#C8D58E"/>
+      <path d="M316 120 q22 -16 44 -8 q-18 16 -44 8 Z" fill="#C8D58E"/>
+    </g>
+
+    <g id="branches" fill="none" stroke="#4A6B33" stroke-width="7" stroke-linecap="round">
+      <path d="M256 232 q-42 -34 -74 -78"/>
+      <path d="M256 232 q42 -34 74 -78"/>
+      <path d="M256 232 q-12 -44 -16 -86"/>
+      <path d="M256 232 q12 -44 16 -86"/>
+    </g>
+
+    <path id="trunk" d="M242 232 q-6 70 -2 132 q16 6 32 0 q4 -62 -2 -132 q-14 -6 -28 0 Z" fill="url(#trunk)"/>
+
+    <g id="letters" fill="#3F5E2E" stroke="#C8AE6E" stroke-width="5" stroke-linejoin="round">
+      <rect x="118" y="232" width="30" height="130" rx="3"/>
+      <rect x="196" y="232" width="30" height="130" rx="3"/>
+      <rect x="148" y="284" width="48" height="26" rx="3"/>
+      <rect x="286" y="232" width="30" height="130" rx="3"/>
+      <path d="M316 297 L372 232 L392 246 L344 300 L394 356 L372 368 Z"/>
+    </g>
+
+    <g id="roots" fill="none" stroke="#BCA070" stroke-linecap="round">
+      <path d="M256 360 q-2 40 -40 64 q-30 18 -70 26" stroke-width="9"/>
+      <path d="M256 360 q2 40 40 64 q30 18 70 26" stroke-width="9"/>
+      <path d="M250 362 q-20 36 -60 52 q-26 12 -50 14" stroke-width="6"/>
+      <path d="M262 362 q20 36 60 52 q26 12 50 14" stroke-width="6"/>
+      <path d="M256 362 q0 50 -6 80" stroke-width="7"/>
+      <path d="M256 362 q0 50 8 78" stroke-width="5"/>
+      <path d="M244 366 q-30 28 -78 36" stroke-width="4"/>
+      <path d="M268 366 q30 28 78 36" stroke-width="4"/>
+    </g>
+
+    <!-- cool flow pulse along trunk into branches; STOPS before the crown -->
+    <g id="flow" fill="#79C0D0">
+      <circle cx="256" cy="352" r="6"/><circle cx="255" cy="320" r="6"/>
+      <circle cx="257" cy="288" r="6"/><circle cx="256" cy="256" r="6"/>
+      <circle cx="240" cy="222" r="5"/><circle cx="226" cy="202" r="4"/>
+      <circle cx="272" cy="222" r="5"/><circle cx="286" cy="202" r="4"/>
+    </g>
+  </defs>
+
+  <!-- sheet background -->
+  <rect width="1064" height="1200" fill="#14140E"/>
+  <text x="532" y="46" text-anchor="middle" fill="#DCE3B0" font-size="30">HK Logo Reveal — Storyboard (8s · Option A)</text>
+  <text x="532" y="74" text-anchor="middle" fill="#9aa37a" font-size="16">DRAFT from vector master · provisional palette · no video generated</text>
+
+  <!-- PANEL 1 — S1 Roots -->
+  <g transform="translate(20,108)">
+    <rect width="512" height="512" rx="14" fill="#232318" stroke="#3a3a28"/>
+    <use href="#roots"/>
+    <text x="16" y="34" fill="#79C0D0" font-size="20">S1 · 0.0–2.5s</text>
+    <text x="16" y="490" fill="#C8D58E" font-size="18">Wurzeln — Fundament, Prozesse, Stabilität</text>
+  </g>
+
+  <!-- PANEL 2 — S2 Trunk + H/K -->
+  <g transform="translate(532,108)">
+    <rect width="512" height="512" rx="14" fill="#232318" stroke="#3a3a28"/>
+    <use href="#roots"/><use href="#trunk"/><use href="#letters"/>
+    <text x="16" y="34" fill="#79C0D0" font-size="20">S2 · 2.5–4.5s</text>
+    <text x="16" y="490" fill="#C8D58E" font-size="18">Stamm + H/K — der operative Kern</text>
+  </g>
+
+  <!-- PANEL 3 — S3 Branches + flow pulse -->
+  <g transform="translate(20,632)">
+    <rect width="512" height="512" rx="14" fill="#232318" stroke="#3a3a28"/>
+    <use href="#roots"/><use href="#branches"/><use href="#trunk"/><use href="#letters"/><use href="#flow"/>
+    <text x="16" y="34" fill="#79C0D0" font-size="20">S3 · 4.5–6.5s</text>
+    <text x="16" y="490" fill="#C8D58E" font-size="18">Äste + 1 kühler Flow-Puls (KI = Werkzeug, stoppt vor Krone)</text>
+  </g>
+
+  <!-- PANEL 4 — S4 Crown + lock-up -->
+  <g transform="translate(532,632)">
+    <rect width="512" height="512" rx="14" fill="#232318" stroke="#3a3a28"/>
+    <use href="#roots"/><use href="#branches"/><use href="#trunk"/><use href="#crown"/><use href="#letters"/>
+    <text x="16" y="34" fill="#79C0D0" font-size="20">S4 · 6.5–8.0s</text>
+    <text x="16" y="490" fill="#C8D58E" font-size="18">Krone (organisch, KI-frei) + finales Lock-up</text>
+  </g>
+</svg>

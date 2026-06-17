@@ -38,6 +38,8 @@ D4 **organic leaves** · D5 **no end tagline** · D6 **linger on roots** · D7 *
   Once both land, board moves `blocked → todo` and prompts can be drafted (guard-gated).
 
 ## Notes
+- **Storyboard created:** `production/storyboard-001-reveal.svg` (+ `.png`) — 4 beats visualized
+  from the vector master, provisional palette, no video. For client review.
 - Flow pulse (AI as tool) stops before the crown — crown is organic-only.
 - Every logo scene lists the logo file under Assets; advance past `blocked` only when assets land.
 - Advance to `approved` only after `logo-consistency-guard` returns PASS.
