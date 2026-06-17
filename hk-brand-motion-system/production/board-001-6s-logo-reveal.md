@@ -5,7 +5,7 @@
 - **Format target(s):** 16:9 (master) → 9:16 + 1:1 (derivatives)
 - **Language:** DE (no spoken copy)
 - **Owner:** <name>
-- **Status:** DRAFT — blocked on decision points D1–D7 + assets (WAITING_FOR_ASSET)
+- **Status:** DRAFT — all decisions resolved (D1–D8); blocked only on vector master + hex assets
 
 > Order is fixed: roots → trunk (H+K) → branches → crown. Clips are 3–5s.
 > ⭐ = crown scene → `logo-consistency-guard` reviews first.
@@ -30,8 +30,10 @@ D4 **organic leaves** · D5 **no end tagline** · D6 **linger on roots** · D7 *
   (geometry, symbolism, approx palette confirmed). Detailed illustrative render — see D8.
 - **Assets (hard blocker):** actual files not yet committed to `assets/logo/`; **simplified
   vector master + official hex** still `WAITING_FOR_ASSET`.
-- **Decisions:** D1–D7 have proposed defaults; **D8 (vector vs detailed render) is now the
-  key open decision** and gates how prompts are written. D2 leans warm-dark-olive per reference.
+- **Decisions:** D1–D7 proposed defaults stand; **D8 = ✅ Option A (simplified vector master)**.
+  All decisions now resolved. D2 leans warm-dark-olive per reference.
+- **Only remaining blocker:** the simplified **vector master file** + **official hex** in repo.
+  Once both land, board moves `blocked → todo` and prompts can be drafted (guard-gated).
 
 ## Notes
 - Flow pulse (AI as tool) stops before the crown — crown is organic-only.

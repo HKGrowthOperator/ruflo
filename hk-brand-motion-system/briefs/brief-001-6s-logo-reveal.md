@@ -156,10 +156,10 @@ Run via `logo-consistency-guard`. All must be ✅ before prompts are written:
 - **D5 — Tagline:** does the reveal end on a text tagline? If yes, supply DE text + font.
 - **D6 — Build order emphasis:** equal timing vs lingering longer on roots (foundation story)?
 - **D7 — Derivative formats now or later:** ship 16:9 only first, or 16:9 + 9:16 + 1:1 together?
-- **D8 — Animation master (NEW, important):** animate from a **simplified flat vector** (safer,
-  recommended) and use the detailed render as the static hero/end-frame — OR animate the
-  **detailed render directly** (higher distortion risk, more guard rejections)? See
-  `assets/brandkit/brandkit-reference.md` for the full risk note.
+- **D8 — Animation master (RESOLVED ✅ = Option A):** animate from a **simplified flat vector
+  master** (exact H+K, simplified trunk/canopy/roots); the detailed render is used only as the
+  static **hero / end-frame key art**. Safer, premium, passes guard cleanly.
+  → **Now blocking on:** the simplified vector master file + official hex (`WAITING_FOR_ASSET`).
 
 > No Higgsfield prompts will be written until D1–D7 are decided and §14 guard items that depend
 > on assets are resolved.
@@ -177,6 +177,7 @@ are **not locked** — reply with any overrides and I'll update before prompts.
 | D5 | Tagline | **No end tagline** | Keeps reveal clean; tagline can live in derivative versions |
 | D6 | Build emphasis | **Linger slightly on roots** | Foundation-first is the core message |
 | D7 | Derivative formats | **16:9 first**, then 9:16 + 1:1 | Lock the master before adapting |
+| D8 | Animation master | **✅ Option A — simplified vector master** | Detailed render = static hero/end-frame; avoids frame-to-frame distortion |
 
 > If you confirm these, the only remaining blocker is assets (§12). D2 stays provisional until
 > brandkit hex/background is in repo.
