@@ -5,7 +5,7 @@
 - **Format target(s):** 16:9 (master) → 9:16 + 1:1 (derivatives)
 - **Language:** DE (no spoken copy)
 - **Owner:** <name>
-- **Status:** DRAFT — all decisions resolved (D1–D8); blocked only on vector master + hex assets
+- **Status:** PROMPTS READY (working palette/vector) — final prompts in `prompts/prompt-001-reveal.md`, guard PASS. Swap official hex/vector later.
 
 > Order is fixed: roots → trunk (H+K) → branches → crown. Clips are 3–5s.
 > ⭐ = crown scene → `logo-consistency-guard` reviews first.
