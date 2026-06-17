@@ -28,8 +28,10 @@ D4 **organic leaves** · D5 **no end tagline** · D6 **linger on roots** · D7 *
 ## Blockers
 - **Logo reference RECEIVED (2026-06-16):** analyzed in `assets/brandkit/brandkit-reference.md`
   (geometry, symbolism, approx palette confirmed). Detailed illustrative render — see D8.
-- **Assets (hard blocker):** actual files not yet committed to `assets/logo/`; **simplified
-  vector master + official hex** still `WAITING_FOR_ASSET`.
+- **Draft vector master CREATED:** `assets/logo/hk-logo.svg` (v0.1, simplified, D8=A) +
+  preview `hk-logo-draft-preview.png`. Unblocks **structure/timing**. NOT the final hero —
+  awaiting designer's official vector + official hex before final render.
+- **For final render (still pending):** official simplified **vector** + official **hex**.
 - **Decisions:** D1–D7 proposed defaults stand; **D8 = ✅ Option A (simplified vector master)**.
   All decisions now resolved. D2 leans warm-dark-olive per reference.
 - **Only remaining blocker:** the simplified **vector master file** + **official hex** in repo.

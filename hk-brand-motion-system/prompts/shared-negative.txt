@@ -1,0 +1,15 @@
+# HK Brand Motion — Shared Negative Prompt
+# Reused across every clip of every piece. Derived from project brand rules + logo-consistency-guard.
+# This is a guardrail list (not a creative prompt). Safe to finalize without assets.
+
+distorted logo, warped H, warped K, deformed letters, unreadable letters, illegible H or K,
+extra letters, duplicated letters, gibberish text, random text, watermark, signature,
+reinvented tree, different tree species, wrong tree shape, restructured roots, restructured trunk,
+restructured crown, broken roots-trunk-crown order, missing trunk, missing roots,
+AI hologram crown, digital brain in crown, circuit board, glowing UI, dashboard, HUD overlay,
+neon grid, cyberpunk, sci-fi tech, robot, android, humanoid AI, generic AI icons, chip icon,
+sparkle overload, religious symbols, halo, cross, fantasy forest, mystical glow, magic particles,
+perspective tilt, skewed logo, leaning logo, false 3D rotation, off-axis lock-up,
+melting shapes, morphing leaves, flickering leaves, shifting roots, warping bevel,
+cheap glossy 3D, heavy plastic bevel, lens flare spam, busy effects, cluttered composition,
+oversaturated, color drift, low quality, blurry, noise, jitter, deformed, ugly

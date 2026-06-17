@@ -113,7 +113,7 @@ automation pulse below.
 |-------|-----------|-------|
 | Reference renders (detailed) | Geometry/symbolism/palette reference — **RECEIVED 2026-06-16** | ✅ analyzed in `assets/brandkit/brandkit-reference.md`; files still need to be committed to `assets/logo/` |
 | Transparent logo **PNG** (high-res) | Logo anchor, final lock-up | `WAITING_FOR_FILE` (upload the render's transparent version) |
-| Vector **SVG** master (simplified) | Crisp scaling, exact H/K geometry, animation-safe | `WAITING_FOR_ASSET` (does not exist yet — see D8) |
+| Vector **SVG** master (simplified) | Crisp scaling, exact H/K geometry, animation-safe | 🟡 **DRAFT v0.1 created** at `assets/logo/hk-logo.svg` (placeholder for timing/structure); official designer vector still `WAITING_FOR_ASSET` |
 | Exact brand **hex colors** | Palette, crown vs flow accents | `WAITING_FOR_ASSET` (approximate eyedropped values recorded in brandkit-reference) |
 | **Font** file(s) + weights | Optional tagline lock-up | `WAITING_FOR_ASSET` |
 | Logo **clear-space / lock-up rules** | Safe-margin, no-crop guarantee | `WAITING_FOR_ASSET` |
