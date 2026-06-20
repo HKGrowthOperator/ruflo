@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="70%">
+      <stop offset="0" stop-color="#3a3a26"/><stop offset="0.55" stop-color="#26261b"/><stop offset="1" stop-color="#14140e"/>
+    </radialGradient>
+    <linearGradient id="trunk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A6B33"/><stop offset="1" stop-color="#3F5E2E"/></linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <g transform="translate(384,104) scale(1.0)">
+    <g id="crown">
+      <ellipse cx="256" cy="150" rx="150" ry="92" fill="#5E7A3A"/>
+      <ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/>
+      <ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/>
+      <ellipse cx="256" cy="120" rx="110" ry="74" fill="#8C9A57"/>
+      <ellipse cx="210" cy="110" rx="62" ry="48" fill="#B9C77E"/>
+      <ellipse cx="312" cy="120" rx="58" ry="44" fill="#A6B86C"/>
+      <ellipse cx="256" cy="96" rx="66" ry="46" fill="#C8D58E"/>
+    </g>
+    <path d="M242 232 q-6 70 -2 132 q16 6 32 0 q4 -62 -2 -132 q-14 -6 -28 0 Z" fill="url(#trunk)"/>
+    <g fill="#3F5E2E" stroke="#C8AE6E" stroke-width="5" stroke-linejoin="round">
+      <rect x="118" y="232" width="30" height="130" rx="3"/><rect x="196" y="232" width="30" height="130" rx="3"/><rect x="148" y="284" width="48" height="26" rx="3"/>
+      <rect x="286" y="232" width="30" height="130" rx="3"/><path d="M316 297 L372 232 L392 246 L344 300 L394 356 L372 368 Z"/>
+    </g>
+    <g fill="none" stroke="#BCA070" stroke-linecap="round">
+      <path d="M256 360 q-2 40 -40 64 q-30 18 -70 26" stroke-width="9"/><path d="M256 360 q2 40 40 64 q30 18 70 26" stroke-width="9"/>
+      <path d="M250 362 q-20 36 -60 52 q-26 12 -50 14" stroke-width="6"/><path d="M262 362 q20 36 60 52 q26 12 50 14" stroke-width="6"/>
+      <path d="M256 362 q0 50 -6 80" stroke-width="7"/><path d="M256 362 q0 50 8 78" stroke-width="5"/>
+    </g>
+  </g>
+</svg>
