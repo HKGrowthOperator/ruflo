@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HK Growth Operator — Premium Tree System Animation</title>
+<style>
+  :root{
+    --bg0:#080b08; --bg1:#10160e;
+    --green:#3F5E2E; --green-d:#26401f; --green-l:#6E883F; --leaf:#8C9A57; --leaf-l:#C8D58E;
+    --gold:#C8AE6E; --bronze:#A8843E; --gold-l:#E8D49C; --ink:#b9c089;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#000;font-family:"Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+  .wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px}
+  .stage{position:relative;width:min(92vw,960px);aspect-ratio:16/9;border-radius:18px;overflow:hidden;
+    background:radial-gradient(75% 75% at 50% 40%, #20281b 0%, #141a11 45%, var(--bg0) 100%);
+    box-shadow:0 30px 90px #000c, inset 0 0 120px #0008;}
+  svg{position:absolute;inset:0;width:100%;height:100%}
+  .ui{display:flex;gap:10px;align-items:center}
+  button{background:#1b2416;color:var(--leaf-l);border:1px solid var(--bronze);border-radius:999px;
+    padding:8px 16px;font-size:13px;letter-spacing:.04em;cursor:pointer}
+  button:hover{background:#243018}
+  .cap{position:absolute;left:24px;bottom:20px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--gold);opacity:0;transition:opacity .6s}
+  .cnt{position:absolute;right:24px;bottom:20px;font-size:11px;letter-spacing:.14em;color:#6b7350;opacity:.7}
+  /* continuous data-flow on gold leitbahn lines */
+  .flow{stroke-dasharray:5 11;animation:flow 2.2s linear infinite}
+  @keyframes flow{to{stroke-dashoffset:-32}}
+  .flow-slow{stroke-dasharray:3 14;animation:flow 4s linear infinite}
+  .sweep{animation:sweep 3.4s ease-in-out infinite}
+  @keyframes sweep{0%,100%{opacity:.15}50%{opacity:.6}}
+  .glow{filter:drop-shadow(0 0 6px rgba(200,174,110,.45))}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage">
+    <svg id="svg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <radialGradient id="halo" cx="50%" cy="38%" r="60%">
+          <stop offset="0" stop-color="#3a4327" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="trunkG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#4A6B33"/><stop offset="1" stop-color="#2c4620"/>
+        </linearGradient>
+        <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#E8D49C"/><stop offset="1" stop-color="#A8843E"/>
+        </linearGradient>
+        <linearGradient id="frameSweep" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#E8D49C" stop-opacity="0"/><stop offset=".5" stop-color="#E8D49C" stop-opacity=".5"/><stop offset="1" stop-color="#E8D49C" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="leafG" cx="50%" cy="35%" r="70%">
+          <stop offset="0" stop-color="#C8D58E"/><stop offset=".6" stop-color="#6E883F"/><stop offset="1" stop-color="#3F5E2E"/>
+        </radialGradient>
+      </defs>
+
+      <rect width="1280" height="720" fill="url(#halo)"/>
+      <g id="particles"></g>
+
+      <!-- ============ LAYER: connectors (tree -> system motifs) ============ -->
+      <g id="connectors" fill="none" stroke="url(#goldG)" stroke-width="1.6" opacity="0">
+        <path id="cn-vis"  d="M610 360 C 470 330, 330 300, 250 250" class="flow-slow"/>
+        <path id="cn-web"  d="M690 360 C 850 330, 980 300, 1040 250" class="flow-slow"/>
+        <path id="cn-auto" d="M640 470 C 560 540, 470 560, 360 580" class="flow-slow"/>
+        <path id="cn-ai"   d="M700 420 C 800 420, 880 430, 940 430" class="flow"/>
+      </g>
+
+      <!-- ============ LAYER: silhouette (Phase 1) ============ -->
+      <g id="silhouette" fill="none" stroke="url(#goldG)" stroke-width="1.4" opacity="0">
+        <path d="M640 470 q-110 -150 -150 -250 q-40 -100 0 0 M640 470 q110 -150 150 -250"/>
+        <ellipse cx="640" cy="250" rx="150" ry="92"/>
+        <path d="M626 470 q-2 60 -60 96 M654 470 q2 60 60 96 M640 470 q0 70 0 96"/>
+      </g>
+
+      <!-- main tree centered at translate(384,104): inner coords 0..512 -->
+      <g transform="translate(384,104)">
+        <!-- LAYER: Roots -->
+        <g id="roots" fill="none" stroke="#BCA070" stroke-linecap="round" opacity="0">
+          <path d="M256 360 q-2 44 -44 70 q-34 20 -78 28" stroke-width="9"/>
+          <path d="M256 360 q2 44 44 70 q34 20 78 28" stroke-width="9"/>
+          <path d="M250 362 q-22 40 -66 56 q-28 12 -54 16" stroke-width="6"/>
+          <path d="M262 362 q22 40 66 56 q28 12 54 16" stroke-width="6"/>
+          <path d="M256 362 q0 54 -8 86" stroke-width="7"/>
+          <path d="M256 362 q0 54 9 84" stroke-width="5"/>
+          <path d="M244 366 q-34 30 -86 40" stroke-width="3.5"/>
+          <path d="M268 366 q34 30 86 40" stroke-width="3.5"/>
+        </g>
+        <!-- LAYER: Trunk + internal leitbahnen -->
+        <g id="trunk">
+          <path d="M242 232 q-7 72 -2 134 q16 7 32 0 q5 -64 -2 -134 q-14 -7 -28 0 Z" fill="url(#trunkG)"/>
+        </g>
+        <g id="trunkVeins" fill="none" stroke="url(#goldG)" stroke-width="1.4" opacity="0">
+          <path d="M256 364 C 252 320, 260 290, 256 236" class="flow"/>
+          <path d="M248 360 C 244 322, 250 296, 248 250" class="flow-slow"/>
+          <path d="M264 360 C 268 322, 262 296, 264 250" class="flow-slow"/>
+        </g>
+        <!-- LAYER: HK letters (organic reveal, never a hard snap) -->
+        <g id="hk" opacity="0">
+          <g fill="#3F5E2E" stroke="url(#goldG)" stroke-width="5" stroke-linejoin="round">
+            <rect x="118" y="232" width="30" height="130" rx="3"/><rect x="196" y="232" width="30" height="130" rx="3"/><rect x="148" y="284" width="48" height="26" rx="3"/>
+            <rect x="286" y="232" width="30" height="130" rx="3"/><path d="M316 297 L372 232 L392 246 L344 300 L394 356 L372 368 Z"/>
+          </g>
+        </g>
+        <!-- LAYER: Crown (organic, blooms late) -->
+        <g id="crown" opacity="0">
+          <ellipse cx="256" cy="150" rx="152" ry="94" fill="url(#leafG)"/>
+          <ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/>
+          <ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/>
+          <ellipse cx="256" cy="118" rx="112" ry="76" fill="#8C9A57"/>
+          <ellipse cx="208" cy="108" rx="60" ry="46" fill="#B9C77E"/>
+          <ellipse cx="312" cy="120" rx="56" ry="44" fill="#A6B86C"/>
+          <ellipse cx="256" cy="94" rx="64" ry="46" fill="#C8D58E"/>
+        </g>
+      </g>
+
+      <!-- ============ LAYER: Visibility (Social/Brand) — Sichtbarkeitsstrom ============ -->
+      <g id="layVis" opacity="0">
+        <g transform="translate(150,150)" fill="none" stroke="url(#goldG)" stroke-width="1.5">
+          <rect x="0" y="20" width="58" height="104" rx="9"/>
+          <rect x="70" y="0" width="64" height="130" rx="9"/>
+          <rect x="146" y="26" width="54" height="96" rx="9"/>
+          <rect x="70" y="0" width="64" height="130" rx="9" fill="url(#frameSweep)" stroke="none" class="sweep"/>
+          <circle cx="102" cy="52" r="11" stroke-width="1.2"/>
+          <path d="M97 52 l9 6 l-9 6 z" fill="#E8D49C" stroke="none"/>
+        </g>
+        <text x="250" y="306" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">SICHTBARKEIT</text>
+      </g>
+
+      <!-- ============ LAYER: Website / Conversion — funktionaler Ast ============ -->
+      <g id="layWeb" opacity="0">
+        <g transform="translate(980,140)" fill="none" stroke="url(#goldG)" stroke-width="1.5">
+          <rect x="0" y="0" width="150" height="150" rx="10"/>
+          <rect x="14" y="16" width="122" height="30" rx="5" fill="#1c2614" stroke-width="1"/>
+          <line x1="14" y1="60" x2="118" y2="60" stroke-width="1"/><line x1="14" y1="74" x2="96" y2="74" stroke-width="1"/><line x1="14" y1="88" x2="108" y2="88" stroke-width="1"/>
+          <rect x="14" y="104" width="60" height="22" rx="11" fill="url(#goldG)" stroke="none"/>
+          <path d="M150 150 l22 18" stroke-width="1.4" class="flow"/>
+        </g>
+        <text x="1055" y="318" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">CONVERSION</text>
+      </g>
+
+      <!-- ============ LAYER: Automation flow — Leitbahnen ============ -->
+      <g id="layAuto" opacity="0">
+        <g transform="translate(250,540)">
+          <path d="M0 20 H 110 M 200 20 H 310 M 400 20 H 510" fill="none" stroke="url(#goldG)" stroke-width="1.6" class="flow"/>
+          <g fill="#16200f" stroke="url(#goldG)" stroke-width="1.4">
+            <rect x="-50" y="0" width="100" height="40" rx="8"/><rect x="110" y="0" width="90" height="40" rx="8"/>
+            <rect x="310" y="0" width="90" height="40" rx="8"/><rect x="510" y="0" width="100" height="40" rx="8"/>
+          </g>
+          <g fill="#8b9359" font-size="11" text-anchor="middle" letter-spacing="1">
+            <text x="0" y="25">Formular</text><text x="155" y="25">Kalender</text><text x="355" y="25">CRM</text><text x="560" y="25">Dashboard</text>
+          </g>
+        </g>
+      </g>
+
+      <!-- ============ LAYER: AI pipeline — dienendes Werkzeug ============ -->
+      <g id="layAI" opacity="0">
+        <g transform="translate(920,400)">
+          <path d="M0 30 H 70 M 110 30 H 175 M 215 30 L 250 30" fill="none" stroke="url(#goldG)" stroke-width="1.6" class="flow"/>
+          <g fill="#16200f" stroke="url(#goldG)" stroke-width="1.4">
+            <circle cx="0" cy="30" r="16"/><rect x="70" y="14" width="40" height="32" rx="6"/><circle cx="195" cy="30" r="16"/>
+          </g>
+          <path d="M250 30 l18 -16 l18 16 l-18 16 z" fill="#1c2614" stroke="url(#goldG)" stroke-width="1.4"/>
+          <g fill="none" stroke="url(#goldG)" stroke-width="1.2">
+            <line x1="300" y1="18" x2="360" y2="18"/><line x1="300" y1="30" x2="348" y2="30"/><line x1="300" y1="42" x2="356" y2="42"/>
+          </g>
+          <circle cx="0" cy="30" r="4" fill="#E8D49C"><animate attributeName="cx" values="0;268" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" dur="2.4s" repeatCount="indefinite"/></circle>
+          <text x="120" y="92" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">KI · PIPELINE</text>
+        </g>
+      </g>
+
+      <!-- ============ LAYER: Final lockup wordmark ============ -->
+      <g id="lockup" opacity="0">
+        <text x="640" y="648" text-anchor="middle" font-size="24" letter-spacing="9" fill="#d8deb0" font-family="Georgia,serif">HK GROWTH OPERATOR</text>
+        <line x1="500" y1="664" x2="780" y2="664" stroke="url(#goldG)" stroke-width="1"/>
+      </g>
+    </svg>
+    <div class="cap" id="cap"></div>
+    <div class="cnt" id="cnt"></div>
+  </div>
+  <div class="ui">
+    <button id="replay">⟲ Replay</button>
+    <button id="pause">❚❚ Pause</button>
+    <span style="font-size:12px;color:#6b7350">Premium Tree System · ~26s Loop</span>
+  </div>
+</div>
+
+<script>
+const T = 26; // total seconds
+const $ = id => document.getElementById(id);
+const svg = $('svg');
+// --- particles ---
+const pg = $('particles');
+for(let i=0;i<26;i++){
+  const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+  const x=Math.random()*1280, y=Math.random()*720, r=Math.random()*1.8+0.5;
+  c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',r);
+  c.setAttribute('fill','#C8AE6E');c.setAttribute('opacity',(Math.random()*0.25+0.05).toFixed(2));
+  c.style.animation=`drift ${8+Math.random()*10}s ease-in-out ${Math.random()*6}s infinite`;
+  pg.appendChild(c);
+}
+const style=document.createElement('style');
+style.textContent='@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}';
+document.head.appendChild(style);
+
+const lerp=(a,b,t)=>a+(b-a)*t;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+// progress within [s,e] seconds
+const seg=(t,s,e)=>clamp((t-s)/(e-s),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2; // easeInOut
+const set=(id,o,tf)=>{const el=$(id);el.style.opacity=o;if(tf!==undefined)el.style.transform=tf;};
+
+// transform-origins for grow effects
+$('trunk').style.transformBox='fill-box';$('trunk').style.transformOrigin='50% 100%';
+$('crown').style.transformBox='fill-box';$('crown').style.transformOrigin='50% 92%';
+$('hk').style.transformBox='fill-box';$('hk').style.transformOrigin='50% 60%';
+$('roots').style.transformBox='fill-box';$('roots').style.transformOrigin='50% 0%';
+
+const phases=[
+ [0,'Stille & Ursprung'],[2.5,'Wurzeln · Fundament'],[5,'Stamm · HK Operating Core'],
+ [8,'Sichtbarkeit'],[11,'Websites · Conversion'],[14,'Automation · Schnittstellen'],
+ [17.5,'KI · dienendes Werkzeug'],[20.5,'Krone · echtes Wachstum'],[23.5,'HK Growth Operator']
+];
+
+function frame(t){
+  // recede window for all system layers before lockup
+  const recede = 1 - seg(t,22.2,23.6);
+
+  // P1 silhouette: fade in, then dissolve as the real tree forms
+  set('silhouette', (t<5 ? seg(t,0,1.8)*0.55 : 0.55*(1-seg(t,5,8))));
+  set('connectors', clamp(seg(t,7.5,9), 0, 1) * recede);
+
+  // P2 roots
+  const r=ease(seg(t,2.5,4.6));
+  set('roots', r, `scale(${lerp(0.72,1,r)})`);
+
+  // P3 trunk + veins + HK
+  const tr=ease(seg(t,5,6.8));
+  set('trunk', t>5?1:0, `scaleY(${tr})`);
+  set('trunkVeins', seg(t,6.6,8.4)*recede);
+  const hk=ease(seg(t,6.6,8.2));
+  set('hk', hk, `translateY(${lerp(10,0,hk)}px)`);
+
+  // P4 visibility
+  set('layVis', seg(t,8,9.9)*recede);
+  // P5 website
+  set('layWeb', seg(t,11,12.9)*recede);
+  // P6 automation
+  set('layAuto', seg(t,14,15.9)*recede);
+  // P7 AI
+  set('layAI', seg(t,17.5,19.4)*recede);
+
+  // P8 crown bloom
+  const cr=ease(seg(t,20.5,23));
+  set('crown', cr, `scale(${lerp(0.62,1,cr)})`);
+
+  // P9 lockup wordmark + gentle final settle
+  set('lockup', seg(t,23.8,25.2));
+
+  // subtle phase caption
+  let name='';for(const[s,n]of phases){if(t>=s)name=n;}
+  $('cap').textContent=name;$('cap').style.opacity=.85;
+  $('cnt').textContent=t.toFixed(1)+'s / '+T+'s';
+}
+
+let start=performance.now(), paused=false, pausedAt=0;
+function loop(now){
+  if(!paused) frame(((now-start)/1000)%T);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+$('replay').onclick=()=>{start=performance.now();paused=false;$('pause').textContent='❚❚ Pause';};
+$('pause').onclick=()=>{
+  if(paused){ start=performance.now()-pausedAt; paused=false; $('pause').textContent='❚❚ Pause'; }
+  else{ pausedAt=(performance.now()-start)%(T*1000); paused=true; $('pause').textContent='► Play'; }
+};
+</script>
+</body>
+</html>

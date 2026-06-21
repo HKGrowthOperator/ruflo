@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Static composed preview of the premium animation (representative mid/late state). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="Helvetica,Arial,sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#20281b"/><stop offset="45%" stop-color="#141a11"/><stop offset="1" stop-color="#080b08"/></radialGradient>
+    <radialGradient id="halo" cx="50%" cy="36%" r="55%"><stop offset="0" stop-color="#3a4327" stop-opacity=".5"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="trunkG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A6B33"/><stop offset="1" stop-color="#2c4620"/></linearGradient>
+    <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E8D49C"/><stop offset="1" stop-color="#A8843E"/></linearGradient>
+    <radialGradient id="leafG" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#C8D58E"/><stop offset=".6" stop-color="#6E883F"/><stop offset="1" stop-color="#3F5E2E"/></radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/><rect width="1280" height="720" fill="url(#halo)"/>
+
+  <!-- connectors -->
+  <g fill="none" stroke="url(#goldG)" stroke-width="1.6" opacity="0.5" stroke-dasharray="5 11">
+    <path d="M610 360 C 470 330, 330 300, 250 250"/><path d="M690 360 C 850 330, 980 300, 1040 250"/>
+    <path d="M640 470 C 560 540, 470 560, 360 580"/><path d="M700 420 C 800 420, 880 430, 940 430"/>
+  </g>
+
+  <!-- Visibility -->
+  <g transform="translate(150,150)" fill="none" stroke="url(#goldG)" stroke-width="1.5" opacity="0.95">
+    <rect x="0" y="20" width="58" height="104" rx="9"/><rect x="70" y="0" width="64" height="130" rx="9"/><rect x="146" y="26" width="54" height="96" rx="9"/>
+    <circle cx="102" cy="52" r="11" stroke-width="1.2"/><path d="M97 52 l9 6 l-9 6 z" fill="#E8D49C" stroke="none"/>
+  </g>
+  <text x="250" y="306" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">SICHTBARKEIT</text>
+  <!-- Website -->
+  <g transform="translate(980,140)" fill="none" stroke="url(#goldG)" stroke-width="1.5" opacity="0.95">
+    <rect x="0" y="0" width="150" height="150" rx="10"/><rect x="14" y="16" width="122" height="30" rx="5" fill="#1c2614" stroke-width="1"/>
+    <line x1="14" y1="60" x2="118" y2="60" stroke-width="1"/><line x1="14" y1="74" x2="96" y2="74" stroke-width="1"/><line x1="14" y1="88" x2="108" y2="88" stroke-width="1"/>
+    <rect x="14" y="104" width="60" height="22" rx="11" fill="url(#goldG)" stroke="none"/>
+  </g>
+  <text x="1055" y="318" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">CONVERSION</text>
+  <!-- Automation -->
+  <g transform="translate(250,540)" opacity="0.95">
+    <path d="M0 20 H 110 M 200 20 H 310 M 400 20 H 510" fill="none" stroke="url(#goldG)" stroke-width="1.6" stroke-dasharray="5 11"/>
+    <g fill="#16200f" stroke="url(#goldG)" stroke-width="1.4"><rect x="-50" y="0" width="100" height="40" rx="8"/><rect x="110" y="0" width="90" height="40" rx="8"/><rect x="310" y="0" width="90" height="40" rx="8"/><rect x="510" y="0" width="100" height="40" rx="8"/></g>
+    <g fill="#8b9359" font-size="11" text-anchor="middle"><text x="0" y="25">Formular</text><text x="155" y="25">Kalender</text><text x="355" y="25">CRM</text><text x="560" y="25">Dashboard</text></g>
+  </g>
+  <!-- AI -->
+  <g transform="translate(920,400)" opacity="0.95">
+    <path d="M0 30 H 70 M 110 30 H 175 M 215 30 L 250 30" fill="none" stroke="url(#goldG)" stroke-width="1.6" stroke-dasharray="5 11"/>
+    <g fill="#16200f" stroke="url(#goldG)" stroke-width="1.4"><circle cx="0" cy="30" r="16"/><rect x="70" y="14" width="40" height="32" rx="6"/><circle cx="195" cy="30" r="16"/></g>
+    <path d="M250 30 l18 -16 l18 16 l-18 16 z" fill="#1c2614" stroke="url(#goldG)" stroke-width="1.4"/>
+    <g fill="none" stroke="url(#goldG)" stroke-width="1.2"><line x1="300" y1="18" x2="360" y2="18"/><line x1="300" y1="30" x2="348" y2="30"/><line x1="300" y1="42" x2="356" y2="42"/></g>
+    <text x="120" y="92" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">KI · PIPELINE</text>
+  </g>
+
+  <!-- TREE -->
+  <g transform="translate(384,104)">
+    <g fill="none" stroke="#BCA070" stroke-linecap="round">
+      <path d="M256 360 q-2 44 -44 70 q-34 20 -78 28" stroke-width="9"/><path d="M256 360 q2 44 44 70 q34 20 78 28" stroke-width="9"/>
+      <path d="M250 362 q-22 40 -66 56 q-28 12 -54 16" stroke-width="6"/><path d="M262 362 q22 40 66 56 q28 12 54 16" stroke-width="6"/>
+      <path d="M256 362 q0 54 -8 86" stroke-width="7"/><path d="M256 362 q0 54 9 84" stroke-width="5"/>
+      <path d="M244 366 q-34 30 -86 40" stroke-width="3.5"/><path d="M268 366 q34 30 86 40" stroke-width="3.5"/>
+    </g>
+    <ellipse cx="256" cy="150" rx="152" ry="94" fill="url(#leafG)"/><ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/><ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/>
+    <ellipse cx="256" cy="118" rx="112" ry="76" fill="#8C9A57"/><ellipse cx="208" cy="108" rx="60" ry="46" fill="#B9C77E"/><ellipse cx="312" cy="120" rx="56" ry="44" fill="#A6B86C"/><ellipse cx="256" cy="94" rx="64" ry="46" fill="#C8D58E"/>
+    <path d="M242 232 q-7 72 -2 134 q16 7 32 0 q5 -64 -2 -134 q-14 -7 -28 0 Z" fill="url(#trunkG)"/>
+    <g fill="none" stroke="url(#goldG)" stroke-width="1.4" opacity="0.85"><path d="M256 364 C 252 320, 260 290, 256 236"/><path d="M248 360 C 244 322, 250 296, 248 250"/><path d="M264 360 C 268 322, 262 296, 264 250"/></g>
+    <g fill="#3F5E2E" stroke="url(#goldG)" stroke-width="5" stroke-linejoin="round">
+      <rect x="118" y="232" width="30" height="130" rx="3"/><rect x="196" y="232" width="30" height="130" rx="3"/><rect x="148" y="284" width="48" height="26" rx="3"/>
+      <rect x="286" y="232" width="30" height="130" rx="3"/><path d="M316 297 L372 232 L392 246 L344 300 L394 356 L372 368 Z"/>
+    </g>
+  </g>
+  <text x="640" y="648" text-anchor="middle" font-size="24" letter-spacing="9" fill="#d8deb0" font-family="Georgia,serif">HK GROWTH OPERATOR</text>
+  <line x1="500" y1="664" x2="780" y2="664" stroke="url(#goldG)" stroke-width="1"/>
+</svg>
