@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- HK Aufbau-Reveal — 6 Phasen (Konzept-Strip). Vektor, exakt, kostenlos. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1230 940" width="1230" height="940" font-family="Georgia, serif">
+  <defs>
+    <linearGradient id="trunk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A6B33"/><stop offset="1" stop-color="#3F5E2E"/></linearGradient>
+    <g id="crown">
+      <ellipse cx="256" cy="150" rx="150" ry="92" fill="#5E7A3A"/><ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/>
+      <ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/><ellipse cx="256" cy="120" rx="110" ry="74" fill="#8C9A57"/>
+      <ellipse cx="210" cy="110" rx="62" ry="48" fill="#B9C77E"/><ellipse cx="312" cy="120" rx="58" ry="44" fill="#A6B86C"/>
+      <ellipse cx="256" cy="96" rx="66" ry="46" fill="#C8D58E"/>
+    </g>
+    <path id="trunkp" d="M242 232 q-6 70 -2 132 q16 6 32 0 q4 -62 -2 -132 q-14 -6 -28 0 Z" fill="url(#trunk)"/>
+    <g id="letterH" fill="#3F5E2E" stroke="#C8AE6E" stroke-width="5" stroke-linejoin="round">
+      <rect x="118" y="232" width="30" height="130" rx="3"/><rect x="196" y="232" width="30" height="130" rx="3"/><rect x="148" y="284" width="48" height="26" rx="3"/>
+    </g>
+    <g id="letterK" fill="#3F5E2E" stroke="#C8AE6E" stroke-width="5" stroke-linejoin="round">
+      <rect x="286" y="232" width="30" height="130" rx="3"/><path d="M316 297 L372 232 L392 246 L344 300 L394 356 L372 368 Z"/>
+    </g>
+    <g id="roots" fill="none" stroke="#BCA070" stroke-linecap="round">
+      <path d="M256 360 q-2 40 -40 64 q-30 18 -70 26" stroke-width="9"/><path d="M256 360 q2 40 40 64 q30 18 70 26" stroke-width="9"/>
+      <path d="M250 362 q-20 36 -60 52 q-26 12 -50 14" stroke-width="6"/><path d="M262 362 q20 36 60 52 q26 12 50 14" stroke-width="6"/>
+      <path d="M256 362 q0 50 -6 80" stroke-width="7"/><path d="M256 362 q0 50 8 78" stroke-width="5"/>
+    </g>
+  </defs>
+
+  <rect width="1230" height="940" fill="#14140E"/>
+  <text x="615" y="40" text-anchor="middle" fill="#DCE3B0" font-size="28">HK Aufbau-Reveal — Konzept (6 Phasen)</text>
+  <text x="615" y="66" text-anchor="middle" fill="#9aa37a" font-size="15">Baum wächst → H+K snappen rein → 4 Leistungsbereiche fliegen dazu · schnell, modern, exaktes Logo</text>
+
+  <!-- Panel macro: bg + scaled logo group -->
+  <!-- P1 Wurzeln -->
+  <g transform="translate(15,86)"><rect width="390" height="390" rx="12" fill="#232318" stroke="#3a3a28"/>
+    <text x="14" y="30" fill="#79C0D0" font-size="18">1 · Wurzeln</text>
+    <g transform="translate(60,40) scale(0.6)"><use href="#roots"/></g></g>
+  <!-- P2 + Stamm -->
+  <g transform="translate(420,86)"><rect width="390" height="390" rx="12" fill="#232318" stroke="#3a3a28"/>
+    <text x="14" y="30" fill="#79C0D0" font-size="18">2 · Stamm wächst</text>
+    <g transform="translate(60,40) scale(0.6)"><use href="#roots"/><use href="#trunkp"/></g></g>
+  <!-- P3 + Krone -->
+  <g transform="translate(825,86)"><rect width="390" height="390" rx="12" fill="#232318" stroke="#3a3a28"/>
+    <text x="14" y="30" fill="#79C0D0" font-size="18">3 · Krone öffnet</text>
+    <g transform="translate(60,40) scale(0.6)"><use href="#roots"/><use href="#trunkp"/><use href="#crown"/></g></g>
+  <!-- P4 H snap -->
+  <g transform="translate(15,486)"><rect width="390" height="390" rx="12" fill="#232318" stroke="#3a3a28"/>
+    <text x="14" y="30" fill="#79C0D0" font-size="18">4 · „zack" — H rein</text>
+    <g transform="translate(60,40) scale(0.6)"><use href="#roots"/><use href="#trunkp"/><use href="#crown"/><use href="#letterH"/></g></g>
+  <!-- P5 K snap (full) -->
+  <g transform="translate(420,486)"><rect width="390" height="390" rx="12" fill="#232318" stroke="#3a3a28"/>
+    <text x="14" y="30" fill="#79C0D0" font-size="18">5 · „zack" — K rein</text>
+    <g transform="translate(60,40) scale(0.6)"><use href="#roots"/><use href="#trunkp"/><use href="#crown"/><use href="#letterH"/><use href="#letterK"/></g></g>
+  <!-- P6 services fly in -->
+  <g transform="translate(825,486)"><rect width="390" height="390" rx="12" fill="#232318" stroke="#3a3a28"/>
+    <text x="14" y="30" fill="#79C0D0" font-size="18">6 · Leistungen dazu</text>
+    <g transform="translate(78,52) scale(0.46)"><use href="#roots"/><use href="#trunkp"/><use href="#crown"/><use href="#letterH"/><use href="#letterK"/></g>
+    <g font-size="13" fill="#DCE3B0" text-anchor="middle">
+      <g transform="translate(70,150)"><rect x="-58" y="-16" width="116" height="28" rx="14" fill="#2f3a22" stroke="#C8AE6E"/><text y="4">Social Media</text></g>
+      <g transform="translate(320,150)"><rect x="-50" y="-16" width="100" height="28" rx="14" fill="#2f3a22" stroke="#C8AE6E"/><text y="4">Websites</text></g>
+      <g transform="translate(70,300)"><rect x="-58" y="-16" width="116" height="28" rx="14" fill="#2f3a22" stroke="#C8AE6E"/><text y="4">Automation</text></g>
+      <g transform="translate(320,300)"><rect x="-40" y="-16" width="80" height="28" rx="14" fill="#2f3a22" stroke="#C8AE6E"/><text y="4">KI</text></g>
+    </g></g>
+</svg>

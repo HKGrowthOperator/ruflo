@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HK Aufbau-Reveal — Prototyp</title>
+<style>
+  html,body{margin:0;height:100%;background:#0e0e09;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;font-family:Georgia,serif;color:#cdd39a}
+  .stage{width:min(90vw,720px);aspect-ratio:16/9;border-radius:16px;
+    background:radial-gradient(70% 70% at 50% 42%,#3a3a26 0%,#26261b 55%,#14140e 100%);
+    box-shadow:0 20px 60px #000a;overflow:hidden}
+  svg{width:100%;height:100%}
+  .hint{margin-top:14px;font-size:14px;color:#7e8557}
+  /* timeline = 8s loop */
+  #roots path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 8s infinite ease-out}
+  #trunk{transform-box:fill-box;transform-origin:50% 100%;animation:grow 8s infinite}
+  #crown{transform-box:fill-box;transform-origin:50% 90%;animation:bloom 8s infinite}
+  #H{transform-box:fill-box;transform-origin:50% 50%;animation:snapH 8s infinite}
+  #K{transform-box:fill-box;transform-origin:50% 50%;animation:snapK 8s infinite}
+  .chip{opacity:0;animation:chip 8s infinite}
+  .chip.c2{animation-delay:.12s}.chip.c3{animation-delay:.24s}.chip.c4{animation-delay:.36s}
+  @keyframes draw{0%{stroke-dashoffset:1}18%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
+  @keyframes grow{0%,14%{transform:scaleY(0)}30%{transform:scaleY(1)}100%{transform:scaleY(1)}}
+  @keyframes bloom{0%,30%{transform:scale(0);opacity:0}46%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:1}}
+  @keyframes snapH{0%,46%{opacity:0;transform:translateY(-34px) scale(1.35)}52%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes snapK{0%,50%{opacity:0;transform:translateY(-34px) scale(1.35)}56%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes chip{0%,58%{opacity:0;transform:translateY(10px)}66%{opacity:1;transform:translateY(0)}92%{opacity:1}100%{opacity:1}}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <svg viewBox="0 0 1280 720">
+      <defs>
+        <linearGradient id="trunkg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A6B33"/><stop offset="1" stop-color="#3F5E2E"/></linearGradient>
+      </defs>
+      <g transform="translate(384,104)">
+        <g id="crown">
+          <ellipse cx="256" cy="150" rx="150" ry="92" fill="#5E7A3A"/><ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/>
+          <ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/><ellipse cx="256" cy="120" rx="110" ry="74" fill="#8C9A57"/>
+          <ellipse cx="210" cy="110" rx="62" ry="48" fill="#B9C77E"/><ellipse cx="312" cy="120" rx="58" ry="44" fill="#A6B86C"/>
+          <ellipse cx="256" cy="96" rx="66" ry="46" fill="#C8D58E"/>
+        </g>
+        <path id="trunk" d="M242 232 q-6 70 -2 132 q16 6 32 0 q4 -62 -2 -132 q-14 -6 -28 0 Z" fill="url(#trunkg)"/>
+        <g id="H" fill="#3F5E2E" stroke="#C8AE6E" stroke-width="5" stroke-linejoin="round">
+          <rect x="118" y="232" width="30" height="130" rx="3"/><rect x="196" y="232" width="30" height="130" rx="3"/><rect x="148" y="284" width="48" height="26" rx="3"/>
+        </g>
+        <g id="K" fill="#3F5E2E" stroke="#C8AE6E" stroke-width="5" stroke-linejoin="round">
+          <rect x="286" y="232" width="30" height="130" rx="3"/><path d="M316 297 L372 232 L392 246 L344 300 L394 356 L372 368 Z"/>
+        </g>
+        <g id="roots" fill="none" stroke="#BCA070" stroke-linecap="round">
+          <path pathLength="1" d="M256 360 q-2 40 -40 64 q-30 18 -70 26" stroke-width="9"/><path pathLength="1" d="M256 360 q2 40 40 64 q30 18 70 26" stroke-width="9"/>
+          <path pathLength="1" d="M250 362 q-20 36 -60 52 q-26 12 -50 14" stroke-width="6"/><path pathLength="1" d="M262 362 q20 36 60 52 q26 12 50 14" stroke-width="6"/>
+          <path pathLength="1" d="M256 362 q0 50 -6 80" stroke-width="7"/><path pathLength="1" d="M256 362 q0 50 8 78" stroke-width="5"/>
+        </g>
+      </g>
+      <!-- service chips -->
+      <g font-family="Georgia,serif" font-size="22" fill="#DCE3B0" text-anchor="middle">
+        <g class="chip c1" transform="translate(220,180)"><rect x="-95" y="-26" width="190" height="48" rx="24" fill="#2f3a22" stroke="#C8AE6E"/><text y="7">Social Media</text></g>
+        <g class="chip c2" transform="translate(1060,180)"><rect x="-80" y="-26" width="160" height="48" rx="24" fill="#2f3a22" stroke="#C8AE6E"/><text y="7">Websites</text></g>
+        <g class="chip c3" transform="translate(220,560)"><rect x="-95" y="-26" width="190" height="48" rx="24" fill="#2f3a22" stroke="#C8AE6E"/><text y="7">Automation</text></g>
+        <g class="chip c4" transform="translate(1060,560)"><rect x="-60" y="-26" width="120" height="48" rx="24" fill="#2f3a22" stroke="#C8AE6E"/><text y="7">KI</text></g>
+      </g>
+    </svg>
+  </div>
+  <div class="hint">HK Aufbau-Reveal — Prototyp (8s Loop) · Wurzeln → Stamm → Krone → H+K „zack" → 4 Leistungsbereiche</div>
+</body>
+</html>
