@@ -22,9 +22,13 @@
         <radialGradient id="leafG" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#C8D58E"/><stop offset=".6" stop-color="#6E883F"/><stop offset="1" stop-color="#3F5E2E"/></radialGradient>
         <radialGradient id="bgWarm" cx="50%" cy="42%" r="75%"><stop offset="0" stop-color="#20281b"/><stop offset="45%" stop-color="#121810"/><stop offset="1" stop-color="#05070a"/></radialGradient>
         <radialGradient id="rise" cx="50%" cy="100%" r="80%"><stop offset="0" stop-color="#5a7a3a" stop-opacity=".5"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <radialGradient id="halo" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#3a4327" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <radialGradient id="vig" cx="50%" cy="48%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".62"/></radialGradient>
       </defs>
       <rect width="1280" height="720" fill="#070a0d"/>
       <rect id="bgWarm" width="1280" height="720" fill="url(#bgWarm)" opacity="0"/>
+      <rect width="1280" height="720" fill="url(#halo)"/>
+      <g id="cam">
       <g id="chaos"></g>
       <rect id="rise" width="1280" height="720" fill="url(#rise)" opacity="0"/>
       <g transform="translate(384,104)">
@@ -51,6 +55,8 @@
         <path d="M640 470 C 560 540, 460 560, 360 570" class="flow"/><rect x="300" y="556" width="70" height="36" rx="8"/>
       </g>
       <g id="lockup" opacity="0"><text x="640" y="658" text-anchor="middle" font-size="22" letter-spacing="9" fill="#d8deb0" font-family="Georgia,serif">HK GROWTH OPERATOR</text></g>
+      </g><!-- /cam -->
+      <rect width="1280" height="720" fill="url(#vig)" pointer-events="none"/>
     </svg>
   </div>
   <div><button id="replay">⟲ Replay</button> <span style="font-size:12px;color:#6b7350">Cinematic Short · ~10s</span></div>
@@ -67,6 +73,9 @@ const chaos=$('chaos');const cards=it.map(([x,y,r])=>{const g=document.createEle
 ['trunk','crown','roots','hk'].forEach(id=>$(id).style.transformBox='fill-box');
 $('trunk').style.transformOrigin='50% 100%';$('crown').style.transformOrigin='50% 92%';$('roots').style.transformOrigin='50% 0%';$('hk').style.transformOrigin='50% 60%';
 function frame(t){
+  const cs=lerp(1.0,1.08,ease(t/T));
+  const cdy=lerp(0,12,seg(t,1.6,3.2))-lerp(0,26,seg(t,3.2,6.6))+lerp(0,12,seg(t,8,10));
+  $('cam').style.transform=`translate(640px,360px) scale(${cs}) translate(-640px,-360px) translate(0px,${cdy}px)`;
   set('bgWarm',seg(t,1.2,3.5));
   const ci=seg(t,0.2,1)*(1-seg(t,1.6,2.8));cards.forEach(g=>g.style.opacity=ci*0.7);
   set('rise',seg(t,1,2.2)*(1-seg(t,4,6)));

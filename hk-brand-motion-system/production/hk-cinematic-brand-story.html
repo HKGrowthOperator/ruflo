@@ -34,7 +34,8 @@
   <div class="stage">
     <svg id="svg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <radialGradient id="halo" cx="50%" cy="40%" r="62%"><stop offset="0" stop-color="#3a4327" stop-opacity=".0"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <radialGradient id="halo" cx="50%" cy="40%" r="62%"><stop offset="0" stop-color="#3a4327" stop-opacity=".32"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <radialGradient id="vig" cx="50%" cy="48%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".62"/></radialGradient>
         <linearGradient id="trunkG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A6B33"/><stop offset="1" stop-color="#2c4620"/></linearGradient>
         <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E8D49C"/><stop offset="1" stop-color="#A8843E"/></linearGradient>
         <radialGradient id="leafG" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#C8D58E"/><stop offset=".6" stop-color="#6E883F"/><stop offset="1" stop-color="#3F5E2E"/></radialGradient>
@@ -49,6 +50,8 @@
       <rect width="1280" height="720" fill="url(#halo)"/>
       <g id="particles"></g>
 
+      <!-- ===== CAMERA RIG (push-in + depth move) wraps the whole scene ===== -->
+      <g id="cam">
       <!-- ===== OPENING: chaos world (JS-populated) ===== -->
       <g id="chaos"></g>
       <!-- entrepreneur silhouette -->
@@ -141,6 +144,8 @@
         <line x1="500" y1="640" x2="780" y2="640" stroke="url(#goldG)" stroke-width="1"/>
         <text x="640" y="664" text-anchor="middle" font-size="22" letter-spacing="9" fill="#d8deb0" font-family="Georgia,serif">HK GROWTH OPERATOR</text>
       </g>
+      </g><!-- /cam -->
+      <rect width="1280" height="720" fill="url(#vig)" pointer-events="none"/>
     </svg>
     <div class="cap" id="cap"></div>
     <div class="ben" id="ben"></div>
@@ -209,6 +214,10 @@ const phases=[
 
 function frame(t){
   const recede=1-seg(t,30,31.4);
+  // cinematic camera: slow push-in + dip into the foundation, then rise with the light
+  const cs=lerp(1.0,1.10,ease(t/T));
+  const cdy=lerp(0,16,seg(t,4,8))-lerp(0,40,seg(t,8,20))+lerp(0,18,seg(t,28,33));
+  $('cam').style.transform=`translate(640px,360px) scale(${cs}) translate(-640px,-360px) translate(0px,${cdy}px)`;
   // background cold -> warm
   set('bgWarm', seg(t,4,12));
   set('bgCold', 1-seg(t,8,16)*0.7);
