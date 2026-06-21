@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HK Growth Operator — Cinematic Brand Story</title>
+<style>
+  :root{
+    --green:#3F5E2E; --green-d:#26401f; --green-l:#6E883F; --leaf:#8C9A57; --leaf-l:#C8D58E;
+    --gold:#C8AE6E; --bronze:#A8843E; --gold-l:#E8D49C; --ink:#b9c089;
+    --cold:#46535f; --cold-d:#1a2026; --alert:#8a5443;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#000;font-family:"Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+  .wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}
+  .stage{position:relative;width:min(94vw,1040px);aspect-ratio:16/9;border-radius:18px;overflow:hidden;
+    background:#05070a;box-shadow:0 34px 100px #000d, inset 0 0 140px #000a;}
+  svg{position:absolute;inset:0;width:100%;height:100%}
+  .ui{display:flex;gap:10px;align-items:center}
+  button{background:#1b2416;color:var(--leaf-l);border:1px solid var(--bronze);border-radius:999px;padding:8px 16px;font-size:13px;letter-spacing:.04em;cursor:pointer}
+  button:hover{background:#243018}
+  .cap{position:absolute;left:26px;bottom:22px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.85;max-width:62%}
+  .ben{position:absolute;right:26px;bottom:22px;font-size:11px;letter-spacing:.04em;color:#8a936a;text-align:right;max-width:36%;opacity:.9}
+  .cnt{position:absolute;right:26px;top:18px;font-size:10px;letter-spacing:.14em;color:#566049}
+  .flow{stroke-dasharray:5 11;animation:flow 2.2s linear infinite}@keyframes flow{to{stroke-dashoffset:-32}}
+  .flow-s{stroke-dasharray:3 14;animation:flow 4s linear infinite}
+  .sweep{animation:sweep 3.4s ease-in-out infinite}@keyframes sweep{0%,100%{opacity:.12}50%{opacity:.55}}
+  .pulse{animation:pulse 2.8s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+  .glow{filter:drop-shadow(0 0 6px rgba(200,174,110,.45))}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage">
+    <svg id="svg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <radialGradient id="halo" cx="50%" cy="40%" r="62%"><stop offset="0" stop-color="#3a4327" stop-opacity=".0"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <linearGradient id="trunkG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A6B33"/><stop offset="1" stop-color="#2c4620"/></linearGradient>
+        <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E8D49C"/><stop offset="1" stop-color="#A8843E"/></linearGradient>
+        <radialGradient id="leafG" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#C8D58E"/><stop offset=".6" stop-color="#6E883F"/><stop offset="1" stop-color="#3F5E2E"/></radialGradient>
+        <linearGradient id="frameSweep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8D49C" stop-opacity="0"/><stop offset=".5" stop-color="#E8D49C" stop-opacity=".5"/><stop offset="1" stop-color="#E8D49C" stop-opacity="0"/></linearGradient>
+        <radialGradient id="rise" cx="50%" cy="100%" r="80%"><stop offset="0" stop-color="#5a7a3a" stop-opacity=".55"/><stop offset=".5" stop-color="#2c4620" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <radialGradient id="bgWarm" cx="50%" cy="42%" r="75%"><stop offset="0" stop-color="#20281b"/><stop offset="45%" stop-color="#121810"/><stop offset="1" stop-color="#05070a"/></radialGradient>
+      </defs>
+
+      <!-- evolving background: cold -> warm -->
+      <rect id="bgCold" width="1280" height="720" fill="#070a0d"/>
+      <rect id="bgWarm" width="1280" height="720" fill="url(#bgWarm)" opacity="0"/>
+      <rect width="1280" height="720" fill="url(#halo)"/>
+      <g id="particles"></g>
+
+      <!-- ===== OPENING: chaos world (JS-populated) ===== -->
+      <g id="chaos"></g>
+      <!-- entrepreneur silhouette -->
+      <g id="figure" opacity="0">
+        <ellipse cx="640" cy="430" rx="34" ry="36" fill="#10151a" stroke="#46535f" stroke-width="1.2"/>
+        <path d="M584 540 q56 -86 112 0 q-56 26 -112 0 Z" fill="#10151a" stroke="#46535f" stroke-width="1.2"/>
+      </g>
+
+      <!-- ===== rising structure light ===== -->
+      <rect id="rise" width="1280" height="720" fill="url(#rise)" opacity="0"/>
+
+      <!-- ===== TREE ===== -->
+      <g transform="translate(384,104)">
+        <g id="roots" fill="none" stroke="#BCA070" stroke-linecap="round" opacity="0">
+          <path d="M256 360 q-2 44 -44 70 q-34 20 -78 28" stroke-width="9"/><path d="M256 360 q2 44 44 70 q34 20 78 28" stroke-width="9"/>
+          <path d="M250 362 q-22 40 -66 56 q-28 12 -54 16" stroke-width="6"/><path d="M262 362 q22 40 66 56 q28 12 54 16" stroke-width="6"/>
+          <path d="M256 362 q0 54 -8 86" stroke-width="7"/><path d="M256 362 q0 54 9 84" stroke-width="5"/>
+          <path d="M244 366 q-34 30 -86 40" stroke-width="3.5"/><path d="M268 366 q34 30 86 40" stroke-width="3.5"/>
+        </g>
+        <g id="rootMeaning" opacity="0">
+          <line id="rootScan" x1="150" y1="372" x2="362" y2="372" stroke="url(#goldG)" stroke-width="1.2" opacity=".55"/>
+          <g fill="#E8D49C" class="glow">
+            <circle class="pulse" cx="170" cy="452" r="3.4"/><circle class="pulse" cx="342" cy="452" r="3.4" style="animation-delay:.5s"/>
+            <circle class="pulse" cx="200" cy="436" r="3" style="animation-delay:.9s"/><circle class="pulse" cx="312" cy="436" r="3" style="animation-delay:1.3s"/>
+            <circle class="pulse" cx="248" cy="450" r="2.6" style="animation-delay:.3s"/><circle class="pulse" cx="266" cy="450" r="2.6" style="animation-delay:1.6s"/>
+          </g>
+        </g>
+        <g id="trunk"><path d="M242 232 q-7 72 -2 134 q16 7 32 0 q5 -64 -2 -134 q-14 -7 -28 0 Z" fill="url(#trunkG)"/></g>
+        <g id="trunkVeins" fill="none" stroke="url(#goldG)" stroke-width="1.4" opacity="0">
+          <path d="M256 364 C 252 320, 260 290, 256 236" class="flow"/><path d="M248 360 C 244 322, 250 296, 248 250" class="flow-s"/><path d="M264 360 C 268 322, 262 296, 264 250" class="flow-s"/>
+        </g>
+        <g id="hk" opacity="0"><g fill="#3F5E2E" stroke="url(#goldG)" stroke-width="5" stroke-linejoin="round">
+          <rect x="118" y="232" width="30" height="130" rx="3"/><rect x="196" y="232" width="30" height="130" rx="3"/><rect x="148" y="284" width="48" height="26" rx="3"/>
+          <rect x="286" y="232" width="30" height="130" rx="3"/><path d="M316 297 L372 232 L392 246 L344 300 L394 356 L372 368 Z"/></g></g>
+        <g id="crown" opacity="0">
+          <ellipse cx="256" cy="150" rx="152" ry="94" fill="url(#leafG)"/><ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/><ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/>
+          <ellipse cx="256" cy="118" rx="112" ry="76" fill="#8C9A57"/><ellipse cx="208" cy="108" rx="60" ry="46" fill="#B9C77E"/><ellipse cx="312" cy="120" rx="56" ry="44" fill="#A6B86C"/><ellipse cx="256" cy="94" rx="64" ry="46" fill="#C8D58E"/>
+        </g>
+        <g id="crownLife" opacity="0">
+          <g fill="#E8D49C" class="pulse"><circle cx="206" cy="120" r="3.2"/><circle cx="300" cy="126" r="3.2"/><circle cx="256" cy="92" r="3"/><circle cx="180" cy="160" r="2.6"/><circle cx="330" cy="160" r="2.6"/></g>
+          <g id="crownSeeds" fill="#C8D58E"><ellipse cx="232" cy="120" rx="2.4" ry="4"/><ellipse cx="284" cy="110" rx="2.4" ry="4"/><ellipse cx="256" cy="130" rx="2.2" ry="3.6"/></g>
+        </g>
+      </g>
+
+      <!-- ===== SYSTEM LAYERS ===== -->
+      <g id="layVis" opacity="0">
+        <g transform="translate(150,140)" fill="none" stroke="url(#goldG)" stroke-width="1.5">
+          <rect x="0" y="20" width="58" height="104" rx="9"/><rect x="70" y="0" width="64" height="130" rx="9"/><rect x="146" y="26" width="54" height="96" rx="9"/>
+          <rect x="70" y="0" width="64" height="130" rx="9" fill="url(#frameSweep)" stroke="none" class="sweep"/>
+          <circle cx="102" cy="52" r="11" stroke-width="1.2"/><path d="M97 52 l9 6 l-9 6 z" fill="#E8D49C" stroke="none"/></g>
+        <text x="250" y="296" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">SICHTBARKEIT</text>
+      </g>
+      <g id="layWeb" opacity="0">
+        <g transform="translate(986,132)" fill="none" stroke="url(#goldG)" stroke-width="1.5">
+          <rect x="0" y="0" width="150" height="156" rx="10"/><rect x="14" y="16" width="122" height="30" rx="5" fill="#1c2614" stroke-width="1"/>
+          <line x1="14" y1="60" x2="118" y2="60" stroke-width="1"/><line x1="14" y1="74" x2="96" y2="74" stroke-width="1"/><line x1="14" y1="88" x2="108" y2="88" stroke-width="1"/>
+          <rect x="14" y="104" width="60" height="22" rx="11" fill="url(#goldG)" stroke="none"/><line x1="14" y1="140" x2="120" y2="140" stroke-width="1"/>
+          <path d="M150 150 l24 16" stroke-width="1.4" class="flow"/></g>
+        <text x="1061" y="314" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">CONVERSION</text>
+      </g>
+      <g id="layAuto" opacity="0">
+        <g transform="translate(250,544)">
+          <path d="M0 20 H 110 M 200 20 H 310 M 400 20 H 510" fill="none" stroke="url(#goldG)" stroke-width="1.6" class="flow"/>
+          <g fill="#16200f" stroke="url(#goldG)" stroke-width="1.4"><rect x="-50" y="0" width="100" height="40" rx="8"/><rect x="110" y="0" width="90" height="40" rx="8"/><rect x="310" y="0" width="90" height="40" rx="8"/><rect x="510" y="0" width="100" height="40" rx="8"/></g>
+          <g fill="#8b9359" font-size="11" text-anchor="middle"><text x="0" y="25">Formular</text><text x="155" y="25">Kalender</text><text x="355" y="25">CRM</text><text x="560" y="25">Dashboard</text></g>
+          <circle cx="-50" cy="20" r="4" fill="#E8D49C"><animate attributeName="cx" values="-50;560" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" repeatCount="indefinite"/></circle></g>
+      </g>
+      <g id="layAI" opacity="0">
+        <g transform="translate(916,398)">
+          <path d="M0 30 H 70 M 110 30 H 175 M 215 30 L 250 30" fill="none" stroke="url(#goldG)" stroke-width="1.6" class="flow"/>
+          <g fill="#16200f" stroke="url(#goldG)" stroke-width="1.4"><circle cx="0" cy="30" r="16"/><rect x="70" y="14" width="40" height="32" rx="6"/><circle cx="195" cy="30" r="16"/></g>
+          <path d="M250 30 l18 -16 l18 16 l-18 16 z" fill="#1c2614" stroke="url(#goldG)" stroke-width="1.4"/>
+          <g fill="none" stroke="url(#goldG)" stroke-width="1.2"><line x1="300" y1="18" x2="360" y2="18"/><line x1="300" y1="30" x2="348" y2="30"/><line x1="300" y1="42" x2="356" y2="42"/></g>
+          <circle cx="0" cy="30" r="4" fill="#E8D49C"><animate attributeName="cx" values="0;268" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" dur="2.4s" repeatCount="indefinite"/></circle>
+          <text x="120" y="92" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">KI · PIPELINE</text></g>
+      </g>
+
+      <!-- ===== TIME-BACK calm scene ===== -->
+      <g id="calm" opacity="0">
+        <g transform="translate(150,150)" fill="none" stroke="url(#goldG)" stroke-width="1.4">
+          <rect x="0" y="0" width="190" height="120" rx="10"/><polyline points="14,96 54,70 94,82 134,44 176,28" stroke-width="2"/>
+          <line x1="14" y1="20" x2="80" y2="20" stroke-width="1"/></g>
+        <path d="M360 210 C 520 230, 760 250, 920 250" fill="none" stroke="url(#goldG)" stroke-width="1.4" class="flow"/>
+        <circle r="4" fill="#E8D49C"><animateMotion dur="3.2s" repeatCount="indefinite" path="M360 210 C 520 230, 760 250, 920 250"/></circle>
+        <text x="245" y="300" text-anchor="middle" font-size="11" letter-spacing="3" fill="#7c8455">KLARHEIT · ZEIT</text>
+      </g>
+
+      <!-- ===== FINAL lockup ===== -->
+      <g id="lockup" opacity="0">
+        <line x1="500" y1="640" x2="780" y2="640" stroke="url(#goldG)" stroke-width="1"/>
+        <text x="640" y="664" text-anchor="middle" font-size="22" letter-spacing="9" fill="#d8deb0" font-family="Georgia,serif">HK GROWTH OPERATOR</text>
+      </g>
+    </svg>
+    <div class="cap" id="cap"></div>
+    <div class="ben" id="ben"></div>
+    <div class="cnt" id="cnt"></div>
+  </div>
+  <div class="ui">
+    <button id="replay">⟲ Replay</button><button id="pause">❚❚ Pause</button>
+    <span style="font-size:12px;color:#6b7350">Cinematic Brand Story · ~33s</span>
+  </div>
+</div>
+
+<script>
+const T=33, $=id=>document.getElementById(id), NS='http://www.w3.org/2000/svg';
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), seg=(t,s,e)=>clamp((t-s)/(e-s),0,1), lerp=(a,b,t)=>a+(b-a)*t, ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const set=(id,o,tf)=>{const el=$(id);if(o!==undefined)el.style.opacity=o;if(tf!==undefined)el.style.transform=tf;};
+
+// particles
+const pg=$('particles');
+for(let i=0;i<28;i++){const c=document.createElementNS(NS,'circle');
+  c.setAttribute('cx',Math.random()*1280);c.setAttribute('cy',Math.random()*720);c.setAttribute('r',(Math.random()*1.8+0.5).toFixed(1));
+  c.setAttribute('fill','#C8AE6E');c.setAttribute('opacity',(Math.random()*0.22+0.05).toFixed(2));
+  c.style.animation=`drift ${8+Math.random()*10}s ease-in-out ${Math.random()*6}s infinite`;pg.appendChild(c);}
+const st=document.createElement('style');st.textContent='@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}';document.head.appendChild(st);
+
+// ---- chaos world: scattered fragmented office cards ----
+// each: chaos pos+rot (scattered, cold) -> order pos (tidy, pulled toward trunk base)
+const items=[
+ {x:170,y:150,r:-14, ox:470,oy:250}, {x:330,y:90,r:10, ox:560,oy:230}, {x:980,y:120,r:-8, ox:700,oy:250},
+ {x:1110,y:230,r:12, ox:780,oy:270}, {x:140,y:330,r:8, ox:470,oy:300}, {x:1130,y:430,r:-12, ox:790,oy:300},
+ {x:250,y:520,r:-6, ox:520,oy:330}, {x:1010,y:560,r:9, ox:740,oy:330}, {x:430,y:120,r:6, ox:600,oy:210},
+ {x:860,y:600,r:-10, ox:670,oy:340}, {x:120,y:470,r:14, ox:500,oy:280}, {x:1160,y:330,r:-6, ox:810,oy:280}
+];
+const chaos=$('chaos');
+const cards=items.map((it,i)=>{
+  const g=document.createElementNS(NS,'g');
+  const w=58+ (i%3)*16, h=40+(i%2)*12;
+  g.innerHTML=`<rect width="${w}" height="${h}" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/>
+    <rect x="6" y="6" width="${w-12}" height="8" rx="2" fill="#26323c"/>
+    <line x1="6" y1="22" x2="${w-10}" y2="22" stroke="#33414c" stroke-width="1"/><line x1="6" y1="30" x2="${w-20}" y2="30" stroke="#33414c" stroke-width="1"/>`;
+  if(i%4===0){const d=document.createElementNS(NS,'circle');d.setAttribute('cx',w-6);d.setAttribute('cy',6);d.setAttribute('r',4);d.setAttribute('fill','#8a5443');g.appendChild(d);} // missed/alert
+  it.w=w;it.h=h;chaos.appendChild(g);return g;
+});
+// disconnected noise dots
+for(let i=0;i<10;i++){const c=document.createElementNS(NS,'circle');
+  c.setAttribute('cx',120+Math.random()*1040);c.setAttribute('cy',80+Math.random()*560);c.setAttribute('r',2);
+  c.setAttribute('fill','#46535f');c.setAttribute('opacity','.5');c.dataset.noise=1;chaos.appendChild(c);}
+
+// transform-origins
+['trunk','crown','roots','hk'].forEach(id=>{const e=$(id);e.style.transformBox='fill-box';});
+$('trunk').style.transformOrigin='50% 100%';$('crown').style.transformOrigin='50% 92%';$('roots').style.transformOrigin='50% 0%';$('hk').style.transformOrigin='50% 60%';
+
+const phases=[
+ [0,'Operative Überlastung','Fragmentiert · langsam · Daten stecken fest'],
+ [3.2,'Struktur tritt ein',''],
+ [4.5,'Wurzeln scannen das Fundament','Verstehen, was bremst & wo Wachstum entsteht'],
+ [8,'Chaos wird Struktur','Weniger Chaos, weniger verlorene Leads'],
+ [11,'HK Stamm · Operating Core','Eine Struktur statt vieler Einzelprobleme'],
+ [14,'Sichtbarkeit statt Lärm','Autorität, Vertrauen, Nachfrage'],
+ [17,'Website als Conversion-System','Aus Aufmerksamkeit werden Termine'],
+ [20,'Buchung & Automation','Keine Copy-Paste-Arbeit, keine vergessenen Follow-ups'],
+ [23,'KI als praktischer Hebel','Projekte schneller, Stunden gespart'],
+ [26,'Der Unternehmer gewinnt Zeit','Mehr am Unternehmen, mehr Leben'],
+ [28.5,'Krone · echtes Wachstum','Wachstum, Freiheit, Zeit, Sinn'],
+ [31.5,'HK Growth Operator','']
+];
+
+function frame(t){
+  const recede=1-seg(t,30,31.4);
+  // background cold -> warm
+  set('bgWarm', seg(t,4,12));
+  set('bgCold', 1-seg(t,8,16)*0.7);
+
+  // ---- chaos opening ----
+  const chaosIn=seg(t,0.4,2.2), order=ease(seg(t,8,10.8)), absorb=seg(t,10.8,12.8);
+  const chaosVis=Math.min(chaosIn, 1-absorb);
+  cards.forEach((g,i)=>{const it=items[i];
+    const x=lerp(it.x,it.ox,order), y=lerp(it.y,it.oy,order), rot=lerp(it.r,0,order), s=lerp(1,0.8,absorb);
+    g.setAttribute('transform',`translate(${x-it.w/2} ${y-it.h/2}) rotate(${rot} ${it.w/2} ${it.h/2}) scale(${s})`);
+    g.style.opacity=chaosVis*(0.55+0.45*order);
+  });
+  chaos.querySelectorAll('[data-noise]').forEach(n=>n.style.opacity=(chaosIn*(1-seg(t,7,10))*0.5).toFixed(2));
+  set('figure', Math.max(seg(t,1,2.5)*(1-seg(t,9,11)), seg(t,26,27.4)*(1-seg(t,30,31))) );
+
+  set('rise', seg(t,3.2,5)*(1-seg(t,12,15)));
+
+  // ---- roots ----
+  const r=ease(seg(t,4.5,6.8));set('roots',r,`scale(${lerp(0.72,1,r)})`);
+  set('rootMeaning', seg(t,5,6.6)*(1-seg(t,9.5,11)));
+  const scn=seg(t,5,7);$('rootScan').style.transform=`translateY(${lerp(0,104,scn)}px)`;$('rootScan').style.opacity=(Math.sin(scn*Math.PI)*0.6).toFixed(2);
+
+  // ---- trunk + HK ----
+  const tr=ease(seg(t,11,12.8));set('trunk',t>11?1:0,`scaleY(${tr})`);
+  set('trunkVeins', seg(t,12.6,14)*recede);
+  const hk=ease(seg(t,12.4,14));set('hk',hk,`translateY(${lerp(10,0,hk)}px)`);
+
+  // ---- system layers ----
+  set('layVis', seg(t,14,15.8)*(1-seg(t,25.5,27)));
+  set('layWeb', seg(t,17,18.8)*(1-seg(t,25.5,27)));
+  set('layAuto', seg(t,20,21.8)*(1-seg(t,25.5,27)));
+  set('layAI', seg(t,23,24.8)*(1-seg(t,25.5,27)));
+
+  // ---- time-back calm ----
+  set('calm', seg(t,26,27.6)*(1-seg(t,30,31.2)));
+
+  // ---- crown ----
+  const cr=ease(seg(t,28.5,31));set('crown',cr,`scale(${lerp(0.62,1,cr)})`);
+  set('crownLife', seg(t,29.4,31));
+  const seed=seg(t,29.4,32.5);$('crownSeeds').style.transform=`translateY(${lerp(0,-26,seed)}px)`;$('crownSeeds').style.opacity=(Math.sin(seed*Math.PI)*0.9).toFixed(2);
+
+  // ---- lockup ----
+  set('lockup', seg(t,31.4,32.8));
+
+  let name='',ben='';for(const[s,n,b]of phases){if(t>=s){name=n;ben=b;}}
+  $('cap').textContent=name;$('ben').textContent=ben;$('cnt').textContent=t.toFixed(1)+'s / '+T+'s';
+}
+
+let start=performance.now(),paused=false,pausedAt=0;
+function loop(now){if(!paused)frame(((now-start)/1000)%T);requestAnimationFrame(loop);}
+requestAnimationFrame(loop);
+$('replay').onclick=()=>{start=performance.now();paused=false;$('pause').textContent='❚❚ Pause';};
+$('pause').onclick=()=>{if(paused){start=performance.now()-pausedAt;paused=false;$('pause').textContent='❚❚ Pause';}else{pausedAt=(performance.now()-start)%(T*1000);paused=true;$('pause').textContent='► Play';}};
+</script>
+</body>
+</html>

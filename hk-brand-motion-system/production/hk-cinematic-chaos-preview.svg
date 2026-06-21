@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Static preview of the cinematic OPENING (Phase 0): operational chaos before HK. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="Helvetica,Arial,sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="46%" r="75%"><stop offset="0" stop-color="#0c1116"/><stop offset="1" stop-color="#05070a"/></radialGradient>
+    <radialGradient id="rise" cx="50%" cy="100%" r="70%"><stop offset="0" stop-color="#3f5a2e" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect width="1280" height="720" fill="url(#rise)"/>
+  <!-- scattered fragmented office cards (cold, disconnected) -->
+  <g font-size="0">
+    <g transform="translate(150,120) rotate(-13)"><rect width="74" height="50" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="50" height="8" rx="2" fill="#26323c"/><line x1="6" y1="24" x2="60" y2="24" stroke="#33414c"/><line x1="6" y1="32" x2="48" y2="32" stroke="#33414c"/><circle cx="68" cy="6" r="4" fill="#8a5443"/></g>
+    <g transform="translate(330,90) rotate(9)"><rect width="66" height="44" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="44" height="8" rx="2" fill="#26323c"/><line x1="6" y1="24" x2="54" y2="24" stroke="#33414c"/></g>
+    <g transform="translate(980,110) rotate(-8)"><rect width="86" height="56" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="60" height="8" rx="2" fill="#26323c"/><line x1="6" y1="26" x2="72" y2="26" stroke="#33414c"/><line x1="6" y1="36" x2="58" y2="36" stroke="#33414c"/></g>
+    <g transform="translate(1110,250) rotate(12)"><rect width="70" height="46" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="46" height="8" rx="2" fill="#26323c"/><line x1="6" y1="26" x2="56" y2="26" stroke="#33414c"/><circle cx="64" cy="6" r="4" fill="#8a5443"/></g>
+    <g transform="translate(120,360) rotate(7)"><rect width="78" height="50" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="52" height="8" rx="2" fill="#26323c"/><line x1="6" y1="26" x2="64" y2="26" stroke="#33414c"/></g>
+    <g transform="translate(1120,440) rotate(-12)"><rect width="74" height="48" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="48" height="8" rx="2" fill="#26323c"/><line x1="6" y1="26" x2="60" y2="26" stroke="#33414c"/></g>
+    <g transform="translate(250,540) rotate(-6)"><rect width="66" height="44" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="44" height="8" rx="2" fill="#26323c"/><line x1="6" y1="24" x2="54" y2="24" stroke="#33414c"/></g>
+    <g transform="translate(1000,560) rotate(9)"><rect width="82" height="52" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="56" height="8" rx="2" fill="#26323c"/><line x1="6" y1="26" x2="68" y2="26" stroke="#33414c"/><circle cx="74" cy="6" r="4" fill="#8a5443"/></g>
+    <g transform="translate(430,120) rotate(6)"><rect width="64" height="42" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="42" height="8" rx="2" fill="#26323c"/></g>
+    <g transform="translate(860,600) rotate(-10)"><rect width="70" height="46" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="46" height="8" rx="2" fill="#26323c"/></g>
+  </g>
+  <!-- disconnected noise dots -->
+  <g fill="#46535f" opacity=".5"><circle cx="520" cy="160" r="2"/><circle cx="760" cy="180" r="2"/><circle cx="300" cy="300" r="2"/><circle cx="950" cy="340" r="2"/><circle cx="600" cy="600" r="2"/><circle cx="420" cy="430" r="2"/><circle cx="820" cy="470" r="2"/></g>
+  <!-- entrepreneur silhouette trapped in the noise -->
+  <g><ellipse cx="640" cy="430" rx="34" ry="36" fill="#10151a" stroke="#46535f" stroke-width="1.2"/>
+     <path d="M584 540 q56 -86 112 0 q-56 26 -112 0 Z" fill="#10151a" stroke="#46535f" stroke-width="1.2"/></g>
+  <!-- faint structure light rising from below -->
+  <text x="640" y="690" text-anchor="middle" font-size="12" letter-spacing="4" fill="#3f5a2e" opacity=".8">… STRUKTUR TRITT EIN</text>
+</svg>

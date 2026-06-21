@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HK Growth Operator — Cinematic Short</title>
+<style>
+  html,body{margin:0;height:100%;background:#000;font-family:"Helvetica Neue",Arial,sans-serif;color:#b9c089}
+  .wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}
+  .stage{position:relative;width:min(94vw,960px);aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#05070a;box-shadow:0 30px 90px #000c,inset 0 0 130px #000a}
+  svg{position:absolute;inset:0;width:100%;height:100%}
+  button{background:#1b2416;color:#C8D58E;border:1px solid #A8843E;border-radius:999px;padding:8px 16px;font-size:13px;cursor:pointer}
+  .flow{stroke-dasharray:5 11;animation:flow 2.2s linear infinite}@keyframes flow{to{stroke-dashoffset:-32}}
+  .pulse{animation:pulse 2.6s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="stage">
+    <svg id="svg" viewBox="0 0 1280 720">
+      <defs>
+        <linearGradient id="trunkG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A6B33"/><stop offset="1" stop-color="#2c4620"/></linearGradient>
+        <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E8D49C"/><stop offset="1" stop-color="#A8843E"/></linearGradient>
+        <radialGradient id="leafG" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#C8D58E"/><stop offset=".6" stop-color="#6E883F"/><stop offset="1" stop-color="#3F5E2E"/></radialGradient>
+        <radialGradient id="bgWarm" cx="50%" cy="42%" r="75%"><stop offset="0" stop-color="#20281b"/><stop offset="45%" stop-color="#121810"/><stop offset="1" stop-color="#05070a"/></radialGradient>
+        <radialGradient id="rise" cx="50%" cy="100%" r="80%"><stop offset="0" stop-color="#5a7a3a" stop-opacity=".5"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="1280" height="720" fill="#070a0d"/>
+      <rect id="bgWarm" width="1280" height="720" fill="url(#bgWarm)" opacity="0"/>
+      <g id="chaos"></g>
+      <rect id="rise" width="1280" height="720" fill="url(#rise)" opacity="0"/>
+      <g transform="translate(384,104)">
+        <g id="roots" fill="none" stroke="#BCA070" stroke-linecap="round" opacity="0">
+          <path d="M256 360 q-2 44 -44 70 q-34 20 -78 28" stroke-width="9"/><path d="M256 360 q2 44 44 70 q34 20 78 28" stroke-width="9"/>
+          <path d="M250 362 q-22 40 -66 56 q-28 12 -54 16" stroke-width="6"/><path d="M262 362 q22 40 66 56 q28 12 54 16" stroke-width="6"/>
+          <path d="M256 362 q0 54 -8 86" stroke-width="7"/><path d="M256 362 q0 54 9 84" stroke-width="5"/></g>
+        <g id="rootNodes" opacity="0" fill="#E8D49C"><circle cx="170" cy="452" r="3.2"/><circle cx="342" cy="452" r="3.2"/><circle cx="200" cy="436" r="2.8"/><circle cx="312" cy="436" r="2.8"/><circle cx="256" cy="450" r="2.6"/></g>
+        <g id="trunk"><path d="M242 232 q-7 72 -2 134 q16 7 32 0 q5 -64 -2 -134 q-14 -7 -28 0 Z" fill="url(#trunkG)"/></g>
+        <g id="veins" fill="none" stroke="url(#goldG)" stroke-width="1.4" opacity="0">
+          <path d="M256 364 C 252 320, 260 290, 256 236" class="flow"/><path d="M248 360 C 244 322, 250 296, 248 250" class="flow"/><path d="M264 360 C 268 322, 262 296, 264 250" class="flow"/></g>
+        <g id="hk" opacity="0"><g fill="#3F5E2E" stroke="url(#goldG)" stroke-width="5" stroke-linejoin="round">
+          <rect x="118" y="232" width="30" height="130" rx="3"/><rect x="196" y="232" width="30" height="130" rx="3"/><rect x="148" y="284" width="48" height="26" rx="3"/>
+          <rect x="286" y="232" width="30" height="130" rx="3"/><path d="M316 297 L372 232 L392 246 L344 300 L394 356 L372 368 Z"/></g></g>
+        <g id="crown" opacity="0">
+          <ellipse cx="256" cy="150" rx="152" ry="94" fill="url(#leafG)"/><ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/><ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/>
+          <ellipse cx="256" cy="118" rx="112" ry="76" fill="#8C9A57"/><ellipse cx="208" cy="108" rx="60" ry="46" fill="#B9C77E"/><ellipse cx="312" cy="120" rx="56" ry="44" fill="#A6B86C"/><ellipse cx="256" cy="94" rx="64" ry="46" fill="#C8D58E"/></g>
+        <g id="crownFruit" opacity="0" fill="#E8D49C" class="pulse"><circle cx="206" cy="120" r="3"/><circle cx="300" cy="126" r="3"/><circle cx="256" cy="92" r="2.8"/><circle cx="180" cy="160" r="2.4"/><circle cx="330" cy="160" r="2.4"/></g>
+      </g>
+      <!-- compressed system-flow hint -->
+      <g id="sys" opacity="0" fill="none" stroke="url(#goldG)" stroke-width="1.5">
+        <path d="M610 360 C 470 330, 330 320, 240 300" class="flow"/><path d="M690 360 C 850 330, 980 320, 1050 300" class="flow"/>
+        <rect x="180" y="270" width="70" height="48" rx="8"/><rect x="1040" y="270" width="70" height="48" rx="8"/>
+        <path d="M640 470 C 560 540, 460 560, 360 570" class="flow"/><rect x="300" y="556" width="70" height="36" rx="8"/>
+      </g>
+      <g id="lockup" opacity="0"><text x="640" y="658" text-anchor="middle" font-size="22" letter-spacing="9" fill="#d8deb0" font-family="Georgia,serif">HK GROWTH OPERATOR</text></g>
+    </svg>
+  </div>
+  <div><button id="replay">⟲ Replay</button> <span style="font-size:12px;color:#6b7350">Cinematic Short · ~10s</span></div>
+</div>
+<script>
+const T=10,$=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),seg=(t,s,e)=>clamp((t-s)/(e-s),0,1),lerp=(a,b,t)=>a+(b-a)*t,ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const set=(id,o,tf)=>{const e=$(id);if(o!==undefined)e.style.opacity=o;if(tf!==undefined)e.style.transform=tf;};
+// brief chaos hint
+const it=[[180,150,-12],[1080,160,10],[150,520,8],[1100,520,-10],[330,120,6],[940,580,-8]];
+const chaos=$('chaos');const cards=it.map(([x,y,r])=>{const g=document.createElementNS(NS,'g');
+  g.innerHTML='<rect width="64" height="44" rx="6" fill="#10161c" stroke="#46535f" stroke-width="1.2"/><rect x="6" y="6" width="40" height="7" rx="2" fill="#26323c"/><line x1="6" y1="24" x2="52" y2="24" stroke="#33414c"/>';
+  g.setAttribute('transform',`translate(${x} ${y}) rotate(${r})`);chaos.appendChild(g);return g;});
+['trunk','crown','roots','hk'].forEach(id=>$(id).style.transformBox='fill-box');
+$('trunk').style.transformOrigin='50% 100%';$('crown').style.transformOrigin='50% 92%';$('roots').style.transformOrigin='50% 0%';$('hk').style.transformOrigin='50% 60%';
+function frame(t){
+  set('bgWarm',seg(t,1.2,3.5));
+  const ci=seg(t,0.2,1)*(1-seg(t,1.6,2.8));cards.forEach(g=>g.style.opacity=ci*0.7);
+  set('rise',seg(t,1,2.2)*(1-seg(t,4,6)));
+  const r=ease(seg(t,1.6,3.2));set('roots',r,`scale(${lerp(0.72,1,r)})`);set('rootNodes',seg(t,2,3)*(1-seg(t,4.4,5.4)));
+  const tr=ease(seg(t,3.2,4.6));set('trunk',t>3.2?1:0,`scaleY(${tr})`);set('veins',seg(t,4,5.4)*(1-seg(t,7.4,8.2)));
+  const hk=ease(seg(t,3.8,5.2));set('hk',hk,`translateY(${lerp(10,0,hk)}px)`);
+  set('sys',seg(t,5,6)*(1-seg(t,7.2,8)));
+  const cr=ease(seg(t,6.4,8.4));set('crown',cr,`scale(${lerp(0.62,1,cr)})`);set('crownFruit',seg(t,7.2,8.6));
+  set('lockup',seg(t,8.6,9.8));
+}
+let start=performance.now();
+(function loop(now){frame(((now-start)/1000)%T);requestAnimationFrame(loop);})(performance.now());
+$('replay').onclick=()=>start=performance.now();
+</script>
+</body>
+</html>
