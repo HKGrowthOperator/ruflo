@@ -52,8 +52,12 @@
       <path d="M256 362 q0 54 -8 86" stroke-width="7"/><path d="M256 362 q0 54 9 84" stroke-width="5"/>
       <path d="M244 366 q-34 30 -86 40" stroke-width="3.5"/><path d="M268 366 q34 30 86 40" stroke-width="3.5"/>
     </g>
+    <!-- Wurzel-Bedeutung: Fundament/Werte/Prozesse/Analyse/Stabilität -->
+    <g fill="#E8D49C"><circle cx="170" cy="452" r="3.4"/><circle cx="342" cy="452" r="3.4"/><circle cx="200" cy="436" r="3"/><circle cx="312" cy="436" r="3"/><circle cx="248" cy="450" r="2.6"/><circle cx="266" cy="450" r="2.6"/></g>
     <ellipse cx="256" cy="150" rx="152" ry="94" fill="url(#leafG)"/><ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/><ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/>
     <ellipse cx="256" cy="118" rx="112" ry="76" fill="#8C9A57"/><ellipse cx="208" cy="108" rx="60" ry="46" fill="#B9C77E"/><ellipse cx="312" cy="120" rx="56" ry="44" fill="#A6B86C"/><ellipse cx="256" cy="94" rx="64" ry="46" fill="#C8D58E"/>
+    <!-- Kronen-Bedeutung: Wachstum/Frucht/Freiheit/Familie/Zeit/Sinn -->
+    <g fill="#E8D49C"><circle cx="206" cy="120" r="3.2"/><circle cx="300" cy="126" r="3.2"/><circle cx="256" cy="92" r="3"/><circle cx="180" cy="160" r="2.6"/><circle cx="330" cy="160" r="2.6"/><circle cx="256" cy="150" r="2.6"/></g>
     <path d="M242 232 q-7 72 -2 134 q16 7 32 0 q5 -64 -2 -134 q-14 -7 -28 0 Z" fill="url(#trunkG)"/>
     <g fill="none" stroke="url(#goldG)" stroke-width="1.4" opacity="0.85"><path d="M256 364 C 252 320, 260 290, 256 236"/><path d="M248 360 C 244 322, 250 296, 248 250"/><path d="M264 360 C 268 322, 262 296, 264 250"/></g>
     <g fill="#3F5E2E" stroke="url(#goldG)" stroke-width="5" stroke-linejoin="round">

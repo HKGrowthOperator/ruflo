@@ -32,6 +32,10 @@
           <path d="M250 362 q-22 40 -66 56 q-28 12 -54 16" stroke-width="6"/><path d="M262 362 q22 40 66 56 q28 12 54 16" stroke-width="6"/>
           <path d="M256 362 q0 54 -8 86" stroke-width="7"/><path d="M256 362 q0 54 9 84" stroke-width="5"/>
         </g>
+        <!-- Wurzel-Bedeutung: Fundament/Werte/Prozesse/Analyse/Stabilität -->
+        <g id="rootNodes" opacity="0" fill="#E8D49C">
+          <circle cx="170" cy="452" r="3.2"/><circle cx="342" cy="452" r="3.2"/><circle cx="200" cy="436" r="2.8"/><circle cx="312" cy="436" r="2.8"/><circle cx="256" cy="450" r="2.6"/>
+        </g>
         <g id="trunk"><path d="M242 232 q-7 72 -2 134 q16 7 32 0 q5 -64 -2 -134 q-14 -7 -28 0 Z" fill="url(#trunkG)"/></g>
         <g id="veins" fill="none" stroke="url(#goldG)" stroke-width="1.4" opacity="0">
           <path d="M256 364 C 252 320, 260 290, 256 236" class="flow"/><path d="M248 360 C 244 322, 250 296, 248 250" class="flow"/><path d="M264 360 C 268 322, 262 296, 264 250" class="flow"/>
@@ -42,6 +46,10 @@
         <g id="crown" opacity="0">
           <ellipse cx="256" cy="150" rx="152" ry="94" fill="url(#leafG)"/><ellipse cx="170" cy="178" rx="92" ry="66" fill="#6E883F"/><ellipse cx="342" cy="178" rx="92" ry="66" fill="#6E883F"/>
           <ellipse cx="256" cy="118" rx="112" ry="76" fill="#8C9A57"/><ellipse cx="208" cy="108" rx="60" ry="46" fill="#B9C77E"/><ellipse cx="312" cy="120" rx="56" ry="44" fill="#A6B86C"/><ellipse cx="256" cy="94" rx="64" ry="46" fill="#C8D58E"/>
+        </g>
+        <!-- Kronen-Bedeutung: Wachstum/Frucht/Freiheit/Familie/Zeit/Sinn -->
+        <g id="crownFruit" opacity="0" fill="#E8D49C">
+          <circle cx="206" cy="120" r="3"/><circle cx="300" cy="126" r="3"/><circle cx="256" cy="92" r="2.8"/><circle cx="180" cy="160" r="2.4"/><circle cx="330" cy="160" r="2.4"/>
         </g>
       </g>
       <g id="lockup" opacity="0"><text x="640" y="650" text-anchor="middle" font-size="22" letter-spacing="9" fill="#d8deb0" font-family="Georgia,serif">HK GROWTH OPERATOR</text></g>
@@ -59,10 +67,12 @@ $('roots').style.transformBox='fill-box';$('roots').style.transformOrigin='50% 0
 $('hk').style.transformBox='fill-box';$('hk').style.transformOrigin='50% 60%';
 function frame(t){
   const r=ease(seg(t,0.4,2.2));set('roots',r,`scale(${lerp(0.72,1,r)})`);
+  set('rootNodes',seg(t,1.6,2.6)*(1-seg(t,4,5))); // Fundament/Werte/Analyse
   const tr=ease(seg(t,1.8,3.2));set('trunk',t>1.8?1:0,`scaleY(${tr})`);
   set('veins',seg(t,2.6,4));
   const hk=ease(seg(t,2.8,4.2));set('hk',hk,`translateY(${lerp(10,0,hk)}px)`);
   const cr=ease(seg(t,4.6,6.6));set('crown',cr,`scale(${lerp(0.62,1,cr)})`);
+  set('crownFruit',seg(t,5.4,6.8)); // Wachstum/Frucht/Freiheit/Sinn
   set('lockup',seg(t,6.8,8));
 }
 let start=performance.now();

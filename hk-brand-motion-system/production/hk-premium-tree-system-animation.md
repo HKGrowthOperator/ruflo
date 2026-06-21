@@ -20,20 +20,30 @@ Steuerung Hauptversion: **Replay**, **Pause**. Läuft als Loop. Reine HTML/CSS/S
 | Phase | Zeit | Inhalt | Bedeutung |
 |-------|------|--------|-----------|
 | 1 Stille & Ursprung | 0–2.5s | Dunkler Raum, feiner goldgrüner Logo-Umriss (Silhouette) | Ruhe, Ernst, Premium |
-| 2 Wurzeln aktivieren | 2.5–5s | Wurzeln erscheinen + leuchten, feine Linien | Fundament, Werte, Prozesse, operative Tiefe |
+| 2 Wurzeln aktivieren | 2.5–5s | Wurzeln erscheinen + leuchten; **Analyse-Scan** wandert durch das Fundament; **Werte-Knoten** pulsieren an den Wurzeln | **Fundament, Werte, Prozesse, Analyse, Stabilität, operative Tiefe** |
 | 3 Stamm & HK Operating Core | 5–8s | Lichtfluss steigt in den Stamm; H+K werden **organisch** sichtbar (kein harter Snap) | HK als verbindende operative Struktur |
 | 4 Sichtbarkeit | 8–11s | Eleganter Sichtbarkeitsstrom: Content-Frames, vertikale Video-Silhouetten, Lichtsweep | Social / Brand / Personal Brand Content |
 | 5 Website & Conversion | 11–14s | Abstrakte Website-Struktur: Hero, Linien, CTA-Pill, Conversion-Linie | Websites als funktionale Conversion-Systeme |
 | 6 Automation & Schnittstellen | 14–17.5s | Leitbahnen Formular→Kalender→CRM→Dashboard, fließende Daten | Weniger manuelle Arbeit, klare Übergaben |
 | 7 KI als Werkzeug | 17.5–20.5s | Pipeline-Stufen, Entscheidungs-Knoten (Raute), strukturierte Outputs, Puls | KI verdichtet Arbeit — kein Roboter, keine KI-Krone |
-| 8 Krone | 20.5–23.5s | Krone öffnet organisch, natürliches Licht | Wachstum, Frucht, Freiheit, Zeit, Familie, Sinn |
+| 8 Krone | 20.5–23.5s | Krone öffnet organisch, natürliches Licht; **Frucht-Lichtpunkte** + **aufsteigende Samen/Blätter** | **Wachstum, Leben, Frucht, Freiheit, Familie, Natur, Zeit, Sinn, höhere Ordnung** |
 | 9 Finaler Lockup | 23.5–26s | Alle Ströme ziehen sich in den Baum zurück; vollständiges HK-Logo, Wortmarke „HK GROWTH OPERATOR" | Ruhige, klare, hochwertige Markenmarke |
+
+## Kern-Symbolik (brand-technisch — visuell umgesetzt)
+- **Wurzeln = Fundament, Werte, Prozesse, Analyse, Stabilität, operative Tiefe.** HK fängt *unten*
+  an, nicht oben bei Werbung. Visualisiert über Analyse-Scan + pulsierende Werte-Knoten (`#rootMeaning`).
+- **Stamm = HK als Operating Core** (Struktur, Verbindung, Umsetzung).
+- **Krone = echtes Wachstum, Leben, Frucht, Freiheit, Familie, Natur, Zeit, Sinn, höhere Ordnung.**
+  Organisch, nie technisch, **nie KI**. Visualisiert über Frucht-Lichtpunkte + aufsteigende Samen (`#crownLife`).
+- **KI = Werkzeug** im Stamm/in den Leitbahnen/Ästen — niemals die Krone.
 
 ## Layer-Struktur (im Code so benannt/kommentiert)
 `particles` · `connectors` · `silhouette` · **Root Layer** (`#roots`) · **Trunk Layer** (`#trunk` + `#trunkVeins`)
 · **HK Letter Layer** (`#hk`) · **Crown Layer** (`#crown`) · **Visibility Layer** (`#layVis`)
 · **Website/Conversion Layer** (`#layWeb`) · **Automation Flow Layer** (`#layAuto`)
 · **AI Pipeline Layer** (`#layAI`) · **Final Lockup Layer** (`#lockup`).
+Zusätzlich: **Root-Meaning Layer** (`#rootMeaning` — Analyse-Scan + Werte-Knoten) und
+**Crown-Life Layer** (`#crownLife` — Frucht-Licht + aufsteigende Samen).
 
 Die Systemebenen (4–7) erscheinen nacheinander und **ziehen sich vor dem Lockup elegant zurück**
 in den Baum (Recede-Window ~22.2–23.6s), damit am Ende nur das ruhige Logo steht.

@@ -31,6 +31,9 @@
   .sweep{animation:sweep 3.4s ease-in-out infinite}
   @keyframes sweep{0%,100%{opacity:.15}50%{opacity:.6}}
   .glow{filter:drop-shadow(0 0 6px rgba(200,174,110,.45))}
+  .rnode{animation:pulse 2.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+  .fruit{animation:pulse 3.6s ease-in-out infinite}
 </style>
 </head>
 <body>
@@ -86,6 +89,17 @@
           <path d="M244 366 q-34 30 -86 40" stroke-width="3.5"/>
           <path d="M268 366 q34 30 86 40" stroke-width="3.5"/>
         </g>
+        <!-- LAYER: Root meaning — Fundament/Werte/Prozesse/Analyse/Stabilität/operative Tiefe -->
+        <g id="rootMeaning" opacity="0">
+          <!-- analysis scan sweeping down through the foundation -->
+          <line id="rootScan" x1="150" y1="372" x2="362" y2="372" stroke="url(#goldG)" stroke-width="1.2" opacity=".55"/>
+          <!-- foundation value-nodes on the roots -->
+          <g fill="#E8D49C" class="glow">
+            <circle class="rnode" cx="170" cy="452" r="3.4"/><circle class="rnode" cx="342" cy="452" r="3.4" style="animation-delay:.5s"/>
+            <circle class="rnode" cx="200" cy="436" r="3" style="animation-delay:.9s"/><circle class="rnode" cx="312" cy="436" r="3" style="animation-delay:1.3s"/>
+            <circle class="rnode" cx="248" cy="450" r="2.6" style="animation-delay:.3s"/><circle class="rnode" cx="266" cy="450" r="2.6" style="animation-delay:1.6s"/>
+          </g>
+        </g>
         <!-- LAYER: Trunk + internal leitbahnen -->
         <g id="trunk">
           <path d="M242 232 q-7 72 -2 134 q16 7 32 0 q5 -64 -2 -134 q-14 -7 -28 0 Z" fill="url(#trunkG)"/>
@@ -111,6 +125,19 @@
           <ellipse cx="208" cy="108" rx="60" ry="46" fill="#B9C77E"/>
           <ellipse cx="312" cy="120" rx="56" ry="44" fill="#A6B86C"/>
           <ellipse cx="256" cy="94" rx="64" ry="46" fill="#C8D58E"/>
+        </g>
+        <!-- LAYER: Crown meaning — Wachstum/Frucht/Freiheit/Familie/Zeit/Sinn (organisch, NICHT technisch) -->
+        <g id="crownLife" opacity="0">
+          <!-- Frucht / warmes Lebenslicht in der Krone -->
+          <g fill="#E8D49C" class="fruit">
+            <circle cx="206" cy="120" r="3.2"/><circle cx="300" cy="126" r="3.2" style="animation-delay:.7s"/>
+            <circle cx="256" cy="92" r="3" style="animation-delay:1.1s"/><circle cx="180" cy="160" r="2.6" style="animation-delay:.4s"/>
+            <circle cx="330" cy="160" r="2.6" style="animation-delay:1.4s"/><circle cx="256" cy="150" r="2.6" style="animation-delay:.9s"/>
+          </g>
+          <!-- Samen/Blätter steigen auf = Freiheit, Leben -->
+          <g id="crownSeeds" fill="#C8D58E">
+            <ellipse cx="232" cy="120" rx="2.4" ry="4"/><ellipse cx="284" cy="110" rx="2.4" ry="4"/><ellipse cx="256" cy="130" rx="2.2" ry="3.6"/>
+          </g>
         </g>
       </g>
 
@@ -217,9 +244,13 @@ $('hk').style.transformBox='fill-box';$('hk').style.transformOrigin='50% 60%';
 $('roots').style.transformBox='fill-box';$('roots').style.transformOrigin='50% 0%';
 
 const phases=[
- [0,'Stille & Ursprung'],[2.5,'Wurzeln · Fundament'],[5,'Stamm · HK Operating Core'],
- [8,'Sichtbarkeit'],[11,'Websites · Conversion'],[14,'Automation · Schnittstellen'],
- [17.5,'KI · dienendes Werkzeug'],[20.5,'Krone · echtes Wachstum'],[23.5,'HK Growth Operator']
+ [0,'Stille & Ursprung'],
+ [2.5,'Wurzeln · Fundament · Werte · Prozesse · Analyse · Stabilität'],
+ [5,'Stamm · HK Operating Core'],
+ [8,'Sichtbarkeit · Brand'],[11,'Websites · Conversion'],[14,'Automation · Schnittstellen'],
+ [17.5,'KI · dienendes Werkzeug'],
+ [20.5,'Krone · Wachstum · Freiheit · Familie · Zeit · Sinn'],
+ [23.5,'HK Growth Operator']
 ];
 
 function frame(t){
@@ -230,9 +261,14 @@ function frame(t){
   set('silhouette', (t<5 ? seg(t,0,1.8)*0.55 : 0.55*(1-seg(t,5,8))));
   set('connectors', clamp(seg(t,7.5,9), 0, 1) * recede);
 
-  // P2 roots
+  // P2 roots + meaning (Fundament/Werte/Prozesse/Analyse/Stabilität)
   const r=ease(seg(t,2.5,4.6));
   set('roots', r, `scale(${lerp(0.72,1,r)})`);
+  // root-meaning visible during the foundation phase, recedes as the trunk takes over
+  set('rootMeaning', seg(t,3.2,4.4)*(1-seg(t,7,8.6)));
+  const sc=seg(t,2.9,4.9); // analysis scan sweeping down through the roots
+  $('rootScan').style.transform=`translateY(${lerp(0,104,sc)}px)`;
+  $('rootScan').style.opacity=(Math.sin(sc*Math.PI)*0.6).toFixed(2);
 
   // P3 trunk + veins + HK
   const tr=ease(seg(t,5,6.8));
@@ -250,9 +286,13 @@ function frame(t){
   // P7 AI
   set('layAI', seg(t,17.5,19.4)*recede);
 
-  // P8 crown bloom
+  // P8 crown bloom + life-meaning (Wachstum/Frucht/Freiheit/Familie/Zeit/Sinn)
   const cr=ease(seg(t,20.5,23));
   set('crown', cr, `scale(${lerp(0.62,1,cr)})`);
+  set('crownLife', seg(t,21.6,23.2));
+  const seed=seg(t,21.6,25); // seeds/leaves rise gently = Freiheit, Leben
+  $('crownSeeds').style.transform=`translateY(${lerp(0,-26,seed)}px)`;
+  $('crownSeeds').style.opacity=(Math.sin(seed*Math.PI)*0.9).toFixed(2);
 
   // P9 lockup wordmark + gentle final settle
   set('lockup', seg(t,23.8,25.2));
