@@ -193,6 +193,19 @@ for(let i=0;i<10;i++){const c=document.createElementNS(NS,'circle');
   c.setAttribute('cx',120+Math.random()*1040);c.setAttribute('cy',80+Math.random()*560);c.setAttribute('r',2);
   c.setAttribute('fill','#46535f');c.setAttribute('opacity','.5');c.dataset.noise=1;chaos.appendChild(c);}
 
+// broken connection lines (they stop before connecting) + sinking lost leads
+const broken=document.createElementNS(NS,'g');broken.id='broken';broken.setAttribute('stroke','#46535f');broken.setAttribute('stroke-width','1.4');broken.setAttribute('fill','none');
+[[210,210,360,250],[470,150,620,150],[760,200,900,168],[300,470,440,520],[820,470,966,500],[560,300,690,360]].forEach(([x1,y1,x2,y2])=>{
+  const mx=(x1+x2)/2,my=(y1+y2)/2,gx=(x2-x1)*0.13,gy=(y2-y1)*0.13;
+  const a=document.createElementNS(NS,'line');a.setAttribute('x1',x1);a.setAttribute('y1',y1);a.setAttribute('x2',mx-gx);a.setAttribute('y2',my-gy);
+  const b=document.createElementNS(NS,'line');b.setAttribute('x1',mx+gx);b.setAttribute('y1',my+gy);b.setAttribute('x2',x2);b.setAttribute('y2',y2);
+  broken.appendChild(a);broken.appendChild(b);
+});
+chaos.appendChild(broken);
+const leads=[[430,300],[660,255],[545,360]].map(([x,y])=>{const g=document.createElementNS(NS,'g');
+  g.innerHTML='<rect width="46" height="30" rx="5" fill="#141b13" stroke="#5a6a4a" stroke-width="1.2"/><circle cx="40" cy="6" r="3.5" fill="#8a5443"/><line x1="6" y1="11" x2="34" y2="11" stroke="#3a4a34" stroke-width="1"/><line x1="6" y1="19" x2="26" y2="19" stroke="#3a4a34" stroke-width="1"/>';
+  g.dataset.x=x;g.dataset.y=y;chaos.appendChild(g);return g;});
+
 // transform-origins
 ['trunk','crown','roots','hk'].forEach(id=>{const e=$(id);e.style.transformBox='fill-box';});
 $('trunk').style.transformOrigin='50% 100%';$('crown').style.transformOrigin='50% 92%';$('roots').style.transformOrigin='50% 0%';$('hk').style.transformOrigin='50% 60%';
@@ -226,11 +239,15 @@ function frame(t){
   const chaosIn=seg(t,0.4,2.2), order=ease(seg(t,8,10.8)), absorb=seg(t,10.8,12.8);
   const chaosVis=Math.min(chaosIn, 1-absorb);
   cards.forEach((g,i)=>{const it=items[i];
-    const x=lerp(it.x,it.ox,order), y=lerp(it.y,it.oy,order), rot=lerp(it.r,0,order), s=lerp(1,0.8,absorb);
+    const jt=chaosVis*(1-order); // micro-jitter while fragmented
+    const x=lerp(it.x,it.ox,order)+Math.sin(t*2.2+i)*2.6*jt, y=lerp(it.y,it.oy,order)+Math.cos(t*1.8+i)*1.9*jt, rot=lerp(it.r,0,order), s=lerp(1,0.8,absorb);
     g.setAttribute('transform',`translate(${x-it.w/2} ${y-it.h/2}) rotate(${rot} ${it.w/2} ${it.h/2}) scale(${s})`);
     g.style.opacity=chaosVis*(0.55+0.45*order);
   });
   chaos.querySelectorAll('[data-noise]').forEach(n=>n.style.opacity=(chaosIn*(1-seg(t,7,10))*0.5).toFixed(2));
+  $('broken').style.opacity=chaosVis*(1-order)*0.6;
+  const sinkP=seg(t,1,8.5);
+  leads.forEach(g=>g.setAttribute('transform',`translate(${+g.dataset.x-23} ${+g.dataset.y-15+lerp(0,150,sinkP)})`)||(g.style.opacity=(chaosIn*(1-seg(t,4.5,9))).toFixed(2)));
   set('figure', Math.max(seg(t,1,2.5)*(1-seg(t,9,11)), seg(t,26,27.4)*(1-seg(t,30,31))) );
 
   set('rise', seg(t,3.2,5)*(1-seg(t,12,15)));
