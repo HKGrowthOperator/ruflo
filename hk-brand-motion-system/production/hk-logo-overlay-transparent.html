@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>HK Logo Overlay — transparent</title>
+<style>
+  html,body{margin:0;height:100%;background:transparent}
+  #svg{position:fixed;inset:0;width:100vw;height:100vh}
+</style>
+</head>
+<body>
+<svg id="svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E8D49C" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#E8D49C" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#E8D49C" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E8D49C"/><stop offset="1" stop-color="#A8843E"/></linearGradient>
+  </defs>
+  <!-- faint bronze-gold leitbahnen framing the center logo -->
+  <g id="veins" fill="none" stroke="url(#gold)" stroke-width="2" opacity="0.5" stroke-dasharray="6 14">
+    <path d="M260 540 C 520 470, 760 470, 960 520"/>
+    <path d="M1660 540 C 1400 470, 1160 470, 960 520"/>
+    <path d="M960 880 C 760 800, 600 760, 420 760"/>
+    <path d="M960 880 C 1160 800, 1320 760, 1500 760"/>
+  </g>
+  <!-- moving light sweep across the emblem -->
+  <g id="sweepG" opacity="0.0"><rect x="-220" y="0" width="440" height="1080" fill="url(#sweep)" transform="rotate(8 960 540)"/></g>
+  <!-- golden dust particles -->
+  <g id="parts"></g>
+</svg>
+<script>
+const NS='http://www.w3.org/2000/svg', $=id=>document.getElementById(id);
+const T=6; // loop seconds
+// particles (deterministic)
+const P=[];
+for(let i=0;i<46;i++){const c=document.createElementNS(NS,'circle');
+  const x=Math.random()*1920, y=Math.random()*1080, r=Math.random()*2.2+0.6, sp=8+Math.random()*22, ph=Math.random()*T, base=Math.random()*0.4+0.1;
+  c.setAttribute('cx',x);c.setAttribute('r',r.toFixed(1));c.setAttribute('fill','#E8D49C');
+  $('parts').appendChild(c); P.push({el:c,x,y,r,sp,ph,base});}
+function frame(t){
+  // light sweep crosses left->right once per loop
+  const p=(t%T)/T;
+  const sx=-300 + p*(1920+600);
+  $('sweepG').setAttribute('transform',`translate(${sx-960+220} 0)`);
+  $('sweepG').style.opacity = (Math.sin(p*Math.PI)*0.7).toFixed(3);
+  // veins flow
+  $('veins').style.strokeDashoffset = (-(t*60)%320).toFixed(1);
+  // particles drift up + gentle twinkle
+  for(const q of P){
+    const yy = ((q.y - (t*q.sp)) % 1120 + 1120) % 1120 - 20;
+    q.el.setAttribute('cy', yy.toFixed(1));
+    q.el.setAttribute('opacity', (q.base*(0.6+0.4*Math.sin((t+q.ph)*2))).toFixed(3));
+  }
+}
+window.renderAt = frame;            // deterministic driver for frame capture
+let s=performance.now();            // also auto-play for preview in a browser
+(function loop(n){frame(((n-s)/1000)%T);requestAnimationFrame(loop);})(performance.now());
+</script>
+</body>
+</html>
