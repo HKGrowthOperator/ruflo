@@ -23,6 +23,10 @@ Image-to-video, seeded mit dem echten Logo (`762fd8eb…`, dunkle Version). Sieh
 ## 3. Weiterbauen in Higgsfield
 - `higgsfield-prompt-pack.md` — fertige, markensichere Prompts je Shot (zum Reinkopieren), Modell-Empfehlung, Negativ-Regeln, Styleframe-Prompts für Nicht-Logo-Szenen, Montage-Anleitung.
 
+## 3b. Transparenter Veredelungs-Layer (Alphakanal)
+- `hk-logo-overlay-transparent.webm` — 6s-Loop: Bronze-Gold-Lichtsweep + Goldpartikel + Leitbahnen,
+  **transparent**, zum **Drüberlegen über den echten-Logo-Lockup** (Quelle: `…-overlay-transparent.html`).
+
 ## 4. Briefs / Specs / Doku
 - `hk-brand-film-produktionsplan.md` — dein Director-Brief (10 Szenen, Stil, Farbe, Kamera, Sound, Asset-Liste, Qualitätsregeln) + Umsetzungsstatus.
 - `hk-cinematic-brand-story.md` — Phasen, Kundennutzen, Layer, Annahmen.
@@ -34,10 +38,24 @@ brand-motion-director · higgsfield-prompt-engineer · logo-consistency-guard ·
 
 ---
 
-## Empfohlener finaler Workflow (Hybrid)
-1. **Aufbau-Story** = Code-Film (Ordner oben) — exakt deine Bildsprache, mit Ton, in allen Formaten.
-2. **Schluss** = Higgsfield-**Lockup aus dem echten Logo** (deine Bibliothek) — „der Baum löst ins echte Logo auf".
-3. Im Schnitt (Resolve/AE/Higgsfield): Story → weicher Übergang → echtes-Logo-Lockup; Wortmarke am Ende manuell sauber setzen.
+## Finaler Schnitt — Schritt für Schritt (Resolve / After Effects / Higgsfield)
+Aus den vorhandenen Teilen wird der fertige Film. Reihenfolge:
+
+1. **Timeline anlegen** im Zielformat (zuerst 16:9, 1920×1080, 30fps).
+2. **Aufbau-Story importieren:** `hk-cinematic-brand-story.mp4` (mit Ton) auf Spur V1 — das ist die
+   Erzählung Chaos → Wurzeln → Stamm/HK → Systeme → Krone.
+3. **Letzte ~2–3s ersetzen:** Wo der symbolische Lockup kommt, blende mit einem weichen Cross-Dissolve
+   (0,5–1s) auf den **Higgsfield-Lockup aus deinem echten Logo** (aus deiner Higgsfield-Bibliothek,
+   z. B. Cinema-Studio- oder Seedance-Clip). → „der Baum löst ins echte Logo auf".
+4. **Veredelung drüberlegen:** `hk-logo-overlay-transparent.webm` auf eine Spur ÜBER den echten-Logo-Lockup,
+   Blend-Modus **Screen** oder **Add** (nur das Licht/die Partikel addieren, Logo bleibt unangetastet).
+5. **Wortmarke setzen:** „HK Growth Operator" als saubere Typografie manuell unter das Logo (nicht KI-Text).
+6. **Ton:** Der Code-Film bringt das Ambient-Sounddesign mit; optional den nativen Seedance-Ton des
+   Lockups einmischen. Pegel ruhig halten (kein Trailer-Boom).
+7. **Export 16:9** finalisieren. Danach **9:16** und **1:1** (die fertigen Versionen liegen vor) mit
+   angepasster Bildführung exportieren.
+
+Kurz: **Code-Story** + **echtes-Logo-Lockup** + **transparenter Overlay** + **manuelle Wortmarke** = fertiger Premium-Markenfilm mit deinem echten Logo.
 
 ## Bekannte Grenzen (ehrlich)
 - KI-Video belebt ein **fertiges** Logo schön, **baut** es aber nicht fehlerfrei Stück für Stück auf → daher der Hybrid (so empfiehlt es auch dein Produktionsplan).
