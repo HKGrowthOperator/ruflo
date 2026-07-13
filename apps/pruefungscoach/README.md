@@ -114,6 +114,10 @@ apps/pruefungscoach/
 
 ## Deployment
 
+**Schritt-für-Schritt-Anleitung (Render, Docker, PWA-Installation): [DEPLOYMENT.md](./DEPLOYMENT.md)**
+Die App ist eine installierbare PWA — Nutzer öffnen den Link und können sie über
+„Zum Startbildschirm hinzufügen“ wie eine App verwenden.
+
 Die App braucht einen Node-Prozess mit beschreibbarem Dateisystem (SQLite):
 
 ```bash

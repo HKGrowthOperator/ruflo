@@ -146,10 +146,20 @@ const insUser = db.prepare(`
   INSERT INTO users (email, password_hash, display_name, role) VALUES (?, ?, ?, ?)
   ON CONFLICT(email) DO NOTHING
 `);
-insUser.run('admin@coach.local', hashPassword('admin1234'), 'Admin', 'admin');
-insUser.run('azubi@coach.local', hashPassword('azubi1234'), 'Azubi', 'learner');
+// In Produktion über ADMIN_EMAIL/ADMIN_PASSWORD setzen; Demo-Lerner nur anlegen,
+// wenn kein eigenes Admin-Passwort gesetzt ist (lokaler Entwicklungsmodus).
+const adminEmail = process.env.ADMIN_EMAIL || 'admin@coach.local';
+const adminPassword = process.env.ADMIN_PASSWORD || 'admin1234';
+insUser.run(adminEmail.toLowerCase(), hashPassword(adminPassword), 'Admin', 'admin');
+if (!process.env.ADMIN_PASSWORD) {
+  insUser.run('azubi@coach.local', hashPassword('azubi1234'), 'Azubi', 'learner');
+}
 
 const nComp = (db.prepare('SELECT COUNT(*) n FROM competencies').get() as { n: number }).n;
 const nQ = (db.prepare('SELECT COUNT(*) n FROM questions').get() as { n: number }).n;
 console.log(`Seed fertig: ${nComp} Kompetenzen, ${nQ} Fragen, ${SOURCES.length} Quellen.`);
-console.log('Accounts: admin@coach.local/admin1234, azubi@coach.local/azubi1234');
+if (process.env.ADMIN_PASSWORD) {
+  console.log(`Admin-Account: ${adminEmail}`);
+} else {
+  console.log('Accounts: admin@coach.local/admin1234, azubi@coach.local/azubi1234');
+}

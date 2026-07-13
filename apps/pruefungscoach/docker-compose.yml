@@ -1,0 +1,18 @@
+services:
+  pruefungscoach:
+    build: .
+    ports:
+      - '3100:3100'
+    volumes:
+      - pc-data:/data
+    environment:
+      DATABASE_PATH: /data/pruefungscoach.db
+      # In Produktion setzen:
+      # ADMIN_EMAIL: du@example.de
+      # ADMIN_PASSWORD: sicheres-passwort
+      # ANTHROPIC_API_KEY: sk-ant-...
+      # SESSION_SECRET: langer-zufallswert
+    restart: unless-stopped
+
+volumes:
+  pc-data:

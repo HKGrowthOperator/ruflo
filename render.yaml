@@ -1,0 +1,28 @@
+# Render.com Blueprint für den Prüfungscoach (apps/pruefungscoach)
+# Anleitung: apps/pruefungscoach/DEPLOYMENT.md
+services:
+  - type: web
+    name: pruefungscoach
+    runtime: node
+    rootDir: apps/pruefungscoach
+    plan: starter # persistente Disk erfordert einen bezahlten Plan (~7 $/Monat)
+    buildCommand: npm ci && npm run build
+    startCommand: npm run migrate && npm run seed && npm run start
+    healthCheckPath: /login
+    disk:
+      name: pruefungscoach-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_PATH
+        value: /var/data/pruefungscoach.db
+      - key: NODE_VERSION
+        value: '22'
+      - key: ADMIN_EMAIL
+        sync: false # beim ersten Deploy im Render-Dashboard eintragen
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ANTHROPIC_API_KEY
+        sync: false # optional: aktiviert die KI-Bewertung freier Antworten
