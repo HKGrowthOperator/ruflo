@@ -1,0 +1,158 @@
+{
+  "competencies": [
+    {
+      "id": "PLA-001",
+      "main_area": "planung",
+      "topic": "Leistungsbeschreibung",
+      "title": "Wertet Leistungsbeschreibungen aus",
+      "description": "Kann aus Positionen einer Leistungsbeschreibung (z. B. Montagewand CW 100/150 – EI 90 – R'w 55 dB) die Konstruktion, die geforderten Kennwerte und die daraus nötigen Formelsammlungsdaten herausarbeiten.",
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 5,
+      "learning_effort": 3,
+      "criticality": 1
+    },
+    {
+      "id": "PLA-002",
+      "main_area": "planung",
+      "topic": "Anforderungsanalyse",
+      "title": "Erkennt Anforderungen an Brand, Schall, Feuchte und Last",
+      "description": "Kann für eine Bausituation die maßgebenden Anforderungen (Brandschutz, Schallschutz z. B. R'w, Feuchteschutz, Lasten/Installationen) systematisch benennen, bevor eine Konstruktion gewählt wird.",
+      "prerequisites": ["PLA-001"],
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 5,
+      "learning_effort": 3,
+      "criticality": 1
+    },
+    {
+      "id": "PLA-003",
+      "main_area": "planung",
+      "topic": "Brandschutzanforderungen lesen",
+      "title": "Deutet Brandschutzangaben in Ausschreibungen",
+      "description": "Kann Kurzbezeichnungen wie EI 90 erläutern (E = Raumabschluss, I = Wärmedämmung, Zahl = Minuten), 'Brandbeanspruchung von unten', 'in Verbindung mit der Rohdecke' und 'selbstständig' unterscheiden und weiß, dass die Landesbauordnung (LBO) den Brandschutz bei der Planung regelt.",
+      "prerequisites": ["PLA-001"],
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 5,
+      "learning_effort": 3,
+      "criticality": 1
+    },
+    {
+      "id": "PLA-004",
+      "main_area": "planung",
+      "topic": "Maßketten",
+      "title": "Liest Maßketten in Grundrissen",
+      "description": "Kann Maßketten addieren, mit dem Gesamtmaß kontrollieren und weiß, dass Maße bei Widersprüchen nicht aus der Zeichnung abgegriffen werden dürfen.",
+      "exam_relevance": 4,
+      "dependency_value": 3,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "PLA-005",
+      "main_area": "planung",
+      "topic": "Öffnungsmaße",
+      "title": "Bestimmt Öffnungsmaße aus Planangaben",
+      "description": "Kann Öffnungsangaben wie '1,01/2,01' (Breite/Höhe) und 'BRH 80' (Brüstungshöhe) deuten und daraus Bauteilmaße wie die Türsturzprofillänge (Öffnungsmaß + 10 cm je Seite) ableiten.",
+      "prerequisites": ["PLA-004"],
+      "exam_relevance": 4,
+      "dependency_value": 2,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "PLA-006",
+      "main_area": "planung",
+      "topic": "Legende und Plandarstellung",
+      "title": "Liest Legende und Detailverweise",
+      "description": "Kann die Legende eines Grundrisses nutzen (z. B. Montagewand vs. Mauerwerk) und Detailverweise (Detail A, größerer Maßstab) richtig deuten.",
+      "exam_relevance": 3,
+      "dependency_value": 2,
+      "points_potential": 2,
+      "learning_effort": 1
+    },
+    {
+      "id": "PLA-007",
+      "main_area": "planung",
+      "topic": "Maßstab",
+      "title": "Rechnet mit Maßstäben",
+      "description": "Kann zwischen Zeichnungsmaß und wirklichem Maß umrechnen (M 1:100, 1:25, 1:10, 1:2) und geeignete Maßstäbe für Grundriss und Anschlussdetail wählen.",
+      "exam_relevance": 4,
+      "dependency_value": 2,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "PLA-008",
+      "main_area": "planung",
+      "topic": "Arbeitsablaufplanung",
+      "title": "Erstellt IHK-gerechte Arbeitsablaufpläne",
+      "description": "Kann einen Arbeitsablaufplan mit den Bausteinen Projektbeschreibung, Arbeitsvorbereitung, chronologische Durchführung, Qualitätssicherung, Arbeitsschutz und Abschlussarbeiten aufstellen und auf konkrete Positionen (z. B. Fertigteilestrich) anwenden.",
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 5,
+      "learning_effort": 4,
+      "criticality": 1
+    },
+    {
+      "id": "PLA-009",
+      "main_area": "planung",
+      "topic": "Montagereihenfolge",
+      "title": "Plant die Montagereihenfolge einer Vorsatzschale",
+      "description": "Kann die Arbeitsschritte einer Metallständer-Vorsatzschale in die richtige Reihenfolge bringen (Untergrund, UW mit Dichtband, CW-Ständer, Dämmung, Dampfsperre, Beplankung, Verspachteln) und die Reihenfolge begründen.",
+      "prerequisites": ["PLA-008"],
+      "exam_relevance": 4,
+      "dependency_value": 2,
+      "points_potential": 4,
+      "learning_effort": 3
+    },
+    {
+      "id": "PLA-010",
+      "main_area": "planung",
+      "topic": "Flächen und Umfang",
+      "title": "Berechnet Flächen und Umfänge",
+      "description": "Kann Flächen und Umfänge für Aufmaß und Materialermittlung berechnen, auch rückwärts (Seite aus Umfang, Höhe aus Dreiecksfläche), mit Formel, Werten, Ergebnis und Einheit.",
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 4,
+      "learning_effort": 3
+    },
+    {
+      "id": "PLA-011",
+      "main_area": "planung",
+      "topic": "Materialbedarf und Verschnitt",
+      "title": "Ermittelt Materialbedarf und Verschnitt",
+      "description": "Kann Materialbedarf über Fläche, Umfang und Verbrauchswerte ermitteln (z. B. Unterdecke: Platten über Fläche, UD-Profil über Umfang) und Verschnitt in Prozent berechnen.",
+      "prerequisites": ["PLA-010"],
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 5,
+      "learning_effort": 4,
+      "criticality": 1
+    },
+    {
+      "id": "PLA-012",
+      "main_area": "planung",
+      "topic": "Kostenermittlung",
+      "title": "Berechnet Kostenanteile und Preise",
+      "description": "Kann Kostenanteile (Brüche der Selbstkosten), Zuschläge in Prozent und Preise je laufendem Meter oder m² für Angebote berechnen.",
+      "prerequisites": ["PLA-010"],
+      "exam_relevance": 3,
+      "dependency_value": 2,
+      "points_potential": 3,
+      "learning_effort": 3
+    },
+    {
+      "id": "PLA-013",
+      "main_area": "planung",
+      "topic": "Einheiten",
+      "title": "Prüft und wandelt Einheiten um",
+      "description": "Kann Einheiten umrechnen (kN ↔ N, cm ↔ m) und Ergebnisse auf korrekte Einheiten prüfen (Fläche in m², Länge in m, Kraft in N).",
+      "exam_relevance": 4,
+      "dependency_value": 2,
+      "points_potential": 2,
+      "learning_effort": 1
+    }
+  ]
+}

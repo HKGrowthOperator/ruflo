@@ -1,0 +1,190 @@
+{
+  "competencies": [
+    {
+      "id": "BAS-001",
+      "main_area": "basics",
+      "topic": "Profilkunde Wand",
+      "title": "Unterscheidet CW- und UW-Profile nach Funktion",
+      "description": "Kann CW- (lotrechter Ständer, trägt Beplankung) und UW-Profile (Anschlussprofil an Boden/Decke, führt die Ständer) benennen, unterscheiden und ihre Funktion erklären.",
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 3,
+      "learning_effort": 2,
+      "criticality": 1
+    },
+    {
+      "id": "BAS-002",
+      "main_area": "basics",
+      "topic": "Profilkunde Decke und Verstärkung",
+      "title": "Kennt CD-, UD- und UA-Profile und ihren Einsatz",
+      "description": "Kann CD-Profile (Tragprofil der Unterdecke), UD-Profile (Wandanschlussprofil der Unterdecke) und UA-Profile bzw. Traversen (verstärkte Profile für Türöffnungen und hohe Lasten) dem richtigen Einsatzzweck zuordnen.",
+      "prerequisites": ["BAS-001"],
+      "exam_relevance": 4,
+      "dependency_value": 3,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "BAS-003",
+      "main_area": "basics",
+      "topic": "Wandbezeichnungen",
+      "title": "Liest Kurzbezeichnungen von Montagewänden",
+      "description": "Kann Kurzbezeichnungen wie CW 75/125, CW 100/150 oder CW 50+50/155 entschlüsseln (Profilbreite, Wanddicke, Einfach-/Doppelständerwerk) und Begriffe wie Wohnungstrennwand korrekt einordnen.",
+      "prerequisites": ["BAS-001"],
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "BAS-004",
+      "main_area": "basics",
+      "topic": "Plattenarten",
+      "title": "Wählt Plattenarten anforderungsgerecht aus",
+      "description": "Kann Standard-, Feuerschutz- (GKF/Typ DF) und imprägnierte Platten (grün) unterscheiden, ihren Aufbau beschreiben und sie Anforderungen wie Brandschutz oder Feuchtraum begründet zuordnen.",
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 4,
+      "learning_effort": 3,
+      "criticality": 1
+    },
+    {
+      "id": "BAS-005",
+      "main_area": "basics",
+      "topic": "Gips als Baustoff",
+      "title": "Erklärt das Brandverhalten von Gips",
+      "description": "Kann erklären, dass Gips ca. 20 % gebundenes Kristallwasser enthält, das im Brandfall verdampft, Energie verbraucht und den Brandfortschritt verzögert; entwässerter Gips wirkt zusätzlich isolierend.",
+      "exam_relevance": 3,
+      "dependency_value": 2,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "BAS-006",
+      "main_area": "basics",
+      "topic": "Mehrlagige Beplankung",
+      "title": "Begründet Doppelbeplankung und Fugenversatz",
+      "description": "Kann die Vorteile mehrlagiger Beplankung (Schallschutz, Brandschutz, Stabilität, Rissesicherheit) begründen und die Regel des Fugenversatzes (Stöße 1. zu 2. Lage mindestens 40 cm versetzen) anwenden.",
+      "prerequisites": ["BAS-004"],
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 4,
+      "learning_effort": 2
+    },
+    {
+      "id": "BAS-007",
+      "main_area": "basics",
+      "topic": "Verschraubung",
+      "title": "Wendet Schraubenabstände und Schraubregeln an",
+      "description": "Kann die Schraubenabstände für Wand- und Deckenbeplankung (Wand zweilagig: 1. Lage 75 cm, 2. Lage 25 cm; Decke einlagig 15 cm, zweilagig 50/15 cm) sowie Kantenabstände nennen und Fehler erkennen.",
+      "prerequisites": ["BAS-006"],
+      "exam_relevance": 4,
+      "dependency_value": 2,
+      "points_potential": 4,
+      "learning_effort": 3
+    },
+    {
+      "id": "BAS-008",
+      "main_area": "basics",
+      "topic": "Mineralwolle",
+      "title": "Kennt Mineralwolle-Eigenschaften und Rohdichte als Systemwert",
+      "description": "Kann die Eigenschaften von Mineralwolle (nicht brennbar, schallabsorbierend, wärmedämmend) nennen und weiß, dass Brandschutzsysteme Systemwerte wie Rohdichte ≥ 40 kg/m³ und Schmelzpunkt > 1000 °C fordern.",
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "BAS-009",
+      "main_area": "basics",
+      "topic": "Dübel und Verankerungen",
+      "title": "Ordnet Verankerungen dem Untergrund zu",
+      "description": "Kann Dübel und Anker (Bolzenanker, Injektionsanker mit Siebhülse, Porenbetondübel, Hohlraumdübel, Holzschrauben) dem Untergrund und der Lastklasse begründet zuordnen und Fehlwahl erkennen.",
+      "exam_relevance": 4,
+      "dependency_value": 2,
+      "points_potential": 4,
+      "learning_effort": 3,
+      "criticality": 1
+    },
+    {
+      "id": "BAS-010",
+      "main_area": "basics",
+      "topic": "Spachtelmassen",
+      "title": "Beachtet Verarbeitungsbedingungen beim Spachteln",
+      "description": "Kann die Mindestverarbeitungstemperatur für gipshaltige Spachtelmassen (≥ +10 °C) nennen und begründen, warum schockartiger Temperaturanstieg und schnelle Luftfeuchtesenkung zu vermeiden sind.",
+      "exam_relevance": 3,
+      "dependency_value": 1,
+      "points_potential": 3,
+      "learning_effort": 1
+    },
+    {
+      "id": "BAS-011",
+      "main_area": "basics",
+      "topic": "Fugen",
+      "title": "Kennt Fugenbewehrung und Fugenplanung",
+      "description": "Kann die Funktion des Bewehrungsstreifens in der Fuge erklären und weiß, dass bei langen Gipsplattenwänden im Massivbau ca. alle 15 m Dehnungs-/Bewegungsfugen zu planen sind.",
+      "exam_relevance": 3,
+      "dependency_value": 2,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "BAS-012",
+      "main_area": "basics",
+      "topic": "Anschlussdichtung",
+      "title": "Erklärt die Funktion des Anschlussdichtbands",
+      "description": "Kann erklären, dass Anschlussdichtungen (Dichtungsbänder, Dichtstoffe) auf den Anschlussprofilen den Schall- und Rauchdurchgang zu angrenzenden Bauteilen verhindern und für eine entkoppelte, luftdichte Verbindung sorgen.",
+      "exam_relevance": 4,
+      "dependency_value": 2,
+      "points_potential": 3,
+      "learning_effort": 1
+    },
+    {
+      "id": "BAS-013",
+      "main_area": "basics",
+      "topic": "Randdämmstreifen und Trittschall",
+      "title": "Erklärt Dämmschicht und Randdämmstreifen beim schwimmenden Estrich",
+      "description": "Kann erklären, dass die Dämmschicht unter dem schwimmenden Estrich in erster Linie Trittschall dämmt und dass fehlende Randdämmstreifen Schallbrücken und Zwängungsrisse verursachen.",
+      "exam_relevance": 4,
+      "dependency_value": 2,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "BAS-014",
+      "main_area": "basics",
+      "topic": "Lagerung und Transport",
+      "title": "Lagert und transportiert Platten fachgerecht",
+      "description": "Kann Regeln für Lagerung und Transport von Platten anwenden (flach, trocken, sauberer Untergrund, Tragkraft von Hebezeug und Decken beachten) und einfache Traglast-Berechnungen durchführen.",
+      "exam_relevance": 3,
+      "dependency_value": 1,
+      "points_potential": 3,
+      "learning_effort": 2
+    },
+    {
+      "id": "BAS-015",
+      "main_area": "basics",
+      "topic": "Konsollasten",
+      "title": "Ordnet Konsollasten den Befestigungslösungen zu",
+      "description": "Kann leichte (bis 0,4 kN/m direkt in die Beplankung), mittlere (0,4–0,7 kN/m mit Hilfskonstruktion) und schwere Konsollasten (bis 1,5 kN/m über Tragständer) unterscheiden und Lösungen zuordnen.",
+      "prerequisites": ["BAS-001"],
+      "exam_relevance": 4,
+      "dependency_value": 2,
+      "points_potential": 4,
+      "learning_effort": 3,
+      "criticality": 1
+    },
+    {
+      "id": "BAS-016",
+      "main_area": "basics",
+      "topic": "Montagewand-Grundregeln",
+      "title": "Wendet Grundregeln der Ständerwerksmontage an",
+      "description": "Kann Grundregeln der Montagewand nennen und begründen: Regelachsabstand der CW-Ständer 62,5 cm (Plattenraster), CW-Ständer 1–1,5 cm kürzer als Raumhöhe, geringerer Ständerabstand erhöht die Tragfähigkeit.",
+      "prerequisites": ["BAS-001"],
+      "exam_relevance": 5,
+      "dependency_value": 3,
+      "points_potential": 4,
+      "learning_effort": 2
+    }
+  ]
+}
