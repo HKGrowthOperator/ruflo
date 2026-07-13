@@ -1,0 +1,14 @@
+# Beispiel News-Datei fuer InpEnableNewsFilter=true (InpNewsFile).
+# In den MQL5/Files-Ordner des Terminals legen (Dateiname = InpNewsFile).
+# Eine Zeit pro Zeile. Zwei Formate werden akzeptiert:
+#   1) Broker/Server-Zeit als "YYYY.MM.DD HH:MM"
+#   2) Unix-Epoch-Sekunden (reine Zahl)
+# Zeilen, die mit # beginnen, und Leerzeilen werden ignoriert.
+# Der EA blockt neue Trades im Fenster [Zeit - InpNewsPauseBefore, Zeit + InpNewsPauseAfter].
+#
+# Beispiele (Server-Zeit):
+2026.07.15 14:30
+2026.07.16 08:00
+2026.07.31 18:00
+# Beispiel (Unix-Epoch):
+1785000000

@@ -125,6 +125,7 @@ und Drawdown. Buttons:
 
 | Dokument | Inhalt |
 |----------|--------|
+| [QUICKSTART.md](docs/QUICKSTART.md) | In 15 Minuten live über den Webhook-Pfad (Schritt für Schritt) |
 | [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Module, Datenfluss, Zustands-/Recovery-Modell, Race-Condition-Schutz |
 | [LATENCY_ANALYSIS.md](docs/LATENCY_ANALYSIS.md) | Signalquellen-Vergleich, Empfehlung, Pine→MQL5 Portierungsguide |
 | [INSTALLATION.md](docs/INSTALLATION.md) | Installation & Kompilierung |
