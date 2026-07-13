@@ -1,0 +1,13 @@
+# Secrets & runtime artifacts — never commit
+.env
+*.seq
+vbe_signals.jsonl
+vbe_news.txt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
