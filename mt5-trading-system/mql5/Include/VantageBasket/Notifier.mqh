@@ -30,7 +30,7 @@ private:
       // application/x-www-form-urlencoded
       string payload = "chat_id=" + m_cfg.telegramChatId + "&text=" + UrlEncode(text);
 
-      char post[], result[];
+      uchar post[], result[];
       string headers = "Content-Type: application/x-www-form-urlencoded\r\n";
       StringToCharArray(payload, post, 0, StringLen(payload), CP_UTF8);
       // trailing \0 entfernen

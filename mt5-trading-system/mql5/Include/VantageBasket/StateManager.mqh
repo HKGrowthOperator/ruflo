@@ -19,15 +19,32 @@ class CStateManager
   {
 private:
    long      m_magic;
+   string    m_symTag;    // bereinigtes Symbol fuer Schluessel/Dateinamen
    CLogger  *m_log;
    string    m_gvCounter;
    string    m_gvCycle;
    string    m_gvSeq;
    string    m_backupFile;
 
+   //--- Symbol fuer GV-Namen/Dateinamen safe machen (nur alnum, sonst '_')
+   string            Sanitize(const string s) const
+     {
+      string out = "";
+      int len = StringLen(s);
+      for(int i = 0; i < len; i++)
+        {
+         ushort c = StringGetCharacter(s, i);
+         if((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+            out += ShortToString(c);
+         else
+            out += "_";
+        }
+      return(out);
+     }
+
    string            BuildKey(const string suffix) const
      {
-      return(StringFormat("VBE_%I64d_%s", m_magic, suffix));
+      return(StringFormat("VBE_%I64d_%s_%s", m_magic, m_symTag, suffix));
      }
 
    void              WriteBackup(int counter, int cycleId, ulong lastSeq)
@@ -95,16 +112,17 @@ private:
      }
 
 public:
-                     CStateManager() : m_magic(0), m_log(NULL) {}
+                     CStateManager() : m_magic(0), m_symTag(""), m_log(NULL) {}
 
-   void              Init(long magic, CLogger *logger)
+   void              Init(long magic, const string symbol, CLogger *logger)
      {
       m_magic      = magic;
+      m_symTag     = Sanitize(symbol);
       m_log        = logger;
       m_gvCounter  = BuildKey("counter");
       m_gvCycle    = BuildKey("cycle");
       m_gvSeq      = BuildKey("seq");
-      m_backupFile = StringFormat("VBE_state_%I64d.json", m_magic);
+      m_backupFile = StringFormat("VBE_state_%I64d_%s.json", m_magic, m_symTag);
      }
 
    //--- Zustand speichern (nach jeder Aenderung aufrufen)

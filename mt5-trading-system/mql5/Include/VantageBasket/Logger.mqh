@@ -92,7 +92,7 @@ public:
      {
       string dirText = (dir == SIGNAL_BUY ? "BUY" : (dir == SIGNAL_SELL ? "SELL" : "NONE"));
       string msg = StringFormat(
-                      "TRADE %s | dir=%s lot=%.2f counter=%d ticket=%I64u signal=%I64u ret=%u latency=%Ims",
+                      "TRADE %s | dir=%s lot=%.2f counter=%d ticket=%I64u signal=%I64u ret=%u latency=%I64dms",
                       action, dirText, lot, counter, ticket, signalId, retcode, latencyMs);
       Log(VBE_LOG_INFO, msg);
      }

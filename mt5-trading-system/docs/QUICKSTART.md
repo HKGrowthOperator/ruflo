@@ -133,3 +133,8 @@ Fehlersuche: [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md).
   Backup-Datei + Positionsrekonstruktion) — kein manuelles Eingreifen nötig.
 - Sobald der Pine-Quellcode verfügbar ist: auf `SRC_INTERNAL_INDICATOR` umsteigen
   (native Logik in `VantageSignalStub.mq5` ersetzen) für minimale Latenz.
+- **Signal-Datei rotieren:** `vbe_signals.jsonl` wird nur angehängt und wächst über lange
+  Laufzeiten. Der EA liest sie effizient (Neu-Parsen nur bei Änderung), aber die Datei
+  sollte periodisch rotiert werden (z. B. wöchentlich bei gestopptem Handel neu anlegen).
+  Da die Bridge die Sequenz-ID in `vbe_signals.seq` persistiert, bleiben die IDs auch nach
+  Rotation monoton — die Dedup-Logik des EA bleibt korrekt.

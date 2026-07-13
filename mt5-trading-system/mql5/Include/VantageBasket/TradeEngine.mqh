@@ -97,6 +97,16 @@ public:
          if(ok && (retcode == TRADE_RETCODE_DONE || retcode == TRADE_RETCODE_PLACED))
             return(true);
 
+         // Teilausfuehrung: es wurde eine Position eroeffnet (mit weniger Volumen).
+         // Als Erfolg werten (Counter zaehlt "eroeffnete Trades"), aber warnen.
+         if(retcode == TRADE_RETCODE_DONE_PARTIAL)
+           {
+            if(m_log != NULL)
+               m_log.Warn(StringFormat("TradeEngine: Teilausfuehrung - angefordert %.2f, gefuellt %.2f (ticket %I64u)",
+                          lot, m_trade.ResultVolume(), ticket));
+            return(true);
+           }
+
          if(!IsRetryable(retcode))
            {
             if(m_log != NULL)

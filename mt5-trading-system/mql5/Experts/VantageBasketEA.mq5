@@ -42,7 +42,7 @@ input double            InpMaxLotPerTrade      = 5.00;        // Max-Lot pro Ein
 
 input group "=== Signalquelle ==="
 input ENUM_SIGNAL_SOURCE InpSignalSource      = SRC_FILE_QUEUE; // Signalquelle
-input string            InpIndicatorName      = "VantageSignal"; // iCustom-Name
+input string            InpIndicatorName      = "VantageSignalStub"; // iCustom-Name (= .ex5-Dateiname im Indicators-Ordner)
 input int               InpSignalBufferBuy    = 0;           // Buffer-Index Buy
 input int               InpSignalBufferSell   = 1;           // Buffer-Index Sell
 input bool              InpSignalOnBarCloseOnly = true;      // nur bestaetigte Kerze (kein Repainting)
@@ -291,7 +291,7 @@ int OnInit()
       SymbolSelect(g_cfg.symbol, true);
 
    g_book.Init(g_cfg.magic, g_cfg.symbol);
-   g_state.Init(g_cfg.magic, GetPointer(g_log));
+   g_state.Init(g_cfg.magic, g_cfg.symbol, GetPointer(g_log));
 
    ulong restoredSeq = 0;
    RestoreState(restoredSeq);
@@ -451,11 +451,21 @@ void CloseBasket(ENUM_BASKET_CLOSE_REASON reason, const string detail)
                  (reason == CLOSE_SL ? "BASKET_SL" :
                  (reason == CLOSE_EQUITY ? "EQUITY_STOP" : "MANUAL")));
 
-   g_log.Event(rtxt, StringFormat("%s | geschlossen=%d realized=%.2f", detail, closed, realized));
+   // nur zuruecksetzen, wenn der Basket wirklich flach ist (Teil-Schliessungen
+   // duerfen den Zaehler NICHT auf 0 setzen, sonst mischen sich alte + neue Zyklen)
+   bool allClosed = (g_book.CountOwn() == 0);
+
+   g_log.Event(rtxt, StringFormat("%s | geschlossen=%d realized=%.2f flach=%s",
+               detail, closed, realized, (allClosed ? "ja" : "NEIN")));
+
+   if(!allClosed)
+      g_log.Warn(StringFormat("%s: nicht alle Positionen geschlossen (%d verbleibend) - Counter NICHT zurueckgesetzt",
+                 rtxt, g_book.CountOwn()));
 
    // Reset des Zaehlers -> neuer Zyklus mit Start-Lot
-   bool doReset = (reason == CLOSE_EQUITY) ||
-                  ((reason == CLOSE_TP || reason == CLOSE_SL) && g_cfg.resetAfterBasketClose);
+   bool doReset = allClosed &&
+                  ((reason == CLOSE_EQUITY) ||
+                   ((reason == CLOSE_TP || reason == CLOSE_SL) && g_cfg.resetAfterBasketClose));
    if(doReset)
      {
       g_counter.ResetCycle();

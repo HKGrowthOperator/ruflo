@@ -43,6 +43,12 @@ private:
       if(h == INVALID_HANDLE)
          return(false);
 
+      // Kostenoptimierung: nur neu parsen, wenn die Datei gewachsen/geaendert ist.
+      long size = (long)FileSize(h);
+      if(size == m_lastFileSize)
+        { FileClose(h); return(false); }
+      m_lastFileSize = size;
+
       bool found = false;
       ulong  bestId  = 0;
       ENUM_SIGNAL_TYPE bestType = SIGNAL_NONE;
