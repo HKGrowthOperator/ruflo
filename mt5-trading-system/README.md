@@ -143,3 +143,12 @@ und Drawdown. Buttons:
 Automatisierter Handel ist mit erheblichem Risiko verbunden. Diese Software wird ohne
 Gewähr bereitgestellt. Vor dem Live-Einsatz **ausführlich auf einem Demokonto** und im
 Strategy Tester validieren. Der Betrieb erfolgt auf eigenes Risiko.
+
+---
+
+<div align="center">
+
+**HK Growth Operator**
+© HK Growth Operator — Alle Rechte vorbehalten.
+
+</div>

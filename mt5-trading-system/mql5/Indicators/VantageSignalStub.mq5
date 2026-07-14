@@ -13,7 +13,7 @@
 //|   durch die exakte, aus Pine portierte Indikatorlogik ersetzen    |
 //|   (siehe docs/LATENCY_ANALYSIS.md, Abschnitt 4 Portierungs-Guide).|
 //+------------------------------------------------------------------+
-#property copyright "Vantage Basket EA"
+#property copyright "HK Growth Operator"
 #property version   "1.00"
 #property strict
 #property indicator_chart_window

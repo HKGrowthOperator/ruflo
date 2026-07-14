@@ -2,7 +2,7 @@
 //|                                                        Enums.mqh  |
 //|                Vantage Basket EA - shared enumerations & structs  |
 //+------------------------------------------------------------------+
-#property copyright "Vantage Basket EA"
+#property copyright "HK Growth Operator"
 #property strict
 #ifndef __VBE_ENUMS_MQH__
 #define __VBE_ENUMS_MQH__

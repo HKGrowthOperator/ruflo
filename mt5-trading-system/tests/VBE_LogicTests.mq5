@@ -9,7 +9,7 @@
 //|   Ausfuehren: Script auf einen Chart ziehen; Ergebnisse im        |
 //|   "Experten"-Journal (PASS/FAIL + Zusammenfassung).              |
 //+------------------------------------------------------------------+
-#property copyright "Vantage Basket EA"
+#property copyright "HK Growth Operator"
 #property version   "1.00"
 #property strict
 #property script_show_inputs

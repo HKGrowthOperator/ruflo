@@ -7,7 +7,7 @@
 //|   - Lot = StartLot + (Counter x LotIncrement)                     |
 //|   - Basket TP/SL, Equity-Schutz, Filter, Reset-Button, Recovery   |
 //+------------------------------------------------------------------+
-#property copyright "Vantage Basket EA"
+#property copyright "HK Growth Operator"
 #property version   "1.00"
 #property strict
 #property description "Basket-EA: 1 Signal = 1 Position, Hedging, Basket TP/SL, konfigurierbares Lot-Management."
