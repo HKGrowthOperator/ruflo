@@ -105,7 +105,7 @@ export default async function AuswertungPage({ params }: { params: Promise<{ id:
 
       <div className="flex gap-2">
         <Link href="/session" className="btn-primary flex-1 justify-center">Reparatur jetzt lernen</Link>
-        <Link href="/" className="btn-secondary flex-1 justify-center">Zum Lernstand</Link>
+        <Link href="/dashboard" className="btn-secondary flex-1 justify-center">Zum Lernstand</Link>
       </div>
     </div>
   );

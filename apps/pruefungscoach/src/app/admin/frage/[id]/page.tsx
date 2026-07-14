@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export default async function AdminQuestionPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await currentUser();
   if (!user) redirect('/login');
-  if (user.role !== 'admin') redirect('/');
+  if (user.role !== 'admin') redirect('/dashboard');
   const { id } = await params;
   const question = loadQuestion(id);
   if (!question) notFound();

@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { currentUser } from '@/lib/auth';
 import { getDb } from '@/lib/db';
 import { StartSimButton } from '@/components/StartSimButton';
+import { hasFullAccess } from '@/lib/services/entitlements';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,6 +17,7 @@ const KINDS = [
 export default async function SimulationListPage() {
   const user = await currentUser();
   if (!user) redirect('/login');
+  const locked = !hasFullAccess(user.id);
   const db = getDb();
   const sims = db
     .prepare(
@@ -32,17 +34,27 @@ export default async function SimulationListPage() {
           Timer läuft, keine Hilfen, keine Sofortbewertung — Abgabe am Ende (wie in der echten Prüfung).
         </p>
       </div>
-      <div className="grid gap-3 sm:grid-cols-3">
-        {KINDS.map((k) => (
-          <div key={k.kind} className="card flex flex-col justify-between gap-3">
-            <div>
-              <h2 className="font-semibold">{k.title}</h2>
-              <p className="text-xs text-ink-500">{k.desc}</p>
+      {locked ? (
+        <section className="card border-brand-200 bg-brand-50 text-center">
+          <p className="font-semibold text-brand-900">Prüfungssimulationen gehören zum Vollzugang</p>
+          <p className="mt-1 text-sm text-brand-800">
+            Schalte den Vollzugang frei und übe unter echten Prüfungsbedingungen inkl. Auswertung und Reparaturplan.
+          </p>
+          <Link href="/preise" className="btn-primary mt-3 inline-flex">Vollzugang freischalten</Link>
+        </section>
+      ) : (
+        <div className="grid gap-3 sm:grid-cols-3">
+          {KINDS.map((k) => (
+            <div key={k.kind} className="card flex flex-col justify-between gap-3">
+              <div>
+                <h2 className="font-semibold">{k.title}</h2>
+                <p className="text-xs text-ink-500">{k.desc}</p>
+              </div>
+              <StartSimButton kind={k.kind} />
             </div>
-            <StartSimButton kind={k.kind} />
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
       {sims.length > 0 && (
         <section className="card">
           <h2 className="mb-3 text-sm font-semibold text-ink-700">Bisherige Simulationen</h2>

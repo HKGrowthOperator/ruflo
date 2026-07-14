@@ -23,7 +23,7 @@ export default function LoginPage() {
     });
     setBusy(false);
     if (res.ok) {
-      router.push('/');
+      router.push('/dashboard');
       router.refresh();
     } else {
       const data = (await res.json()) as { error?: string };
@@ -70,6 +70,11 @@ export default function LoginPage() {
         <button className="btn-primary w-full" disabled={busy}>
           {busy ? 'Einen Moment…' : mode === 'login' ? 'Anmelden' : 'Konto anlegen'}
         </button>
+        {mode === 'login' && (
+          <a href="/passwort-vergessen" className="block text-center text-sm text-ink-500 hover:text-ink-800">
+            Passwort vergessen?
+          </a>
+        )}
         <p className="text-xs text-ink-500">Demo: azubi@coach.local / azubi1234 · Admin: admin@coach.local / admin1234</p>
       </form>
     </div>

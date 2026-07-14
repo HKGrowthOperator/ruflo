@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { currentUser, type SessionUser } from './auth';
+import { hasFullAccess } from './services/entitlements';
 
 export function jsonError(message: string, status = 400): NextResponse {
   return NextResponse.json({ error: message }, { status });
+}
+
+/** Wird geworfen, wenn eine bezahlpflichtige Funktion ohne Zugang aufgerufen wird. */
+export class PaymentRequiredError extends Error {
+  constructor() {
+    super('Zugang erforderlich');
+    this.name = 'PaymentRequiredError';
+  }
 }
 
 export async function withUser<T>(handler: (user: SessionUser) => Promise<T>): Promise<NextResponse> {
@@ -13,6 +22,7 @@ export async function withUser<T>(handler: (user: SessionUser) => Promise<T>): P
     const data = await handler(user);
     return NextResponse.json(data);
   } catch (err) {
+    if (err instanceof PaymentRequiredError) return jsonError(err.message, 402);
     const msg = (err as Error).message;
     console.error('[api]', msg);
     if (msg.includes('nicht gefunden')) return jsonError(msg, 404);
@@ -21,6 +31,14 @@ export async function withUser<T>(handler: (user: SessionUser) => Promise<T>): P
     if (msg.includes('Onboarding fehlt')) return jsonError(msg, 409);
     return jsonError('Interner Fehler', 500);
   }
+}
+
+/** Wie withUser, wirft aber 402, wenn kein bezahlter Vollzugang besteht. */
+export async function withPaidUser<T>(handler: (user: SessionUser) => Promise<T>): Promise<NextResponse> {
+  return withUser(async (user) => {
+    if (!hasFullAccess(user.id)) throw new PaymentRequiredError();
+    return handler(user);
+  });
 }
 
 export async function parseBody<S extends z.ZodTypeAny>(req: Request, schema: S): Promise<z.infer<S> | NextResponse> {

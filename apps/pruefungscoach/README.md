@@ -143,8 +143,38 @@ SQL-Zugriffe, das Domänenmodul bleibt unverändert.
 Inhalte tragen Freigabestatus (`entwurf … freigegeben … gesperrt`); nur
 `freigegeben` erscheint für Lernende. Pflege über `/admin`.
 
+## Kommerzielle Schicht (verkaufsfertig)
+
+- **Öffentliche Verkaufsseite** (`/`), Preisseite (`/preise`), Konto (`/konto`).
+- **Zugangssteuerung**: kostenlos sind Registrierung, Onboarding, Diagnose und
+  Risikoprofil; bezahlpflichtig sind Lernsessions und Simulationen. Ohne
+  Stripe-Keys läuft alles im **Free-Live-Modus** (alles frei) — mit Keys wird der
+  Kauf aktiv (`src/lib/domain/entitlements.ts`, unit-getestet).
+- **Bezahlung**: Stripe-Checkout + signaturgeprüfter Webhook (`/api/checkout`,
+  `/api/stripe/webhook`), Einmalkauf „Vollzugang bis zur Prüfung".
+- **Konten**: Passwort-Reset per E-Mail (Resend) mit Token, Passwort ändern,
+  Rate-Limiting auf Auth-Endpunkten, Security-Header.
+- **Rechtstexte** als Vorlagen mit Platzhaltern: `/impressum`, `/datenschutz`, `/agb`.
+- Die Berechtigung ist bereits **Tier-fähig** (`tier` = lite/premium,
+  `exam_track` = zwischen/abschluss) für die geplante Basis-/Premium-Struktur.
+
+Setup & Aktivierung: siehe [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+## Produkt-Roadmap (Basis/Premium × Zwischen-/Abschlussprüfung)
+
+Siehe [`docs/ihk-struktur-recherche.md`](./docs/ihk-struktur-recherche.md) für die
+offizielle IHK-Struktur und den Lückenabgleich. Kern der Produktidee:
+- **Basis/Lite**: Buchwissen & Grundlagen (Quellenstufe 3–5) — gut für Zwischenprüfung.
+- **Premium**: zusätzlich echte Altprüfungen (Quellenstufe 1) + Prüfungsgewichtung.
+- Zweite Achse **Zwischen-/Abschlussprüfung** (Zwischenprüfungs-Inhalte + Grundstufe
+  fehlen noch — nächster Content-Schritt).
+Da jede Frage `source_level` und `exam_relevance` trägt, ist der Tier-Split im Kern
+ein Filter auf den Fragenpool.
+
 ## Bekannte Grenzen / nächste Schritte
 
+- **Tier-Inhalte**: Basis/Premium und Zwischenprüfung sind im Datenmodell vorbereitet,
+  aber der Content-Filter + die Zwischenprüfungs-/Grundstufen-Inhalte fehlen noch.
 - Bild-/Plandarstellung: Planaufgaben werden textlich beschrieben (§ Zeichnungsersatz);
   echte Zeichnungen brauchen einen Storage + Bild-Rendering.
 - `knowledge_objects` (Mikrolektionen/Lesetexte je Kompetenz) sind im Schema

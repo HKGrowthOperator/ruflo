@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { parseBody, withUser, zAnswerPayload } from '@/lib/api-helpers';
+import { parseBody, PaymentRequiredError, withUser, zAnswerPayload } from '@/lib/api-helpers';
 import { submitAttempt } from '@/lib/services/attempts';
 import { markDiagnosed } from '@/lib/services/diagnosis';
+import { hasFullAccess } from '@/lib/services/entitlements';
 
 const schema = z.object({
   questionId: z.string().max(60),
@@ -20,6 +21,8 @@ export async function POST(req: Request): Promise<NextResponse> {
   const body = await parseBody(req, schema);
   if (body instanceof NextResponse) return body;
   return withUser(async (user) => {
+    // Diagnose ist Teil des kostenlosen Probierteils; Lernsessions sind bezahlpflichtig.
+    if (body.context !== 'diagnose' && !hasFullAccess(user.id)) throw new PaymentRequiredError();
     const feedback = await submitAttempt({
       userId: user.id,
       questionId: body.questionId,

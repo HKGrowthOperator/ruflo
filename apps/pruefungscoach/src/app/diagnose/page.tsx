@@ -37,7 +37,7 @@ export default function DiagnosePage() {
       <div className="card space-y-3 text-center">
         <h1 className="text-xl font-bold">Diagnose abgeschlossen</h1>
         <p className="text-sm text-ink-600">Dein Kompetenzprofil und dein Tagesplan sind bereit.</p>
-        <button className="btn-primary" onClick={() => { router.push('/'); router.refresh(); }}>
+        <button className="btn-primary" onClick={() => { router.push('/dashboard'); router.refresh(); }}>
           Zum Lernstand
         </button>
       </div>

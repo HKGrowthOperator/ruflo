@@ -1,126 +1,98 @@
 /**
- * Startseite (§18/§22): Countdown, Hauptaktion, Punktebereich, Risiko, Hebel,
- * fällige Wiederholungen, Bereichs-Lernstand — ruhig und fokussiert.
+ * Öffentliche Landingpage (Verkaufsseite). Erklärt das Produkt, zeigt den
+ * Ablauf und den Preis, führt zur Registrierung. Für angemeldete Nutzer
+ * Weiterleitung ins Dashboard.
  */
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { currentUser } from '@/lib/auth';
-import { getDb } from '@/lib/db';
-import { daysUntil } from '@/lib/domain/modes';
-import { PLAN_MODE_LABELS } from '@/lib/domain/modes';
-import { READINESS_LABELS } from '@/lib/domain/readiness';
-import { ERROR_CODE_LABELS, MAIN_AREA_LABELS, type ErrorCode, type MainArea, type PlanMode } from '@/lib/domain/types';
-import { areaStats, errorProfile, readinessFor, riskAndLever } from '@/lib/services/stats';
-import { getOrCreateTodayPlan } from '@/lib/services/plan';
+import { displayPriceEuro, paymentsEnabled } from '@/lib/config';
 
 export const dynamic = 'force-dynamic';
 
-export default async function HomePage() {
+const STEPS = [
+  { t: 'Diagnose', d: 'Ein kurzer Eingangstest zeigt in 20–30 Minuten, wo du wirklich stehst — über alle Prüfungsbereiche.' },
+  { t: 'Tagesplan', d: 'Der Coach berechnet aus Prüfungsrelevanz, deinen Lücken und der Restzeit, was du heute lernst.' },
+  { t: 'Aktiv üben', d: 'Eine Aufgabe nach der anderen — mit gestufter Hilfe, Musterlösung und Feedback nach Fehlerursache.' },
+  { t: 'Wiederholen', d: 'Was sitzt, kommt seltener; was wackelt, öfter — automatisch terminiert bis zur Prüfung.' },
+  { t: 'Simulieren', d: 'Realistische Prüfungssimulation mit Timer, danach Punkte- und Fehlerauswertung mit Reparaturplan.' },
+];
+
+const FEATURES = [
+  ['Aus echten Altprüfungen', 'Die Aufgaben und Gewichtungen basieren auf echten IHK-Prüfungen — nicht auf Bauchgefühl.'],
+  ['Kein Chatbot', 'Ein geführter Lernkreislauf statt offenem Chatfenster. Du musst nicht selbst entscheiden, was dran ist.'],
+  ['Fehler werden verstanden', 'Der Coach merkt sich Fehlerursachen — verwechselte Begriffe, übersehene Anforderungen, Rechenmethodik.'],
+  ['Ehrliche Prognose', 'Du siehst jederzeit deinen erwartbaren Punktebereich und dein größtes Risiko — ohne Schönfärberei.'],
+];
+
+export default async function LandingPage() {
   const user = await currentUser();
-  if (!user) redirect('/login');
-
-  const db = getDb();
-  const profile = db.prepare('SELECT * FROM learner_profiles WHERE user_id = ?').get(user.id) as
-    | { exam_date: string; mode: PlanMode; onboarded_at: string | null; diagnosed_at: string | null }
-    | undefined;
-  if (!profile?.onboarded_at) redirect('/onboarding');
-  if (!profile.diagnosed_at) redirect('/diagnose');
-
-  const daysLeft = daysUntil(profile.exam_date);
-  const readiness = readinessFor(user.id);
-  const { biggestRisk, fastestLever, dueReviews, openCriticalErrors } = riskAndLever(user.id);
-  const stats = areaStats(user.id);
-  const errors = errorProfile(user.id).filter((e) => e.unresolved > 0).slice(0, 5);
-  const plan = getOrCreateTodayPlan(user.id);
+  if (user) redirect('/dashboard');
+  const showPrice = paymentsEnabled();
 
   return (
-    <div className="space-y-5">
-      {/* Kopf: Countdown + Hauptaktion */}
-      <section className="card flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-sm text-ink-500">Schriftliche Prüfung in</p>
-          <p className="text-4xl font-bold tracking-tight">
-            {daysLeft} {daysLeft === 1 ? 'Tag' : 'Tagen'}
-          </p>
-          <p className="mt-1 text-sm text-ink-600">
-            Modus: <span className="font-semibold">{PLAN_MODE_LABELS[profile.mode]}</span>
-            {plan && <> · heute {plan.minutesTarget} min · {plan.doneCount}/{plan.items.length} erledigt</>}
-          </p>
+    <div className="space-y-12 py-4">
+      {/* Hero */}
+      <section className="space-y-5 text-center">
+        <span className="badge bg-brand-100 text-brand-800">IHK-Abschlussprüfung · Trockenbaumonteur</span>
+        <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+          Dein digitaler Prüfungscoach —<br className="hidden sm:block" /> abgestimmt auf die echte Prüfung.
+        </h1>
+        <p className="mx-auto max-w-xl text-base text-ink-600">
+          Kein Auswendiglernen ins Blaue. Der Coach diagnostiziert deinen Stand, priorisiert nach echter
+          Prüfungsrelevanz und bringt dich mit adaptiven Aufgaben gezielt über die Bestehensgrenze — auch wenn
+          du spät dran bist.
+        </p>
+        <div className="flex flex-col items-center justify-center gap-2 sm:flex-row">
+          <Link href="/login" className="btn-primary px-6 py-3 text-base">Kostenlos starten</Link>
+          <Link href="/preise" className="btn-secondary px-6 py-3 text-base">Preise ansehen</Link>
         </div>
-        <Link href="/session" className="btn-primary px-6 py-3 text-base">
-          Heutige Einheit starten
-        </Link>
+        <p className="text-xs text-ink-500">Diagnose &amp; Risikoprofil kostenlos — ohne Risiko ausprobieren.</p>
       </section>
 
-      {/* Kacheln: Prognose, Risiko, Hebel */}
-      <section className="grid gap-3 sm:grid-cols-3">
-        <div className="card">
-          <p className="text-sm text-ink-500">Punktebereich (Prognose)</p>
-          <p className="text-2xl font-bold">
-            {readiness.scoreRange[0]}–{readiness.scoreRange[1]} %
-          </p>
-          <p className="mt-1 text-xs text-ink-500">{READINESS_LABELS[readiness.status]}</p>
-        </div>
-        <div className="card">
-          <p className="text-sm text-ink-500">Größtes Risiko</p>
-          <p className="text-sm font-semibold leading-snug">{biggestRisk?.title ?? '—'}</p>
-          <p className="mt-1 text-xs text-ink-500">
-            {biggestRisk ? MAIN_AREA_LABELS[biggestRisk.area as MainArea] : ''}
-            {openCriticalErrors > 0 && ` · ${openCriticalErrors} kritische Fehlkonzepte offen`}
-          </p>
-        </div>
-        <div className="card">
-          <p className="text-sm text-ink-500">Schnellster Hebel</p>
-          <p className="text-sm font-semibold leading-snug">{fastestLever?.title ?? '—'}</p>
-          <p className="mt-1 text-xs text-ink-500">
-            {fastestLever ? MAIN_AREA_LABELS[fastestLever.area as MainArea] : ''}
-            {dueReviews > 0 && ` · ${dueReviews} Wiederholungen fällig`}
-          </p>
-        </div>
-      </section>
-
-      {/* Bereichs-Lernstand */}
-      <section className="card">
-        <h2 className="mb-3 text-sm font-semibold text-ink-700">Lernstand nach Bereich</h2>
-        <div className="space-y-2.5">
-          {stats.map((s) => (
-            <div key={s.area}>
-              <div className="mb-0.5 flex justify-between text-xs text-ink-600">
-                <span>{s.label}</span>
-                <span>
-                  {Math.round(s.avgMastery * 100)} % · {s.tested}/{s.total} getestet
-                </span>
+      {/* So funktioniert's */}
+      <section>
+        <h2 className="mb-5 text-center text-xl font-bold">So funktioniert der Coach</h2>
+        <div className="grid gap-3 sm:grid-cols-5">
+          {STEPS.map((s, i) => (
+            <div key={s.t} className="card">
+              <div className="mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+                {i + 1}
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-ink-100">
-                <div
-                  className={`h-full rounded-full ${s.avgMastery >= 0.6 ? 'bg-emerald-500' : s.avgMastery >= 0.35 ? 'bg-amber-500' : 'bg-red-400'}`}
-                  style={{ width: `${Math.max(2, Math.round(s.avgMastery * 100))}%` }}
-                />
-              </div>
+              <p className="font-semibold">{s.t}</p>
+              <p className="mt-1 text-xs leading-relaxed text-ink-600">{s.d}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Fehlerprofil */}
-      {errors.length > 0 && (
-        <section className="card">
-          <h2 className="mb-3 text-sm font-semibold text-ink-700">Offene Fehlerursachen</h2>
-          <ul className="space-y-1.5 text-sm">
-            {errors.map((e) => (
-              <li key={e.code} className="flex justify-between">
-                <span>{ERROR_CODE_LABELS[e.code as ErrorCode] ?? e.code}</span>
-                <span className="font-semibold text-ink-500">{e.unresolved}×</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      {/* Warum */}
+      <section className="grid gap-3 sm:grid-cols-2">
+        {FEATURES.map(([t, d]) => (
+          <div key={t} className="card">
+            <p className="font-semibold">{t}</p>
+            <p className="mt-1 text-sm leading-relaxed text-ink-600">{d}</p>
+          </div>
+        ))}
+      </section>
 
-      <section className="flex gap-2">
-        <Link href="/simulation" className="btn-secondary flex-1 justify-center">
-          Prüfungssimulation
-        </Link>
+      {/* Preis-Teaser */}
+      <section className="card mx-auto max-w-md text-center">
+        <h2 className="text-xl font-bold">Vollzugang bis zu deiner Prüfung</h2>
+        {showPrice ? (
+          <p className="mt-2 text-4xl font-bold">
+            {displayPriceEuro()} €<span className="text-base font-normal text-ink-500"> einmalig</span>
+          </p>
+        ) : (
+          <p className="mt-2 text-lg font-semibold text-emerald-700">Zurzeit kostenlos in der Testphase</p>
+        )}
+        <ul className="mx-auto mt-4 max-w-xs space-y-1.5 text-left text-sm text-ink-700">
+          <li>✓ Adaptive Tagespläne bis zum Prüfungstag</li>
+          <li>✓ Unbegrenzte Lernsessions &amp; Wiederholungen</li>
+          <li>✓ Prüfungssimulationen mit Auswertung</li>
+          <li>✓ Aufgaben aus echten Altprüfungen</li>
+        </ul>
+        <Link href="/login" className="btn-primary mt-5 w-full">Jetzt starten</Link>
       </section>
     </div>
   );

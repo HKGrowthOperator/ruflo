@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 export default async function AdminPage({ searchParams }: { searchParams: Promise<{ bereich?: string }> }) {
   const user = await currentUser();
   if (!user) redirect('/login');
-  if (user.role !== 'admin') redirect('/');
+  if (user.role !== 'admin') redirect('/dashboard');
   const { bereich } = await searchParams;
 
   const db = getDb();

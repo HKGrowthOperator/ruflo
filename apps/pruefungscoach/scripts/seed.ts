@@ -155,6 +155,16 @@ if (!process.env.ADMIN_PASSWORD) {
   insUser.run('azubi@coach.local', hashPassword('azubi1234'), 'Azubi', 'learner');
 }
 
+// Demo-Accounts bekommen dauerhaften Vollzugang (damit sie auch mit aktivierter
+// Bezahlung zum Testen funktionieren).
+const grantAccess = db.prepare(`
+  INSERT INTO entitlements (user_id, plan, source, granted_at)
+  SELECT id, 'paid', 'admin', datetime('now') FROM users WHERE email = ?
+  ON CONFLICT(user_id) DO UPDATE SET plan = 'paid', source = 'admin'
+`);
+grantAccess.run(adminEmail.toLowerCase());
+if (!process.env.ADMIN_PASSWORD) grantAccess.run('azubi@coach.local');
+
 const nComp = (db.prepare('SELECT COUNT(*) n FROM competencies').get() as { n: number }).n;
 const nQ = (db.prepare('SELECT COUNT(*) n FROM questions').get() as { n: number }).n;
 console.log(`Seed fertig: ${nComp} Kompetenzen, ${nQ} Fragen, ${SOURCES.length} Quellen.`);

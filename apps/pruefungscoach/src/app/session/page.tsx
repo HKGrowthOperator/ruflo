@@ -30,6 +30,7 @@ export default function SessionPage() {
     setItem(null);
     fetch('/api/session/next')
       .then(async (res) => {
+        if (res.status === 402) throw new Error('ZUGANG');
         if (!res.ok) throw new Error((await res.json() as { error?: string }).error ?? 'Fehler');
         return res.json() as Promise<NextItem>;
       })
@@ -39,6 +40,17 @@ export default function SessionPage() {
 
   useEffect(loadNext, [loadNext]);
 
+  if (error === 'ZUGANG') {
+    return (
+      <div className="card space-y-3 text-center">
+        <h1 className="text-xl font-bold">Vollzugang erforderlich</h1>
+        <p className="text-sm text-ink-600">
+          Die täglichen Lerneinheiten gehören zum Vollzugang. Schalte ihn frei und lerne bis zu deiner Prüfung.
+        </p>
+        <Link className="btn-primary inline-flex" href="/preise">Vollzugang freischalten</Link>
+      </div>
+    );
+  }
   if (error) {
     return (
       <div className="card space-y-2 text-sm">
@@ -59,7 +71,7 @@ export default function SessionPage() {
           {item.progress.done} Aufgaben bearbeitet. Morgen stehen deine Wiederholungen bereit.
         </p>
         <div className="flex justify-center gap-2">
-          <Link href="/" className="btn-secondary">Zum Lernstand</Link>
+          <Link href="/dashboard" className="btn-secondary">Zum Lernstand</Link>
           <Link href="/simulation" className="btn-primary">Mini-Simulation starten</Link>
         </div>
       </div>

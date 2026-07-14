@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
-import { jsonError, withUser } from '@/lib/api-helpers';
+import { withPaidUser } from '@/lib/api-helpers';
 import { getOrCreateTodayPlan, pickQuestionForItem } from '@/lib/services/plan';
 import { loadQuestion, toPublicQuestion } from '@/lib/services/questions';
 
@@ -9,7 +9,7 @@ import { loadQuestion, toPublicQuestion } from '@/lib/services/questions';
  * erstes offenes Plan-Item + passende Frage (ohne Lösungen).
  */
 export async function GET(): Promise<NextResponse> {
-  return withUser(async (user) => {
+  return withPaidUser(async (user) => {
     const plan = getOrCreateTodayPlan(user.id);
     if (!plan) throw new Error('Onboarding fehlt');
     const open = plan.items.filter((i) => i.status === 'pending');
