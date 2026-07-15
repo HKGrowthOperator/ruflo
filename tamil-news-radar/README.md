@@ -26,6 +26,16 @@ durch den Admin.
 - **Aktualisieren-Button**: ruft die Quellen neu ab, ordnet neue Meldungen
   der Story zu und schreibt den Entwurf fort. Bereits veröffentlichte
   Artikel gehen dabei erneut durch die Freigabe.
+- **Vorschau & Editor**: jede Story hat eine Vorschau im exakten Layout
+  der öffentlichen Seite (vor der Freigabe) und einen Editor für alle
+  Entwurfsfelder (Schlagzeile, Text, Tags, SEO, Social).
+- **Neue Suche**: Suchbegriff eingeben → das System legt eine
+  Google-News-Suchquelle an und startet sofort einen Radar-Lauf
+  (Recherche jenseits der bekannten Feeds).
+- **Ähnlichkeitsprüfung**: Entwürfe, die Quelltext weitgehend unverändert
+  übernehmen, bekommen eine Warnung zur Umformulierung.
+- **Styleguide & Glossar**: `docs/styleguide.md` und `docs/glossar.md`
+  definieren Stil, Attribution und tamilische Schreibweisen.
 - **Öffentliche Website**: Startseite + Artikelseiten mit öffentlichem
   Quellenblock.
 - **WordPress-Publishing (optional)**: freigegebene Artikel per Knopfdruck

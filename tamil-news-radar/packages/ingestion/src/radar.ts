@@ -3,7 +3,7 @@ import { getStore, type Store } from '@tnr/database';
 import { fetchSource } from '@tnr/source-adapters';
 import {
   type RadarRunReport, type RadarSourceError, type RawItem, type Story,
-  SENSITIVE_CATEGORIES, getConfig, newId, nowIso, slugify,
+  SENSITIVE_CATEGORIES, getConfig, newId, nowIso, slugify, tokenContainment,
 } from '@tnr/shared';
 import { buildCandidate, findMatchingStory, type ClusterCandidate } from './cluster';
 
@@ -165,6 +165,17 @@ export async function draftStory(
     warnings.push(`${draft.uncertainNotes.length} unsichere Aussage(n) im Entwurf markiert.`);
   }
   if (wasPublished) warnings.push('Update nach Veröffentlichung – erneute Freigabe nötig.');
+
+  // Ähnlichkeitsprüfung (Frage 43): Entwurf zu nah am Quelltext?
+  for (const item of items) {
+    if (item.summary.length < 60) continue;
+    const containment = tokenContainment(item.summary, draft.body);
+    if (containment >= 0.8) {
+      warnings.push(
+        `Hohe Textähnlichkeit zur Quelle "${item.sourceName}" (${Math.round(containment * 100)} %) – vor Freigabe umformulieren.`
+      );
+    }
+  }
 
   await store.updateStory(story.id, {
     draft,

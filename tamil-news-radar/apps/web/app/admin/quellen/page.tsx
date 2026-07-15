@@ -1,6 +1,8 @@
 import { getStore } from '@tnr/database';
 import { formatDate } from '../../../lib/format';
-import { addSourceAction, toggleSourceAction, updateTrustAction } from '../actions';
+import {
+  addSourceAction, newSearchAction, toggleSourceAction, updateTrustAction,
+} from '../actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -59,6 +61,21 @@ export default async function SourcesPage() {
           ))}
         </tbody>
       </table>
+
+      <h2>Neue Suche</h2>
+      <form action={newSearchAction} className="card">
+        <p className="meta">
+          Startet eine Websuche zu einem Thema (Google News, Tamil): legt eine
+          Suchquelle an und lässt das Radar sofort laufen. Treffer erscheinen
+          als Stories in der Redaktion.
+        </p>
+        <div className="grid-2">
+          <label>Suchbegriff (Tamil oder Englisch)<input type="text" name="term" required /></label>
+        </div>
+        <div className="actions">
+          <button type="submit" className="primary">🔎 Suchen &amp; Radar starten</button>
+        </div>
+      </form>
 
       <h2>Quelle hinzufügen</h2>
       <form action={addSourceAction} className="card">

@@ -1,0 +1,33 @@
+name: Tamil News Radar CI
+
+on:
+  push:
+    paths:
+      - 'tamil-news-radar/**'
+      - '.github/workflows/tamil-news-radar-ci.yml'
+  pull_request:
+    paths:
+      - 'tamil-news-radar/**'
+      - '.github/workflows/tamil-news-radar-ci.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tamil-news-radar
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: tamil-news-radar/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Build (Next.js + Typecheck)
+        run: pnpm build
+      - name: E2E-Pipeline-Test (Fixture-Feeds)
+        run: pnpm test:e2e

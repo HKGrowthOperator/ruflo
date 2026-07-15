@@ -64,6 +64,70 @@ export async function pushWordPressAction(formData: FormData): Promise<void> {
   revalidateAll();
 }
 
+/** Entwurf manuell bearbeiten (Review-Workflow, Frage 23/26). */
+export async function updateDraftAction(formData: FormData): Promise<void> {
+  const id = String(formData.get('storyId') ?? '');
+  const store = getStore();
+  const story = await store.getStory(id);
+  if (!story?.draft) throw new Error('Story hat keinen Entwurf');
+  const field = (name: string, fallback: string) =>
+    String(formData.get(name) ?? fallback).trim() || fallback;
+  const draft = {
+    ...story.draft,
+    headline: field('headline', story.draft.headline),
+    subheadline: field('subheadline', story.draft.subheadline),
+    summary: field('summary', story.draft.summary),
+    body: field('body', story.draft.body),
+    seoTitle: field('seoTitle', story.draft.seoTitle),
+    metaDescription: field('metaDescription', story.draft.metaDescription),
+    socialText: field('socialText', story.draft.socialText),
+    tags: String(formData.get('tags') ?? '')
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean),
+    generator: story.draft.generator.endsWith('+admin')
+      ? story.draft.generator
+      : `${story.draft.generator}+admin`,
+  };
+  await store.updateStory(id, { draft, updatedAt: nowIso() });
+  await store.addAudit({
+    id: newId('aud'), at: nowIso(), actor: ACTOR,
+    action: 'story.edit', storyId: id, detail: 'Entwurf manuell bearbeitet',
+  });
+  revalidateAll();
+}
+
+/**
+ * "Neue Suche" (Frage 19): legt für einen Suchbegriff eine
+ * Google-News-Suchquelle an und lässt das Radar sofort laufen –
+ * so erschließt das System auf Wunsch neue Themen jenseits der
+ * bekannten Feeds.
+ */
+export async function newSearchAction(formData: FormData): Promise<void> {
+  const term = String(formData.get('term') ?? '').trim();
+  if (!term) throw new Error('Suchbegriff fehlt');
+  const store = getStore();
+  const source: Source = {
+    id: newId('src'),
+    name: `Google News Suche – ${term}`,
+    homepage: 'https://news.google.com/?hl=ta',
+    feedUrl: `https://news.google.com/rss/search?q=${encodeURIComponent(term)}&hl=ta&gl=IN&ceid=IN:ta`,
+    type: 'google-news',
+    language: 'ta',
+    region: 'IN',
+    trustScore: 60,
+    enabled: true,
+    notes: 'Per „Neue Suche" angelegt – Treffer prüfen, ggf. sperren.',
+  };
+  await store.insertSource(source);
+  await store.addAudit({
+    id: newId('aud'), at: nowIso(), actor: ACTOR,
+    action: 'source.search', detail: term,
+  });
+  await runRadar('manual');
+  revalidateAll();
+}
+
 /** Quelle anlegen (Frage 15). */
 export async function addSourceAction(formData: FormData): Promise<void> {
   const store = getStore();

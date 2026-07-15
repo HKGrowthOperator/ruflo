@@ -58,6 +58,20 @@ export function titleSimilarity(a: Set<string>, b: Set<string>): number {
   return Math.max(jac, 0.75 * overlap);
 }
 
+/**
+ * Anteil der Tokens von `source`, die auch in `text` vorkommen (0–1).
+ * Für die Ähnlichkeitsprüfung (Frage 43): erkennt, wenn ein Entwurf
+ * Quelltext weitgehend unverändert übernimmt.
+ */
+export function tokenContainment(source: string, text: string): number {
+  const sourceTokens = tokenize(source);
+  if (sourceTokens.size === 0) return 0;
+  const textTokens = tokenize(text);
+  let contained = 0;
+  for (const token of sourceTokens) if (textTokens.has(token)) contained++;
+  return contained / sourceTokens.size;
+}
+
 export function stripHtml(html: string): string {
   return html
     .replace(/<[^>]*>/g, ' ')

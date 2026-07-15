@@ -5,7 +5,8 @@ import { canTransition, getWordPressConfig } from '@tnr/editorial';
 import { STATUS_LABELS } from '@tnr/shared';
 import { formatDate, renderBody } from '../../../../lib/format';
 import {
-  draftStoryAction, pushWordPressAction, refreshStoryAction, transitionStoryAction,
+  draftStoryAction, pushWordPressAction, refreshStoryAction,
+  transitionStoryAction, updateDraftAction,
 } from '../../actions';
 
 export const dynamic = 'force-dynamic';
@@ -51,6 +52,11 @@ export default async function StoryDetailPage({ params }: { params: { id: string
       )}
 
       <div className="actions">
+        {story.draft && (
+          <Link className="btn" href={`/admin/stories/${story.id}/vorschau`}>
+            👁️ Vorschau (wie auf der Website)
+          </Link>
+        )}
         <form action={refreshStoryAction} className="inline">
           <input type="hidden" name="storyId" value={story.id} />
           <button type="submit">🔄 Aktualisieren (Quellen neu abrufen + Entwurf neu)</button>
@@ -131,11 +137,32 @@ export default async function StoryDetailPage({ params }: { params: { id: string
               {['published', 'updated'].includes(story.status) && (
                 <p>
                   <Link className="btn" href={`/artikel/${encodeURIComponent(story.slug)}`}>
-                    Vorschau / öffentliche Seite öffnen
+                    Öffentliche Seite öffnen
                   </Link>
                 </p>
               )}
             </div>
+          )}
+          {story.draft && (
+            <details className="card">
+              <summary><strong>✏️ Entwurf bearbeiten</strong></summary>
+              <form action={updateDraftAction}>
+                <input type="hidden" name="storyId" value={story.id} />
+                <label>Schlagzeile<input type="text" name="headline" defaultValue={story.draft.headline} /></label>
+                <label>Unterüberschrift<input type="text" name="subheadline" defaultValue={story.draft.subheadline} /></label>
+                <label>Kurzfassung<textarea name="summary" rows={3} defaultValue={story.draft.summary} /></label>
+                <label>Text (Markdown, &quot;## &quot; für Zwischenüberschriften)
+                  <textarea name="body" rows={14} defaultValue={story.draft.body} />
+                </label>
+                <label>Tags (kommagetrennt)<input type="text" name="tags" defaultValue={story.draft.tags.join(', ')} /></label>
+                <label>SEO-Titel<input type="text" name="seoTitle" defaultValue={story.draft.seoTitle} /></label>
+                <label>Meta-Beschreibung<input type="text" name="metaDescription" defaultValue={story.draft.metaDescription} /></label>
+                <label>Social-Text<input type="text" name="socialText" defaultValue={story.draft.socialText} /></label>
+                <div className="actions">
+                  <button type="submit" className="primary">Änderungen speichern</button>
+                </div>
+              </form>
+            </details>
           )}
         </section>
 
