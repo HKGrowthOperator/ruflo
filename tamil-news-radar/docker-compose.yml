@@ -1,0 +1,27 @@
+# Lokale Entwicklung: Web-App + Radar-Loop.
+# Standardmäßig mit Dev-Store (JSON unter .data/), kein Postgres nötig.
+# Für Supabase: SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in .env setzen.
+services:
+  web:
+    image: node:22-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: sh -c "corepack enable && pnpm install && pnpm dev"
+    ports:
+      - '3000:3000'
+    env_file:
+      - path: .env
+        required: false
+
+  radar:
+    image: node:22-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: sh -c "corepack enable && pnpm install && pnpm radar:loop"
+    env_file:
+      - path: .env
+        required: false
+    depends_on:
+      - web

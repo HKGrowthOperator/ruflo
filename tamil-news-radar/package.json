@@ -1,0 +1,25 @@
+{
+  "name": "tamil-news-radar",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tamil News Radar – automatisches News-Radar mit Redaktions-Workflow und öffentlicher Website",
+  "scripts": {
+    "dev": "pnpm --filter @tnr/web dev",
+    "build": "pnpm --filter @tnr/web build",
+    "start": "pnpm --filter @tnr/web start",
+    "typecheck": "tsc -b --noEmit || pnpm -r --if-present typecheck",
+    "radar": "tsx scripts/radar.ts",
+    "radar:loop": "tsx scripts/radar.ts --loop 30",
+    "test:e2e": "node tests/run-e2e.mjs"
+  },
+  "dependencies": {
+    "@tnr/database": "workspace:*",
+    "@tnr/editorial": "workspace:*",
+    "@tnr/ingestion": "workspace:*",
+    "@tnr/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
