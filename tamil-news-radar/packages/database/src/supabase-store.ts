@@ -174,7 +174,8 @@ function itemToRow(i: RawItem): Record<string, unknown> {
 function rowToStory(r: any): Story {
   return {
     id: r.id, slug: r.slug, workingTitle: r.working_title, category: r.category,
-    region: r.region ?? undefined, status: r.status, itemIds: r.item_ids ?? [],
+    region: r.region ?? undefined, status: r.status, breaking: r.breaking ?? undefined,
+    itemIds: r.item_ids ?? [],
     draft: r.draft ?? undefined, warnings: r.warnings ?? [],
     reviewNote: r.review_note ?? undefined, publishedAt: r.published_at ?? undefined,
     wordpressPostId: r.wordpress_post_id ?? undefined,
@@ -190,6 +191,7 @@ function storyToRow(s: Partial<Story>): Record<string, unknown> {
   if (s.category !== undefined) row.category = s.category;
   if (s.region !== undefined) row.region = s.region;
   if (s.status !== undefined) row.status = s.status;
+  if (s.breaking !== undefined) row.breaking = s.breaking;
   if (s.itemIds !== undefined) row.item_ids = s.itemIds;
   if (s.draft !== undefined) row.draft = s.draft;
   if (s.warnings !== undefined) row.warnings = s.warnings;

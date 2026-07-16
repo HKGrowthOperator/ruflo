@@ -6,7 +6,7 @@ import {
   applyTransition, canTransition, pushToWordPress, type TransitionAction,
 } from '@tnr/editorial';
 import { draftStory, refreshStory, runRadar } from '@tnr/ingestion';
-import { type Source, newId, nowIso } from '@tnr/shared';
+import { type Source, type Story, newId, nowIso, slugify } from '@tnr/shared';
 
 const ACTOR = 'admin';
 
@@ -61,6 +61,64 @@ export async function pushWordPressAction(formData: FormData): Promise<void> {
   const story = await store.getStory(id);
   if (!story) throw new Error('Story nicht gefunden');
   await pushToWordPress(store, story, ACTOR);
+  revalidateAll();
+}
+
+/** Breaking-News-Kennzeichnung umschalten (Frage 30). */
+export async function toggleBreakingAction(formData: FormData): Promise<void> {
+  const id = String(formData.get('storyId') ?? '');
+  const store = getStore();
+  const story = await store.getStory(id);
+  if (!story) throw new Error('Story nicht gefunden');
+  const breaking = !story.breaking;
+  await store.updateStory(id, { breaking, updatedAt: nowIso() });
+  await store.addAudit({
+    id: newId('aud'), at: nowIso(), actor: ACTOR,
+    action: breaking ? 'story.breaking_on' : 'story.breaking_off', storyId: id,
+  });
+  revalidateAll();
+}
+
+/**
+ * Cluster-Korrektur: löst eine falsch zugeordnete Meldung aus der Story
+ * und macht daraus eine eigene Story (Status "erkannt").
+ */
+export async function detachItemAction(formData: FormData): Promise<void> {
+  const storyId = String(formData.get('storyId') ?? '');
+  const itemId = String(formData.get('itemId') ?? '');
+  const store = getStore();
+  const story = await store.getStory(storyId);
+  if (!story) throw new Error('Story nicht gefunden');
+  if (!story.itemIds.includes(itemId)) throw new Error('Meldung gehört nicht zu dieser Story');
+  if (story.itemIds.length < 2) {
+    throw new Error('Letzte Meldung kann nicht gelöst werden – Story stattdessen archivieren');
+  }
+  const [item] = await store.listItemsByIds([itemId]);
+  if (!item) throw new Error('Meldung nicht gefunden');
+
+  await store.updateStory(storyId, {
+    itemIds: story.itemIds.filter((id) => id !== itemId),
+    updatedAt: nowIso(),
+  });
+  const newStoryId = newId('sty');
+  const newStory: Story = {
+    id: newStoryId,
+    slug: slugify(item.title, newStoryId),
+    workingTitle: item.title,
+    category: story.category,
+    region: story.region,
+    status: 'detected',
+    itemIds: [itemId],
+    warnings: [],
+    createdAt: nowIso(),
+    updatedAt: nowIso(),
+  };
+  await store.insertStory(newStory);
+  await store.addAudit({
+    id: newId('aud'), at: nowIso(), actor: ACTOR,
+    action: 'story.detach_item', storyId,
+    detail: `"${item.title}" → neue Story ${newStoryId}`,
+  });
   revalidateAll();
 }
 

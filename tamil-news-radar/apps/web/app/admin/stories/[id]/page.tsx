@@ -5,8 +5,8 @@ import { canTransition, getWordPressConfig } from '@tnr/editorial';
 import { STATUS_LABELS } from '@tnr/shared';
 import { formatDate, renderBody } from '../../../../lib/format';
 import {
-  draftStoryAction, pushWordPressAction, refreshStoryAction,
-  transitionStoryAction, updateDraftAction,
+  detachItemAction, draftStoryAction, pushWordPressAction, refreshStoryAction,
+  toggleBreakingAction, transitionStoryAction, updateDraftAction,
 } from '../../actions';
 
 export const dynamic = 'force-dynamic';
@@ -34,6 +34,7 @@ export default async function StoryDetailPage({ params }: { params: { id: string
       <p><Link href="/admin">← Zurück zur Redaktion</Link></p>
       <span className={`badge status-${story.status}`}>{STATUS_LABELS[story.status]}</span>{' '}
       <span className="badge">{story.category}</span>
+      {story.breaking && <> <span className="badge breaking">🔴 BREAKING</span></>}
       <h1>{story.draft?.headline ?? story.workingTitle}</h1>
       <div className="meta">
         Erkannt: {formatDate(story.createdAt)} · Aktualisiert: {formatDate(story.updatedAt)}
@@ -69,6 +70,12 @@ export default async function StoryDetailPage({ params }: { params: { id: string
             </button>
           </form>
         )}
+        <form action={toggleBreakingAction} className="inline">
+          <input type="hidden" name="storyId" value={story.id} />
+          <button type="submit">
+            {story.breaking ? '⚪ Breaking entfernen' : '🔴 Als Breaking markieren'}
+          </button>
+        </form>
         {transitionButtons
           .filter((b) => canTransition(story, b.action as never))
           .map((b) => (
@@ -180,6 +187,15 @@ export default async function StoryDetailPage({ params }: { params: { id: string
               </div>
               <a href={item.url} target="_blank" rel="nofollow noopener">{item.title}</a>
               {item.summary && <p className="meta">{item.summary}</p>}
+              {items.length > 1 && (
+                <form action={detachItemAction} className="inline">
+                  <input type="hidden" name="storyId" value={story.id} />
+                  <input type="hidden" name="itemId" value={item.id} />
+                  <button type="submit" title="Falsch zugeordnet? Wird eine eigene Story.">
+                    ✂️ Aus Story lösen
+                  </button>
+                </form>
+              )}
             </div>
           ))}
         </section>

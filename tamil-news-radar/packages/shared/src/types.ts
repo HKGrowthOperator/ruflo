@@ -82,6 +82,8 @@ export interface Story {
   category: string;
   region?: Region;
   status: StoryStatus;
+  /** Breaking-News-Kennzeichnung (Frage 30), vom Admin gesetzt */
+  breaking?: boolean;
   itemIds: string[];
   draft?: ArticleDraft;
   warnings: string[];

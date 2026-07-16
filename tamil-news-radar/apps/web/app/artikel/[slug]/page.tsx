@@ -1,8 +1,31 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getStore } from '@tnr/database';
 import { formatDate, renderBody } from '../../../lib/format';
+import { SITE_NAME, getSiteUrl } from '../../../lib/site';
 
 export const dynamic = 'force-dynamic';
+
+/** SEO-/OpenGraph-Metadaten aus den Entwurfsfeldern (Frage 28). */
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const story = await getStore().getStoryBySlug(decodeURIComponent(params.slug));
+  if (!story?.draft || !['published', 'updated'].includes(story.status)) return {};
+  const url = `${getSiteUrl()}/artikel/${encodeURIComponent(story.slug)}`;
+  return {
+    title: `${story.draft.seoTitle} | ${SITE_NAME}`,
+    description: story.draft.metaDescription,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      siteName: SITE_NAME,
+      title: story.draft.headline,
+      description: story.draft.summary,
+      publishedTime: story.publishedAt,
+      tags: story.draft.tags,
+    },
+  };
+}
 
 /** Öffentliche Artikelseite mit Quellenblock (Frage 32). */
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
@@ -15,6 +38,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   return (
     <article>
+      {story.breaking && <><span className="badge breaking">🔴 பிரேக்கிங்</span>{' '}</>}
       <span className="badge">{story.category}</span>
       <h1>{draft.headline}</h1>
       {draft.subheadline && <p className="meta" style={{ fontSize: '1.05rem' }}>{draft.subheadline}</p>}

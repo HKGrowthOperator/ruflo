@@ -43,6 +43,18 @@ main { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
 .badge.status-published, .badge.status-updated { background: #ecfdf5; color: var(--ok); }
 .badge.status-in_review, .badge.status-changes_requested { background: #fffbeb; color: var(--warn); }
 .badge.status-archived { background: #f3f4f6; color: var(--muted); }
+.badge.breaking { background: var(--accent); color: #fff; }
+
+.category-nav {
+  display: flex; flex-wrap: wrap; gap: 0.35rem 0.75rem;
+  margin: 0 0 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+}
+.category-nav a {
+  text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 600;
+  padding: 0.15rem 0.6rem; border-radius: 999px;
+}
+.category-nav a.active { background: var(--accent-soft); color: var(--accent); }
+.category-nav a:hover { color: var(--fg); }
 
 .card {
   border: 1px solid var(--border); border-radius: 10px;

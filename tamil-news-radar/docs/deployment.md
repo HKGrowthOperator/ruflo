@@ -33,6 +33,8 @@ Mal: ca. 1–2 Stunden.
    | `ANTHROPIC_API_KEY` | aus Schritt 2 |
    | `ADMIN_USER` / `ADMIN_PASSWORD` | frei wählen – Pflicht in Produktion! |
    | `CRON_SECRET` | langes Zufallsgeheimnis (`openssl rand -hex 24`) |
+   | `NEXT_PUBLIC_SITE_URL` | öffentliche URL, z. B. `https://deine-domain.de` (für RSS-Feed, Sitemap, OpenGraph) |
+   | `NEXT_PUBLIC_SITE_NAME` | Anzeigename der Website (optional, Standard: „தமிழ் News Radar") |
 
 4. Deploy. Der Cron aus `apps/web/vercel.json` (alle 30 Min auf
    `/api/cron/radar`) wird von Vercel automatisch registriert

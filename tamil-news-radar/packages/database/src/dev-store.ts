@@ -22,16 +22,24 @@ export class DevStore implements Store {
   readonly kind = 'dev' as const;
   private file: string;
   private data: DevData | null = null;
+  private mtimeMs = 0;
 
   constructor(dataDir = getConfig().dataDir) {
     this.file = path.join(dataDir, 'db.json');
   }
 
+  /** Lädt db.json und erkennt Änderungen anderer Prozesse (z. B. Radar-CLI
+   *  neben laufendem Webserver) über den Datei-Zeitstempel. */
   private async load(): Promise<DevData> {
-    if (this.data) return this.data;
     try {
-      this.data = JSON.parse(await fs.readFile(this.file, 'utf8')) as DevData;
+      const stat = await fs.stat(this.file);
+      if (!this.data || stat.mtimeMs !== this.mtimeMs) {
+        this.data = JSON.parse(await fs.readFile(this.file, 'utf8')) as DevData;
+        this.mtimeMs = stat.mtimeMs;
+      }
+      return this.data;
     } catch {
+      if (this.data) return this.data;
       this.data = {
         sources: SEED_SOURCES.map((s) => ({ ...s, id: newId('src') })),
         items: [],
@@ -39,8 +47,8 @@ export class DevStore implements Store {
         audit: [],
       };
       await this.save();
+      return this.data;
     }
-    return this.data;
   }
 
   private async save(): Promise<void> {
@@ -48,6 +56,7 @@ export class DevStore implements Store {
     const tmp = this.file + '.tmp';
     await fs.writeFile(tmp, JSON.stringify(this.data, null, 2), 'utf8');
     await fs.rename(tmp, this.file);
+    this.mtimeMs = (await fs.stat(this.file)).mtimeMs;
   }
 
   async listSources(): Promise<Source[]> {
