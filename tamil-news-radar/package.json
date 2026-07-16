@@ -10,7 +10,10 @@
     "typecheck": "tsc -b --noEmit || pnpm -r --if-present typecheck",
     "radar": "tsx scripts/radar.ts",
     "radar:loop": "tsx scripts/radar.ts --loop 30",
-    "test:e2e": "node tests/run-e2e.mjs"
+    "test": "pnpm test:unit && pnpm test:e2e && pnpm test:wp",
+    "test:unit": "tsx --test tests/unit/*.test.mts",
+    "test:e2e": "node tests/run-e2e.mjs",
+    "test:wp": "NO_PROXY=localhost,127.0.0.1 tsx tests/e2e-wordpress.mts"
   },
   "dependencies": {
     "@tnr/database": "workspace:*",

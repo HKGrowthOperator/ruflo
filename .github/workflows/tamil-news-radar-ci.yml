@@ -29,5 +29,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Build (Next.js + Typecheck)
         run: pnpm build
+      - name: Unit-Tests
+        run: pnpm test:unit
       - name: E2E-Pipeline-Test (Fixture-Feeds)
         run: pnpm test:e2e
+      - name: WordPress-Publishing-Test (Mock-Server)
+        run: pnpm test:wp

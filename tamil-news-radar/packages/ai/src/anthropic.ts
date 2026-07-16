@@ -45,6 +45,10 @@ export class AnthropicProvider implements AiProvider {
       uncertainNotes: strArr(parsed.uncertainNotes),
       generatedAt: nowIso(),
       generator: this.name,
+      usage: {
+        inputTokens: response.usage.input_tokens,
+        outputTokens: response.usage.output_tokens,
+      },
     };
   }
 }

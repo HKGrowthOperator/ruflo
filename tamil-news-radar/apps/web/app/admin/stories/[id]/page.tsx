@@ -133,7 +133,12 @@ export default async function StoryDetailPage({ params }: { params: { id: string
               <div className="meta">
                 SEO: {story.draft.seoTitle} · Social: {story.draft.socialText}
               </div>
-              <div className="meta">Erstellt: {formatDate(story.draft.generatedAt)}</div>
+              <div className="meta">
+                Erstellt: {formatDate(story.draft.generatedAt)}
+                {story.draft.usage && (
+                  <> · Tokens: {story.draft.usage.inputTokens} in / {story.draft.usage.outputTokens} out</>
+                )}
+              </div>
               {['published', 'updated'].includes(story.status) && (
                 <p>
                   <Link className="btn" href={`/artikel/${encodeURIComponent(story.slug)}`}>

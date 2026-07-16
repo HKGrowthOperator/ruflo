@@ -71,6 +71,8 @@ export interface ArticleDraft {
   generatedAt: string;
   /** 'anthropic:<model>' oder 'mock' */
   generator: string;
+  /** Token-Verbrauch des KI-Aufrufs (Kosten-Tracking, Frage 52) */
+  usage?: { inputTokens: number; outputTokens: number };
 }
 
 export interface Story {

@@ -186,7 +186,10 @@ export async function draftStory(
   await store.addAudit({
     id: newId('aud'), at: nowIso(), actor,
     action: story.draft ? 'story.redraft' : 'story.draft',
-    storyId: story.id, detail: `Generator: ${draft.generator}, Quellen: ${distinct}`,
+    storyId: story.id,
+    detail:
+      `Generator: ${draft.generator}, Quellen: ${distinct}` +
+      (draft.usage ? `, Tokens: ${draft.usage.inputTokens} in / ${draft.usage.outputTokens} out` : ''),
   });
 }
 
