@@ -1,396 +1,300 @@
-# HK Growth — Call-Script-System
+# HK Growth — Verkaufs-Scripts (App-Set)
 
-> **Grundlage:** Korthauer-Verkaufsstruktur, übertragen auf HK Growth und verkaufspsychologisch für **Unternehmer** optimiert.
-> **Zweck:** Fertige Gesprächsleitfäden für die Sales-App — jede Ebene (Setter, Experte, Closer), jede Stufe, jeder Gesprächsverlauf.
-> **Verticals:** Webseiten · Unternehmensbrand · KI-Automation · Ganzheitliche Wachstumssysteme.
+> **Grundlage:** Korthauer-Cold-Call-Struktur, 1:1 auf HK Growth übertragen.
+> **Inhalt:** 4 aktuelle Leistungsbereiche + Backbone (Master, Gatekeeper/Einwände, Psychologischer Ablauf).
+> **Stand der Leistungen:** Website · Social Media/Branding · KI-Automationen · Ganzheitliches Wachstumssystem. Recruiting, Paid Ads, Content-Drehtag, Events, Imagefilm sind **keine eigenen Opener mehr** — sie werden bei Bedarf im Wachstumssystem dazugenommen.
 
-Kursive Klammern wie *[Reziprozität]* markieren den psychologischen Hebel — sie werden **nicht mitgesprochen**, sondern dienen dem Training. Alles in `{{doppelten Klammern}}` sind Variablen, die die App bzw. der Anrufer vor dem Call setzt.
+## Nutzung
 
----
-
-## Teil A — Fundament (gilt für alle Verticals & Stufen)
-
-### A1 · Die 3-Stufen-Architektur
-
-| Stufe | Wer | Ziel des Calls | Kein Ziel |
-|------|-----|----------------|-----------|
-| **1 — Setter-Call** | Setter (kalt) | Die **kostenlose Analyse** setzen (booken) | Verkaufen, Leistung erklären, Preis nennen |
-| **2 — Kostenlose Analyse** | Fach-Experte | Echten Value liefern **+** Bedarf & Umfang diagnostizieren → bei Interesse Strategie-Call setzen | Preis nennen |
-| **3 — Strategie-Call** | Closer / Gründer | Auf Basis der Analyse **individuellen Umfang + Preis** nennen und abschließen | Neue Bedarfsanalyse |
-
-**Preis-Logik (wichtig):** Preis lässt sich nie vorab sagen. Kette: **Bedarf** (in der Analyse festgestellt) → **Aufwand** (ergibt sich aus dem Bedarf) → **Preis** (erst im Strategie-Call durch Closer/Gründer). Kein fixes Paket, kein Preis in Stufe 1 & 2.
-
-### A2 · Verkaufspsychologie-Framework (Zielgruppe Unternehmer)
-
-**5 Kauftreiber — die feuern wir gezielt:**
-1. **Verlustaversion > Gewinnstreben** — Unternehmer reagieren stärker auf „was Sie gerade verlieren" als auf „was Sie gewinnen könnten". → Verlust *vor* dem Preis sichtbar machen.
-2. **ROI-/Zahlen-Denken** — sie kaufen keine Leistung, sondern Rendite. → alles in Anfragen / Umsatz / gesparte Zeit / Opportunitätskosten übersetzen.
-3. **Status & Ego** — sie sehen sich als kompetent. Nie „das ist schlecht", immer „fachlich stärker, als es online rüberkommt". → schmeichelt + erzeugt Lücke.
-4. **Autonomie** — sie entscheiden. Druck erzeugt Reaktanz (Widerstand). → Take-away, „Sie entscheiden frei", Negative Close.
-5. **Zeit-Knappheit & Wettbewerb** — wenig Zeit, aber Angst, überholt zu werden. → Kürze signalisieren + regionale Dringlichkeit (**nur wenn wahr**).
-
-**3 Kaufbremsen — die entschärfen wir:**
-- **Skepsis / „schon oft gepitcht"** → Ehrlichkeit + echter Gratis-Value = Reziprozität, die entwaffnet.
-- **Angst vor Fehlkauf (von Agentur verbrannt)** → Risiko umkehren, unabhängiger Blick, „danach können Sie gehen".
-- **Kontrollverlust** → *der Experte fragt*, *der Kunde nennt seine Ziele selbst* = Selbstüberzeugung statt Überredung.
-
-**Hebel-Glossar (im Script referenziert):**
-- **Reziprozität** — echter Gratis-Wert erzeugt Verpflichtung.
-- **Reaktanz ↓** — Druck rausnehmen, damit kein Trotz entsteht (Negative Close, Take-away).
-- **Anchoring / Kontrast** — großen Verlust/Wert nennen, danach wirkt der Preis klein.
-- **Commitment & Konsistenz** — Kunde spricht Ziel/Schmerz selbst aus → argumentiert danach für sich.
-- **Sozialer Beweis** — „Betriebe wie Ihrer".
-- **Autorität** — Experten-Framing, Methodenname.
-- **Future Pacing** — Kunde stellt sich das Ergebnis konkret vor.
-- **Labeling** (Chris Voss) — Gefühl benennen („Es klingt, als …") senkt Abwehr.
-
-> ⚠️ **Ethik = Wirkung.** Bei skeptischen Unternehmern schlägt **echte** Knappheit/Proof jede erfundene. Dringlichkeits-, Vorbezug- und Beweis-Sätze **nur nutzen, wenn wahr** — sonst kippt Vertrauen sofort.
-
-### A3 · Platzhalter-Referenz
-
-| Variable | Bedeutung | Beispiel |
-|----------|-----------|----------|
-| `{{name}}` | Name des Entscheiders | Herr Müller |
-| `{{setter_name}}` | Name des Setters | Luis Kummer |
-| `{{experten_name}}` | Name des Fach-Experten | — |
-| `{{closer_name}}` | Name des Closers/Gründers | — |
-| `{{email}}` | Bestätigungs-Mail | — |
-| `{{ort}}` | Region/Stadt des Betriebs | — |
-| `{{leistung}}` | Kern-Gewerk des Kunden | Dachdecker |
-| `{{tag_1}}` / `{{uhrzeit_1}}` | Terminoption 1 | Di / 11:00 |
-| `{{tag_2}}` / `{{uhrzeit_2}}` | Terminoption 2 | Do / 14:00 |
-| `{{startdatum}}` | Startdatum Zusammenarbeit | — |
-| `{{preis}}` | Live vom Closer genannter Preis | — |
-| `{{zahl_verlust}}` | Geschätzter Jahres-Verlust (Anker) | — |
-
-### A4 · Universelle Bausteine
-
-**Gatekeeper (Sekretariat/Empfang):**
-> Guten Tag, {{setter_name}} von HK Growth — könnten Sie mich kurz mit Herrn/Frau **{{name}}** verbinden? Es geht um einen kurzen fachlichen Hinweis zu **{{gk_thema}}**, nichts Verkäuferisches. *(30 Sekunden reichen)*
-
-- *„Worum geht's?"* → „Uns ist an {{gk_thema}} etwas aufgefallen, das der Chef / die Chefin kurz kennen sollte. Ich halte es ganz kurz."
-- *Entscheider nicht da* → „Kein Problem — wann erreiche ich ihn/sie am ehesten persönlich? Vormittags oder eher nachmittags?" *(Alternativfrage statt Rückrufbitte)*
-- *Gatekeeper blockt hart* → „Ich verstehe, Sie halten viel ab — das ist Ihr Job. Genau deshalb frage ich fair: Ich brauche 30 Sekunden von ihm/ihr, kein Verkauf. Verbinden Sie mich, oder soll ich's kurz notieren und in zwei Tagen nochmal probieren?"
-
-**Anti-No-Show (nach jedem gesetzten Termin):**
-> Zwei kurze Fragen noch. Erstens: Gibt es jemanden, den Sie bei so einem Thema gerne direkt dabeihätten — Geschäftsführung, Marketing, jemand aus der Familie? *[vollständige Entscheider einladen]*
-> Zweitens, ehrlich aus Erfahrung: Ist das relevant genug, dass Sie sich die Zeit wirklich nehmen — oder wär's nur ein Termin, damit ich Ruhe gebe? *[erzwingt echtes Commitment]*
-
-**Tonalität nach Entscheider-Typ:**
-- **Ruhiger Entscheider** → langsamer, mehr Pausen, nichts überstürzen, Sicherheit geben.
-- **Dominanter Entscheider** → kurz, direkt, auf Augenhöhe, keine Floskeln, ihn führen lassen wo möglich.
-- **Gestresster Entscheider** → sofort auf den Punkt, Zeitersparnis betonen, „30 Sekunden".
-- **Skeptischer Entscheider** → mehr Ehrlichkeit, Beweise, Take-away („kein Verkauf") verstärken.
-
-**Universelle Einwand-Bibliothek (Stufe 1):**
-- **„Kein Interesse."** → „Verstehe — die meisten sagen das, bevor sie das Feedback gesehen haben. Genau deshalb ist es gratis und unverbindlich. Wenn nichts Brauchbares dabei ist, haben Sie 20 Minuten verloren, mehr nicht."
-- **„Schicken Sie was per Mail."** → „Mach ich gern — aber ehrlich: Eine Mail schaut sich keiner richtig an. Der 20-Minuten-Blick vom Experten bringt Ihnen deutlich mehr. Anfang oder Ende nächster Woche?" *[Reaktanz ↓ + Termin]*
-- **„Keine Zeit."** → „Genau deshalb halte ich's kurz — es geht ja darum, dass Sie am Ende *Zeit gewinnen*, nicht verlieren."
-- **„Wir haben schon eine Agentur / jemanden."** → „Gut — dann ist ein zweiter, unabhängiger Blick genau richtig. Sie können's danach mit denen besprechen. Kostet Sie nichts."
-- **„Kein Budget."** → „Alles klar, und in der Analyse geht's auch um kein Budget — nur um ehrliches Feedback. Was Sie damit machen, entscheiden Sie danach selbst."
-
-**Universelle Einwand-Bibliothek (Stufe 3, Preis liegt auf dem Tisch):**
-- **„Zu teuer."** → „Verstehe. Verglichen womit — mit dem Preis, oder mit dem, was Sie die aktuelle Situation gerade an {{ergebnis_typ}} kostet?" *[Reframe auf Opportunitätskosten]*
-- **„Muss überlegen."** → „Völlig legitim. Was genau möchten Sie abwägen — das *Ob* oder das *Wie*? Beim Wie kann ich Ihnen sofort helfen." *[echten Einwand isolieren]*
-- **„Keine Zeit für Umsetzung."** → „Genau deshalb übernehmen wir's — Ihr Aufwand ist ein kurzes Onboarding, den Rest machen wir."
-- **„Ich muss das mit … besprechen."** → „Absolut richtig. Damit Sie's sauber weitergeben können: Was wäre für ihn/sie der wichtigste Punkt? Am besten holen wir ihn/sie beim nächsten Mal direkt dazu." *[gemeinsam nächsten Schritt sichern]*
-
-**Die stärksten HK-Growth-Sätze (frei einsetzbar):**
-- Einstieg: „Ich mach's kurz und ehrlich — Sie können mich danach direkt wieder loswerden."
-- Nutzen: „Es geht nicht um hübscher, es geht um mehr {{ergebnis_typ}}."
-- Unterschied zu Agenturen: „Agenturen liefern Leistung. Wir liefern Ergebnisse, die Sie messen können."
-- Für Skeptiker: „Sie müssen mir gar nichts glauben — schauen Sie sich das Feedback an und urteilen Sie selbst."
-- Dringlichkeit: „Der Abstand zum Wettbewerb wird nicht kleiner, während man wartet."
-- Abschluss: „Wollen wir's so aufsetzen?"
+- **Anrede:** durchgehend „Sie". Gruß: **Moin / Servus / Hallo** (regional wählbar).
+- **CTA immer gleich:** die **kostenlose Präsentation** (kein „Verkauf" am Telefon).
+- **Vorbezug ehrlich halten:** „Wir haben vor knapp zwei Monaten gesprochen" nur, wenn es stimmt. Sonst: *„Ich hatte mir Ihren Betrieb vor einiger Zeit notiert, weil mir Ihr Auftritt aufgefallen ist."*
+- **Platzhalter:** `[Name]`, `[E-Mail]`, `[Tag]`, `[Uhrzeit]`, `[Datum]` — von der App befüllt.
+- **Psychologischer Aufbau:** Jeder Script folgt demselben Ablauf (Details in *Psychologischer Ablauf*):
+  Begrüßung → Vorbezug → Agenda → Recherche → Proof → Problem/Pain → Methodenfrage → Methode erklären → Negative Close → Mechanismus + Wettbewerbsvorteil → Qualifizierung → Übergang → Termin → Bestätigung → weitere Entscheider → Anti-No-Show → verbindlich verabschieden.
 
 ---
 
-## Teil B — Vertical: Webseiten
+# BACKBONE
 
-**Vertical-Profil**
-- **Experten-Rolle:** Website- / Conversion-Experte
-- **Analyse-Name (kundenseitig):** *kostenlose Website-Analyse*
-- **Opener-Objekt:** Ihre Website
-- **Gatekeeper-Thema (`{{gk_thema}}`):** Ihre Website
-- **Ergebnis-Typ (`{{ergebnis_typ}}`):** Anfragen
+## Genereller Master (universeller Einstieg)
 
-### B1 · Stufe 1 — Setter-Call
+> Nutzen, wenn noch nicht klar ist, ob Website, Social/Branding, Automation oder das Gesamtsystem der stärkste Hebel ist.
 
-**Opener** *[Pattern-Interrupt + Status + Ehrlichkeit → Reaktanz ↓]*
-> Moin Herr/Frau **{{name}}**, {{setter_name}} von HK Growth — ich mach's kurz und ehrlich, Sie können mich danach direkt wieder loswerden. *(halbe Sekunde Pause)*
-> Ich hab mir **Ihre Website** angeschaut, und ehrlich gesagt wirkt Ihr Betrieb fachlich stärker, als die Seite im Moment rüberbringt.
+**Positionierung** — Nicht „Wir machen Marketing.", sondern: „Ihr Unternehmen ist wahrscheinlich stärker, als es online sichtbar wird. Genau diese Lücke schließen wir, damit aus Sichtbarkeit mehr Vertrauen, Anfragen und Termine entstehen."
+**Methodenname** — Digitale Wachstumsnachverfolgung
 
-**Verlust-Anker** *[Verlustaversion]*
-> Und genau da wird's teuer, ohne dass man's merkt: Es schauen Leute auf die Seite, die eigentlich kaufbereit wären — und springen ab, weil in den ersten Sekunden nicht klar wird, warum gerade Sie. Das sind Anfragen, die nie bei Ihnen ankommen.
+**Opener** *(Vorbezug → Agenda → Recherche → Problem)*
+> Moin / Servus / Hallo Herr/Frau [Name], Luis Kummer hier von HK Growth. Schönen guten Tag.
+> Wir hatten vor einiger Zeit schon einmal Kontakt wegen Ihrer digitalen Außenwirkung — damals war zu dem Zeitpunkt einfach ein bisschen viel los.
+> Deshalb hab ich mir heute nochmal auf die Agenda geschrieben, zu prüfen, ob wir Sie als Kunden für HK Growth gewinnen können. Also nicht blind, sondern weil ich mir Ihren Betrieb nochmal ganz genau angeschaut habe.
+> Mir sind dabei zwei, drei Punkte aufgefallen, die wir bei ähnlichen Unternehmen auch schon gesehen haben: Der Betrieb wirkt fachlich stark, aber online wird noch nicht klar genug sichtbar, warum Kunden, Bewerber oder Interessenten genau Ihnen vertrauen sollten.
+> Deshalb meine Frage: Haben Sie schon einmal etwas von der digitalen Wachstumsnachverfolgung gehört?
 
-**Offer als Geschenk** *[Reziprozität + Take-away]*
-> Ich pitche Ihnen nichts am Telefon. Wir haben einen **Website-Experten**, der macht mit Ihnen eine kurze **kostenlose Website-Analyse** — er sagt Ihnen konkret, was er anders machen würde und wo bei Ihnen am meisten Hebel liegt. Das Feedback gehört Ihnen. Danach setzen Sie's selbst um, holen sich wen anders oder reden nie wieder mit uns — völlig Ihre Entscheidung.
-
-**Negative Close** *[Reaktanz ↓]*
-> Wäre es die absolut schlechteste Idee, wenn ich Ihnen dafür **20 Minuten** mit unserem Experten reinlege — unverbindlich?
-
-**Mini-Qualifizierung** *[Commitment: Kunde nennt Ziel & Schmerz selbst]*
-> - Damit er gezielt draufschaut: Wenn die Seite eine Sache besser könnte — **mehr Anfragen**, **moderner wirken** oder **auf dem Handy überzeugen** — welche?
-> - Was stört *Sie selbst* aktuell am meisten daran?
-> - Auf 1–10: Wie wichtig ist das Thema gerade? *(unter 7 → „Was fehlt bis zur 9?")*
-
-**Terminabschluss** *[Alternativfragen — Kunde entscheidet wann, nicht ob]*
-> Schauen Sie kurz in den Kalender: eher **Anfang oder Ende** nächster Woche? … Eher **vormittags oder nachmittags**? … Ich könnte **{{tag_1}} {{uhrzeit_1}}** oder **{{tag_2}} {{uhrzeit_2}}** — was passt besser?
-
-**Bestätigung + Anti-No-Show** *(→ Baustein A4)*
-> Die Bestätigung sende ich an **{{email}}**, richtig? … *(Anti-No-Show-Fragen)* … Perfekt — dann bekommen Sie von unserem Website-Experten am **{{tag_1}} {{uhrzeit_1}}** konkretes Feedback zu Ihrer Seite.
-
-### B2 · Stufe 2 — Kostenlose Website-Analyse
-
-**Reframe** *[Take-away = maximale Offenheit]*
-> Kurz vorweg: Das hier ist kein Verkaufsgespräch. Ich sag Ihnen ehrlich, was ich anders machen würde — und wenn Sie danach sagen „danke, mach ich selbst", ist das völlig okay. Deal?
-
-**Kontext-Fragen** *[Bedarf öffnen]*
-> Bevor ich einsteige: Was soll Ihre Website vor allem leisten — **Anfragen bringen**, **Vertrauen aufbauen** oder **Bewerber ansprechen**? Und was stört Sie selbst am meisten daran?
-
-**Value-Block — die 5 Website-Hebel** *[Autorität + Reziprozität-Peak]*
-> 1. **Erster Eindruck (5-Sekunden-Test):** Oben wird nicht sofort klar, *was Sie für wen machen und warum Sie* → klare Headline + ein Satz Nutzenversprechen.
-> 2. **Weg zur Anfrage:** Button/Formular zu versteckt oder umständlich → ein sichtbarer Handlungsschritt oben und am Ende jeder Sektion.
-> 3. **Vertrauen:** Gesichter, echte Bewertungen, Referenzen fehlen → Google-Bewertungen, 2–3 Projektbeispiele, Team-Foto.
-> 4. **Mobil & Ladezeit:** Auf dem Handy [langsam/verschoben] — 70 %+ kommen mobil → schlankeres, schnelleres Setup.
-> 5. **Auffindbarkeit:** Bei „{{leistung}} {{ort}}" tauchen Sie [noch nicht / weit unten] auf → Google-Profil + Seitentexte gezielt darauf ausrichten.
->
-> *(Regel: mindestens einen Punkt liefern, den der Kunde sofort selbst umsetzen kann — beweist „kein Pitch".)*
-
-**Moderne Tools** *[Autorität + Machbarkeit]*
-> Wie man das heute umsetzt: moderne Frameworks für schnelle Seiten, KI-gestützte Texte, **Online-Terminbuchung** direkt auf der Seite und sauberes Tracking, damit Sie sehen, woher Anfragen kommen. Damit steht sowas in Tagen, nicht Monaten.
-
-**Sozialer Beweis + Future Pacing**
-> Das Muster kennen wir von Betrieben wie Ihrem — sobald diese Dinge sitzen, kommen Anfragen planbarer rein. Stellen Sie sich vor, die Seite macht das ab nächstem Monat automatisch: Was würde das bei Ihrer Auslastung ausmachen?
-
-**Transition zum Strategie-Call** *[Kontrast-Anker: Aufwand framen, Preis offen]*
-> Was ich sehe: Bei Ihnen wären vor allem **[die 2–3 relevanten Hebel]** dran. Wie groß der Aufwand ist — und was es kostet — hängt davon ab, was Sie wirklich brauchen; das sag ich Ihnen seriös erst, wenn wir's einmal sauber durchrechnen. Zwei Wege: selbst umsetzen, oder wir setzen einen **Strategie-Call** auf, in dem wir genau zeigen, **was nötig wäre, was es an Aufwand heißt und was es kostet**. Was fühlt sich richtiger an?
-> *(Bei Interesse: Termin mit Alternativfragen, ~30 Min.)*
-
-### B3 · Stufe 3 — Strategie-Call (Closer/Gründer)
-
-**Recap & Bedarf bestätigen**
-> In der Analyse haben wir gesehen: **[Bedarf/Hebel 1–3]**. Bevor ich Ihnen sage, wie wir das umsetzen und was es kostet — ist das noch der Stand?
-
-**Verlust quantifizieren VOR dem Preis** *[Anchoring + Verlustaversion]*
-> Was schätzen Sie: Wie viele Anfragen pro Monat gehen verloren, weil die Seite noch nicht überzeugt? … Sagen wir konservativ [X]. Bei Ihrem durchschnittlichen Auftragswert sind das über ein Jahr schnell **{{zahl_verlust}}** — Geld, das aktuell einfach liegen bleibt.
-
-**Ist-Ziel-Lücke** *[Future Pacing]*
-> Wenn Ihre Seite in 3–6 Monaten genau das leistet — was würde das für Sie bedeuten: mehr Anfragen, weniger erklären, planbarere Auslastung?
-
-**Lösung — nur was nötig ist** *[Kontrast, kein Overselling]*
-> Auf Basis der Analyse setze ich für Sie *genau* die Bausteine an, die den Hebel bringen — nicht mehr. So sieht der Weg aus: [Schritt 1 → 2 → 3], live in [X] Wochen.
-
-**Preis** *[Kontrast + ROI-Frame]*
-> Ich nenne den Preis bewusst erst jetzt, wo wir Ihren Bedarf kennen — nicht ins Blaue. Für den Umfang liegen wir bei **{{preis}}**. Gegen die **{{zahl_verlust}}**, die Ihnen gerade jährlich entgehen, rechnet sich das im Grunde von selbst.
-
-**Einwände** → Baustein A4 (Stufe 3).
-
-**Abschluss** *[Assumptive Close]*
-> Ich würd's so aufsetzen: Start **{{startdatum}}**, Onboarding kommt direkt, in [X] Wochen live. Machen wir's so?
-
----
-
-## Teil C — Vertical: Unternehmensbrand
-
-**Vertical-Profil**
-- **Experten-Rolle:** Marken- / Positionierungs-Experte (Brand-Stratege)
-- **Analyse-Name:** *kostenlose Marken-Analyse* (Dachbegriff: Wachstumsanalyse)
-- **Opener-Objekt:** Ihr Auftritt als Unternehmen / als Marke
-- **`{{gk_thema}}`:** Ihre Außenwirkung als Marke
-- **`{{ergebnis_typ}}`:** Vertrauen & bessere Kunden/Bewerber
-
-### C1 · Stufe 1 — Setter-Call
-
-**Opener** *[Status + Lücke]*
-> Moin Herr/Frau **{{name}}**, {{setter_name}} von HK Growth — ich mach's kurz und ehrlich, Sie können mich danach direkt wieder loswerden. *(Pause)*
-> Ich hab mir Ihren Auftritt angeschaut, und mir ist etwas aufgefallen: Ihr Unternehmen ist bekannt für das, *was* Sie tun — aber online wird kaum sichtbar, *wofür Sie stehen* und warum jemand genau Ihnen vertrauen sollte.
-
-**Verlust-Anker** *[Verlustaversion — Verwechselbarkeit]*
-> Und das ist teurer, als es klingt: Ohne klare Marke werden Sie vergleichbar — und wer vergleichbar ist, wird über den Preis gewählt, nicht über Vertrauen. Die guten Kunden und die guten Bewerber gehen dann zum sichtbareren Wettbewerber, nicht zum besseren Betrieb.
-
-**Offer als Geschenk** *[Reziprozität + Take-away]*
-> Ich pitche nichts am Telefon. Wir haben einen **Marken-Experten**, der macht mit Ihnen eine kurze **kostenlose Marken-Analyse** — er zeigt Ihnen konkret, wie klar Ihre Positionierung nach außen wirkt und wo Sie am schnellsten unverwechselbar werden. Das Feedback gehört Ihnen, danach entscheiden Sie frei.
+**Wenn „Was ist das?"**
+> Eine Methode, mit der wir nachvollziehen, wo ein Unternehmen online aktuell Aufmerksamkeit, Vertrauen oder konkrete Anfragen verliert. Wir schauen nicht nur einzelne Posts oder die Website an, sondern den gesamten Weg: Wie wird jemand auf Sie aufmerksam? Was sieht er dann? Baut das Vertrauen auf? Führt es zu einer Anfrage? Und wo springen Menschen ab?
 
 **Negative Close**
-> Wäre es die schlechteste Idee, wenn ich Ihnen 20 Minuten mit unserem Marken-Experten reinlege — unverbindlich?
+> Wäre es dann die absolut schlechteste Idee, wenn ich Ihnen in einer kostenlosen Präsentation einmal zeige, was uns bei Ihrem Auftritt aufgefallen ist, und wir gemeinsam prüfen, ob das auch für Sie funktionieren würde?
 
-**Mini-Qualifizierung** *[Commitment]*
-> - Geht's Ihnen eher um **mehr Vertrauen bei Kunden**, um **bessere Bewerber**, oder darum, aus dem **Preisvergleich rauszukommen**?
-> - Wenn jemand heute nach Ihnen googelt — welchen Eindruck hat er, und welchen *sollte* er haben?
-> - Auf 1–10: Wie wichtig ist eine klare Marke für Sie gerade?
+**Mechanismus + Wettbewerbsvorteil**
+> Wir haben eine Möglichkeit entwickelt, mit der Unternehmen nicht einfach nur sichtbarer werden, sondern gezielt die richtigen Menschen erreichen: potenzielle Kunden, Bewerber oder Partner, die grundsätzlich Bedarf haben, online aber noch nicht genug Vertrauen aufbauen, um anzufragen.
+> Das Ganze funktioniert ohne blindes Posten, ohne unnötige Werbebudgets und ohne Agentur-Floskeln — über einen klaren digitalen Wachstumsprozess aus Positionierung, Content, Website, Anzeigen, Nachverfolgung und sauberer Kommunikation. Ich rufe Sie an, damit Sie sich selbst davon überzeugen können, bevor Ihre Mitbewerber digital stärker werden.
 
-**Terminabschluss + Anti-No-Show** → wie B1 (Alternativfragen + A4).
+**Qualifizierung**
+> 1. Was ist aktuell am wichtigsten: mehr Kundenanfragen, bessere Bewerbungen, mehr Sichtbarkeit, ein professionellerer Auftritt oder mehr Struktur in Ihren Prozessen?
+> 2. Wenn Sie an Ihre Außenwirkung denken: Was stört Sie selbst am meisten?
+> 3. Was müsste in den nächsten drei bis sechs Monaten passieren, damit Sie sagen: Das hat sich wirklich gelohnt?
+> 4. Wie wichtig ist das Thema aktuell auf einer Skala von 1 bis 10?
+> 5. Kümmert sich aktuell schon jemand um Website, Social Media, Werbung oder Recruiting?
+> 6. Was haben andere Dienstleister oder Agenturen schon falsch gemacht, was wir nicht wiederholen dürfen?
+> 7. Wie viele Mitarbeiter beschäftigen Sie ungefähr?
 
-### C2 · Stufe 2 — Kostenlose Marken-Analyse
+**Übergang + Termin**
+> Alles klar. Basierend auf dem, was Sie mir gerade gesagt haben: Das ist nichts, was wir nicht schon in ähnlicher Form gesehen haben. Damit ich Ihnen das einmal konkret an Ihrem Beispiel zeigen kann, schauen Sie kurz in den Kalender: Passt eher Anfang oder Ende nächster Woche? … Eher vormittags oder nachmittags? … Ich könnte [Tag] um [Uhrzeit] oder [Tag] um [Uhrzeit] anbieten. Was passt besser?
 
-**Reframe** → wie B2.
-
-**Kontext-Fragen**
-> Was soll Ihre Marke vor allem bewirken — **Kunden, die von selbst kommen**, **höhere Preise durchsetzen** oder **Bewerber anziehen**? Und wofür sollen Menschen Sie in einem Satz kennen?
-
-**Value-Block — die 5 Marken-Hebel**
-> 1. **Positionierung / roter Faden:** Wofür stehen Sie in *einem* Satz? Aktuell [unklar/austauschbar] → spitze Kernbotschaft.
-> 2. **Gesicht & Gründer-Persönlichkeit:** Menschen folgen Menschen, nicht Logos → Sie/Ihr Team sichtbar machen.
-> 3. **Konsistenz über Kanäle:** Website, Social, Google wirken [uneinheitlich] → ein einheitliches Bild.
-> 4. **Story & Werte statt nur Leistung:** *Warum* Sie das tun schafft Bindung → Haltung zeigen.
-> 5. **Wiedererkennbarkeit:** visuell + sprachlich einprägsam → Sie bleiben im Kopf, wenn der Bedarf kommt.
-
-**Moderne Tools**
-> Umsetzung heute: ein **Content-System**, das aus *einem* Drehtag Wochen an Personal-Brand-Content macht, KI-gestützte Produktion und gezielte Distribution — statt „ab und zu mal posten".
-
-**Sozialer Beweis + Future Pacing**
-> Betriebe wie Ihrer werden mit klarer Marke vom Anbieter zur ersten Adresse. Stellen Sie sich vor, Kunden sagen beim Erstkontakt schon „ich kenne Sie" — was macht das mit Ihren Abschlussquoten?
-
-**Transition zum Strategie-Call** → wie B2 (Aufwand framen, Preis offen).
-
-### C3 · Stufe 3 — Strategie-Call
-
-**Recap & Bedarf bestätigen** → wie B3.
-
-**Verlust quantifizieren** *[Anchoring]*
-> Was kostet es Sie, dass Sie aktuell über den Preis verglichen werden statt über Vertrauen? Schon [X] % mehr durchsetzbarer Preis oder [X] gewonnene Wunschkunden im Jahr ergeben **{{zahl_verlust}}**.
-
-**Ist-Ziel-Lücke → Lösung → Preis → Einwände → Abschluss** → Struktur wie B3, Inhalte markenbezogen. Preis erst jetzt, aus Aufwand abgeleitet (A1 + A4).
+**Bestätigung + Anti-No-Show**
+> Perfekt. Die Bestätigung sende ich an [E-Mail], richtig?
+> Zwei letzte Fragen. Erstens, aus Erfahrung: Gibt es jemanden im Unternehmen, den Sie bei so einem Gespräch gerne direkt dabeihätten — Geschäftsführung, Marketing, Vertrieb, HR, Assistenz oder jemand aus der Familie?
+> Zweitens, reine Routinefrage bei uns: Für mich ist wichtig, dass der Termin nicht nur gemacht wurde, damit ich Ruhe gebe. Ist das Thema für Sie wirklich relevant genug, dass wir uns die 20 Minuten sauber anschauen?
+> Perfekt. Dann freue ich mich auf [Datum] um [Uhrzeit]. Vielen Dank für Ihr Vertrauen und einen schönen Tag.
 
 ---
 
-## Teil D — Vertical: KI-Automation
+## Gatekeeper & Einwandbehandlung
 
-**Vertical-Profil**
-- **Experten-Rolle:** KI- & Automations-Experte
-- **Analyse-Name:** *kostenlose Automations-Analyse* (Dachbegriff: KI-Potenzialanalyse)
-- **Opener-Objekt:** Ihre internen Abläufe / Ihr Anfrage-Handling
-- **`{{gk_thema}}`:** Ihre digitalen Abläufe
-- **`{{ergebnis_typ}}`:** gesparte Zeit & mehr Abschlüsse aus vorhandenen Anfragen
+**Gatekeeper — direkter Einstieg**
+> Hallo, Luis Kummer von HK Growth. Verbinden Sie mich einmal bitte direkt mit Herrn/Frau [Name]. Dankeschön.
 
-### D1 · Stufe 1 — Setter-Call
+**„Worum geht es?"**
+> Es geht um die digitale Außenwirkung und darum, wie Ihr Unternehmen aktuell online von potenziellen Kunden oder Bewerbern wahrgenommen wird. Wenn Sie mich einmal direkt zu Herrn/Frau [Name] durchstellen, erkläre ich es kurz persönlich. Ich bleibe so lange in der Leitung. Dankeschön.
 
-**Opener** *[Status + Lücke]*
-> Moin Herr/Frau **{{name}}**, {{setter_name}} von HK Growth — kurz und ehrlich, Sie können mich danach direkt wieder loswerden. *(Pause)*
-> Ich hab mir angeschaut, wie ein Betrieb wie Ihrer heute arbeitet, und mir fällt fast immer dasselbe auf: Vieles läuft noch von Hand, das inzwischen längst automatisch laufen könnte — und das kostet Sie genau die Ressource, die am teuersten ist: Zeit.
+**Entscheider nicht da**
+> Ach, Herr/Frau [Name] ist gerade nicht im Haus. Wann erreiche ich ihn/sie denn am besten wieder — eher in einer Stunde oder später am Nachmittag?
 
-**Verlust-Anker** *[Verlustaversion — Zeit & verlorene Leads]*
-> Zwei Dinge kosten dabei richtig Geld: die Stunden, die Ihr Team an Routineaufgaben verliert — und Anfragen, die nicht schnell genug beantwortet werden und deshalb zum Wettbewerber gehen, der in 5 Minuten reagiert statt in zwei Tagen.
+**Gatekeeper blockt**
+> Ich verstehe. Ich weiß nur leider nicht, inwieweit ich das mit Ihnen besprechen darf, weil es um die digitale Strategie und Außenwirkung des Unternehmens geht. Wenn Herr/Frau [Name] gerade wirklich nicht zu sprechen ist, kein Problem, dann melde ich mich später. Wenn er/sie aber im Haus ist, stellen Sie mich bitte einmal kurz durch. Dankeschön.
 
-**Offer als Geschenk** *[Reziprozität + Take-away]*
-> Ich pitche nichts. Wir haben einen **KI- & Automations-Experten**, der macht mit Ihnen eine kurze **kostenlose Automations-Analyse** — er zeigt Ihnen konkret, welche 2–3 Abläufe bei Ihnen am meisten Zeit fressen und heute automatisierbar wären. Das Feedback gehört Ihnen, danach entscheiden Sie frei.
+**„Schicken Sie eine E-Mail"**
+> Kann ich machen. Erfahrungsgemäß ist es aber schwer, das sinnvoll in einer allgemeinen Mail zu erklären, weil es um konkrete Punkte geht, die mir bei Ihrem Auftritt aufgefallen sind. Sagen Sie Herrn/Frau [Name] bitte, dass Luis Kummer von HK Growth angerufen hat wegen der digitalen Außenwirkung und möglicher Anfragen über den Online-Auftritt. Notieren Sie sich bitte kurz meine Nummer: [Nummer].
+
+### Einwände im Gespräch
+
+- **„Kein Interesse."** → Verstehe ich. Darf ich kurz fragen: Kein Interesse, weil das Thema grundsätzlich nicht relevant ist — oder weil gerade der Zeitpunkt schlecht ist? *(Wenn Zeitpunkt:)* Dann macht ein kurzer Termin mehr Sinn als ein Telefonat zwischen Tür und Angel. 20 Minuten, danach wissen Sie, ob's relevant ist. Passt eher Anfang oder Ende nächster Woche?
+- **„Schicken Sie was per Mail."** → Kann ich machen. Nur bringt eine allgemeine Mail erfahrungsgemäß wenig, weil ich Ihnen ja konkret zeigen wollte, was mir aufgefallen ist. Lassen Sie uns vorher 20 Minuten reinschauen, dann sehen Sie direkt, ob es relevant ist. Passt eher morgen oder übermorgen?
+- **„Wir haben schon eine Agentur."** → Perfekt, dann sind Grundlagen da. Es geht nicht darum, Ihre Agentur schlechtzureden oder jemanden zu ersetzen. Ich zeige Ihnen einfach, wo aus unserer Sicht noch Potenzial liegt. Wäre es die schlechteste Idee, das einmal 20 Minuten neutral zu prüfen?
+- **„Wir machen schon Social Media."** → Sehr gut. Dann ist die Frage nicht, ob Sie Social Media machen, sondern ob daraus planbar Vertrauen, Anfragen oder Markenwirkung entsteht. Ich zeige Ihnen, wo Ihr Auftritt schon gut ist und wo noch Potenzial liegt. Passt eher Anfang oder Ende nächster Woche?
+- **„Aktuell kein Budget."** → Verstehe ich. Genau deshalb ist es sinnvoll, erst kostenlos zu prüfen, welcher Hebel überhaupt Sinn macht, bevor man Geld verbrennt. Der Termin ist kein Verkaufsgespräch, sondern ein kurzer Wachstumscheck.
+- **„Keine Zeit."** → Verstehe ich. Genau deshalb rufe ich nicht an, um Ihnen jetzt 30 Minuten am Telefon etwas zu erklären. Lassen Sie uns einen festen 20-Minuten-Termin setzen. Passt eher morgen oder übermorgen?
+- **„Wir brauchen sowas nicht."** → Kann sein. Genau das würde ich gerne kurz prüfen. Mein Eindruck war, dass Ihr Unternehmen fachlich stärker wirkt, als es online sichtbar wird. Wenn ich falsch liege, haben Sie nach 20 Minuten zumindest die Gewissheit.
+
+**Stärkste Sätze für schwierige Situationen**
+> „Ich will Ihnen am Telefon nichts verkaufen. Ich möchte Ihnen einmal konkret zeigen, was mir aufgefallen ist. Danach entscheiden Sie selbst, ob es relevant ist."
+> „Ihr Unternehmen wirkt fachlich stärker, als es online aktuell sichtbar wird."
+> „Wenn ich falsch liege, haben Sie nach 20 Minuten zumindest die Gewissheit."
+> „Die Frage ist nicht, ob Sie schon etwas machen, sondern ob daraus planbar Anfragen, Bewerbungen oder Vertrauen entstehen."
+
+---
+
+## Psychologischer Ablauf (warum jeder Beat wirkt)
+
+> Referenz für Training. Erklärt die Korthauer-Mechanik hinter jedem Script.
+
+1. **Vertrautheit durch Vorbezug** — „Wir haben vor einiger Zeit gesprochen." → Der Anruf fühlt sich nicht komplett kalt an, Abwehr sinkt. *(Nur behaupten, wenn wahr.)*
+2. **Agenda-Satz** — „…auf die Agenda geschrieben, Sie als Kunden zu gewinnen." → selbstbewusstes Framing, Expertenrolle, nicht bittend.
+3. **Recherche statt Standardpitch** — „Ich habe mir Ihren Betrieb angeschaut, zwei, drei Parallelen …" → wirkt vorbereitet, individuell.
+4. **Proof durch Ergebnis** — konkretes Kundenergebnis statt Versprechen. *(Nur echte Zahlen.)*
+5. **Eigene Methode benennen** — der Methodenname erzeugt Neugier, klingt nach System statt Agenturleistung.
+6. **Negative Close** — „Wäre es die schlechteste Idee …?" → ein „Nein" wirkt unlogisch, Druck raus.
+7. **Mechanismus erklären, nicht zerreden** — grober Nutzen, aber nicht alles am Telefon → Termin bleibt relevant.
+8. **Wettbewerbsvorteil / Dringlichkeit** — „…bevor Ihre Mitbewerber aktiver werden." *(Regionale Exklusivität nur, wenn wahr.)*
+9. **Qualifizierung** — der Kunde formuliert seinen Bedarf selbst und verkauft sich den Termin innerlich.
+10. **Terminabschluss mit Alternativfragen** — „Anfang oder Ende?" → nicht mehr ob, sondern wann.
+11. **Anti-No-Show** — weitere Entscheider einladen + Relevanz bestätigen lassen → verbindlicher.
+
+**Tonalität nach Typ:** Ruhig → langsamer, mehr Pausen. Dominant → direkt, nicht rechtfertigen. Gestresst → kurz, direkt Termin. Skeptisch → nicht diskutieren, prüfen lassen.
+
+---
+
+# LEISTUNGSBEREICHE
+
+## 1. Website & Digitale Präsenz
+*(inkl. lokale Sichtbarkeit & Google)*
+
+**Positionierung** — Nicht „Wir bauen Websites.", sondern: „Wir bauen digitale Vertrauensseiten, die Interessenten verstehen lassen, warum sie genau bei Ihnen anfragen sollten — und über die Sie regional gefunden werden."
+**Methodenname** — Conversion-Website-Analyse *(Alt.: digitaler Kundenpfad-Check · Anfrage-Website-System)*
+
+**Opener**
+> Moin / Servus / Hallo Herr/Frau [Name], Luis Kummer hier.
+> Ich hab mir Ihre Website und Ihre digitale Präsenz einmal aus Sicht eines potenziellen Kunden angeschaut — inklusive Google-Profil, Bewertungen und dem Weg bis zur Anfrage. Dabei ist mir aufgefallen, dass Ihr Unternehmen fachlich wahrscheinlich deutlich stärker ist, als Ihre Website aktuell vermittelt.
+> Deshalb hab ich mir heute nochmal auf die Agenda geschrieben, zu prüfen, ob wir aus Ihrer Website eine stärkere Anfrage- und Vertrauensseite machen können.
+
+**Problem**
+> Viele Unternehmen verlieren online keine Anfragen, weil sie schlecht sind, sondern weil der erste digitale Eindruck nicht klar genug zeigt, warum man genau dort anfragen sollte — oder weil der Weg von „Ich suche jemanden" bis „Ich frage an" zu umständlich ist.
+
+**Methodenfrage**
+> Deshalb meine Frage: Haben Sie schon einmal etwas von einer Conversion-Website-Analyse gehört?
+
+**Wenn nein**
+> Dabei schauen wir uns nicht an, ob die Website schön aussieht, sondern ob sie Vertrauen aufbaut, Ihr Angebot verständlich macht, Besucher sauber zur Anfrage führt und ob Sie regional überhaupt gefunden werden.
 
 **Negative Close**
-> Wäre es die schlechteste Idee, wenn ich Ihnen 20 Minuten mit unserem KI-Experten reinlege — unverbindlich?
+> Wäre es die absolut schlechteste Idee, wenn ich Ihnen in einer kostenlosen Präsentation einmal zeige, welche Punkte auf Ihrer Website aktuell Anfragen kosten könnten und wo regional Anfragen verloren gehen?
 
-**Mini-Qualifizierung** *[Commitment]*
-> - Wo verliert Ihr Team aktuell die meiste Zeit — **Anfragen beantworten**, **Angebote/Rechnungen**, **Termine koordinieren** oder **Nachfassen**?
-> - Wie schnell wird bei Ihnen im Schnitt auf eine neue Anfrage reagiert?
-> - Auf 1–10: Wie sehr drückt das Thema Zeit/Personal gerade?
+**Mechanismus + Wettbewerbsvorteil**
+> Wir betrachten Ihre Website nicht als digitale Visitenkarte, sondern als Vertrauens- und Anfragepfad: Jede wichtige Seite muss klar machen, wer Sie sind, was Sie anbieten, warum man Ihnen vertrauen sollte und welcher nächste Schritt sinnvoll ist. Dazu kommt der regionale erste Eindruck — Google-Profil, Bewertungen, Auffindbarkeit. Genau da entscheidet sich, ob ein Interessent bei Ihnen anfragt oder beim nächsten Anbieter, der professioneller wirkt.
 
-**Terminabschluss + Anti-No-Show** → wie B1.
+**Qualifizierung**
+> 1. Wann wurde Ihre Website zuletzt wirklich strategisch überarbeitet?
+> 2. Bekommen Sie über Website oder Google regelmäßig Anfragen?
+> 3. Wissen Sie ungefähr, wie viele Besucher auf die Website kommen?
+> 4. Was ist die wichtigste Handlung, die ein Besucher machen soll: anrufen, Formular, Termin buchen?
+> 5. Stellt Ihre Website Ihr Unternehmen so hochwertig dar, wie Sie tatsächlich arbeiten?
+> 6. Wie aktiv sammeln Sie Bewertungen, und wie schnell reagieren Sie auf Anfragen?
+> 7. Gab es mit früheren Webdesignern oder Agenturen Dinge, die nicht gut liefen?
 
-### D2 · Stufe 2 — Kostenlose Automations-Analyse
+**Übergang + Termin**
+> Alles klar. Dann zeige ich Ihnen gerne einmal konkret an Ihrer Website, wo aktuell Vertrauen aufgebaut wird, wo Besucher wahrscheinlich abspringen und wie Sie regional besser gefunden werden. Passt eher Anfang oder Ende nächster Woche? … Vormittags oder nachmittags? … [Tag] um [Uhrzeit] oder [Tag] um [Uhrzeit]?
 
-**Reframe** → wie B2.
-
-**Kontext-Fragen**
-> Was würde Ihnen am meisten helfen — **Zeit im Team freispielen**, **schneller auf Anfragen reagieren** oder **mehr aus den Anfragen machen, die schon reinkommen**? Und welcher Ablauf nervt Sie selbst am meisten?
-
-**Value-Block — die 5 Automations-Hebel**
-> 1. **Lead-/Anfrage-Handling:** automatische Sofort-Reaktion auf jede Anfrage → kein Lead bleibt liegen.
-> 2. **Termin- & Angebotsprozesse:** Buchung, Angebote, Erinnerungen automatisch → weniger Hin und Her.
-> 3. **Wiederkehrende Handarbeit:** Rechnungen, Nachfassen, Datenpflege → einmal aufsetzen, läuft.
-> 4. **KI-Assistent für Kundenanfragen:** FAQ, Erstauskunft, Vorqualifizierung rund um die Uhr.
-> 5. **Automatisches Reporting:** Überblick über Anfragen/Umsatz ohne Excel-Bastelei.
-
-**Moderne Tools**
-> Umsetzung heute: KI-Agenten und Workflow-Automationen, an Ihre bestehenden Tools angebunden — kein Systemwechsel, sondern eine Schicht Automatisierung obendrauf. Das meiste ist in Tagen live.
-
-**Sozialer Beweis + Future Pacing**
-> Betriebe wie Ihrer gewinnen damit oft mehrere Stunden pro Woche zurück und schließen mehr aus denselben Anfragen ab. Stellen Sie sich vor, jede Anfrage wird in unter 5 Minuten beantwortet, ohne dass jemand daran denken muss — was macht das mit Ihrer Abschlussquote?
-
-**Transition zum Strategie-Call** → wie B2.
-
-### D3 · Stufe 3 — Strategie-Call
-
-**Recap & Bedarf bestätigen** → wie B3.
-
-**Verlust quantifizieren** *[Anchoring — Zeit in Geld]*
-> Rechnen wir kurz: [X] Stunden/Woche Routine × Stundenkosten + [X] verlorene Anfragen/Monat → über ein Jahr **{{zahl_verlust}}**. Das ist der Betrag, der aktuell einfach verpufft.
-
-**Ist-Ziel-Lücke → Lösung → Preis → Einwände → Abschluss** → Struktur wie B3, Inhalte automatisierungsbezogen. Preis erst im Call, aus Aufwand (A1 + A4).
+**Bestätigung + Anti-No-Show** *(→ Standard, siehe Master)*
 
 ---
 
-## Teil E — Vertical: Ganzheitliche Wachstumssysteme
+## 2. Social Media / Branding
+*(Firmen- **oder** Personal-Branding — raushören, was der Kunde will. Der Call ist derselbe.)*
 
-> Das „Alles-greift-ineinander"-Angebot. Für Kunden, die schon einzelne Dinge tun (Website, Social, evtl. Ads), aber ohne System. Höchster Warenkorb, deshalb Senior-Experte/Gründer.
+**Positionierung** — Nicht „Wir posten für Sie.", sondern: „Wir machen aus Ihrem Unternehmen in Ihrer Region die klar vertrauenswürdigere und hochwertigere Wahl — sichtbar, wiedererkennbar, mit Content, der über Wochen Vertrauen aufbaut."
+**Methodenname** — Regionale Marken-Dominanz *(Firmen-Fokus: Social-Trust-System · Personal-Fokus: Founder-Trust-System)*
 
-**Vertical-Profil**
-- **Experten-Rolle:** Wachstums-Stratege (senior)
-- **Analyse-Name:** *kostenlose Wachstumsanalyse* (der Dachbegriff)
-- **Opener-Objekt:** Ihr digitales Wachstum als Ganzes
-- **`{{gk_thema}}`:** Ihr digitales Wachstum
-- **`{{ergebnis_typ}}`:** planbare Anfragen
+> **Gabelung im Call:** Hört der Setter „das Unternehmen soll bekannter/hochwertiger wirken" → **Firmen-Branding**. Hört er „die Person / der Chef ist der Vertrauensfaktor" → **Personal-Branding** (gleicher Aufbau, Person statt Firma). Die Produktion läuft in beiden Fällen über Content/Drehtag.
 
-### E1 · Stufe 1 — Setter-Call
+**Opener** *(mit starkem Pain)*
+> Moin / Servus / Hallo Herr/Frau [Name], Luis Kummer hier.
+> Wir haben vor einiger Zeit schon mal miteinander gesprochen wegen Ihrer digitalen Außenwirkung — damals war einfach ein bisschen zu viel los. Deshalb hab ich es mir heute nochmal auf die Agenda geschrieben, Sie als Kunden zu gewinnen.
+> Ich hab mir Ihren Betrieb ganz genau angeschaut, und mir sind zwei, drei Parallelen zu einem unserer Kunden aufgefallen, bei dem wir durch einen klareren Auftritt innerhalb weniger Wochen mehrere hochwertigere Anfragen erzeugen konnten.
+> Das Spannende bei Ihnen: Ihr Unternehmen wirkt fachlich stark. Aber wenn man Sie online mit zwei, drei anderen Anbietern aus Ihrer Region vergleicht, wird in den ersten Sekunden noch nicht klar genug, warum man ausgerechnet Ihnen mehr vertrauen sollte. Und genau da verlieren viele Unternehmer Geld — nicht, weil sie schlecht arbeiten, sondern weil Interessenten heute vergleichen, bevor sie überhaupt anrufen. Ist der Unterschied nach außen nicht klar, entscheidet der Kunde über den Preis, fragt gar nicht erst an oder geht zu dem, der professioneller wirkt.
 
-**Opener** *[Status + Lücke]*
-> Moin Herr/Frau **{{name}}**, {{setter_name}} von HK Growth — kurz und ehrlich, Sie können mich danach direkt wieder loswerden. *(Pause)*
-> Ich hab mir Ihren digitalen Auftritt angeschaut. Sie machen einzelne Dinge schon richtig — aber es fällt auf, dass die Teile nicht ineinandergreifen: Da ist eine Website, da ist Social, vielleicht mal Werbung. Was fehlt, ist das System dahinter, das daraus planbar Anfragen macht.
+**Methodenfrage**
+> Deshalb meine Frage: Haben Sie schon mal etwas von regionaler Marken-Dominanz gehört?
 
-**Verlust-Anker** *[Verlustaversion — Einzelteile verpuffen]*
-> Und das ist das Teure an Einzelmaßnahmen: Jedes Teil zieht ein bisschen, aber nichts baut aufeinander auf — das Budget und die Energie verpuffen. Sie bleiben abhängig von Empfehlung und Zufall, statt einen Hahn zu haben, den man aufdrehen kann.
+**Wenn „Nein, was ist das?"**
+> Eine Möglichkeit, mit der Unternehmen in ihrer Region nicht mehr als irgendein weiterer Anbieter wahrgenommen werden, sondern als die deutlich vertrauenswürdigere und hochwertigere Wahl. Nicht über ein neues Logo oder schöne Farben, sondern darüber, dass der komplette Außenauftritt sofort klar macht: Warum sollte ein Kunde Ihnen vertrauen? Warum wirken Sie hochwertiger? Warum sollte jemand bei Ihnen anfragen, obwohl es noch drei andere Anbieter gibt?
 
-**Offer als Geschenk** *[Reziprozität + Take-away]*
-> Ich pitche nichts. Wir haben einen **Wachstums-Strategen**, der macht mit Ihnen eine kurze **kostenlose Wachstumsanalyse** — er schaut sich das Zusammenspiel Ihrer Kanäle an und zeigt Ihnen, wo der eine Hebel liegt, der aktuell das meiste blockiert. Das Feedback gehört Ihnen, danach entscheiden Sie frei.
+**Wenn „Was ist Ihnen bei uns aufgefallen?"**
+> Gute Frage, ich mach's kurz — drei Sachen. Erstens: Ihr Betrieb wirkt solide, aber online noch nicht so stark, wie er in der Realität ist. Zweitens: Im Vergleich mit anderen Anbietern aus der Region wird nicht schnell genug klar, warum ein Kunde ausgerechnet bei Ihnen anfragen sollte. Drittens: Ihr Auftritt erklärt mehr, *was* Sie machen, aber zu wenig, *warum* Sie die bessere Wahl sind. Kein riesiger Fehler — aber genau da liegt Geld, weil Interessenten schon beim ersten Eindruck entscheiden. Deshalb wollte ich Ihnen das sauber zeigen, statt es am Telefon halb zu erklären.
 
 **Negative Close**
-> Wäre es die schlechteste Idee, wenn ich Ihnen 20 Minuten mit unserem Wachstums-Strategen reinlege — unverbindlich?
+> Wäre es dann die absolut schlechteste Idee, wenn ich Ihnen in einer kostenlosen Präsentation einmal zeige, wie wir das bei dem anderen Unternehmen aufgebaut haben, und wir gemeinsam prüfen, ob das auch für Ihren Betrieb funktionieren würde?
 
-**Mini-Qualifizierung** *[Commitment]*
-> - Wenn Sie an einem Rad drehen könnten — **mehr Sichtbarkeit**, **mehr Anfragen** oder **verlässlichere Abschlüsse** — welches?
-> - Was haben Sie bisher schon probiert, das nicht so gezogen hat wie erhofft?
-> - Auf 1–10: Wie wichtig ist planbares Wachstum für Sie gerade?
+**Mechanismus** *(je nach Gabelung)*
+> **Firmen-Branding:** Wir bauen aus Ihrem Unternehmen ein sichtbares Vertrauenssystem — Strategie, Themen, Content-Produktion, Wiedererkennbarkeit und regelmäßige Veröffentlichung, damit Menschen Ihr Unternehmen wiederholt sehen, besser verstehen und schneller Vertrauen aufbauen.
+> **Personal-Branding:** Wir übersetzen Ihre Erfahrung, Haltung und Geschichte in klare Inhalte, die Kompetenz und Vertrauen erzeugen — ohne künstliche Show. So wird nicht nur das Unternehmen sichtbarer, sondern auch die Person dahinter glaubwürdiger.
+> Produziert wird das über einen geplanten **Drehtag**: vorher Themen und Botschaften festlegen, danach das Material zu Content für mehrere Wochen verwerten (Reels, Beiträge, Website- und Anzeigenmaterial).
 
-**Terminabschluss + Anti-No-Show** → wie B1.
+### Einwand-Verzweigungen (Branding)
 
-### E2 · Stufe 2 — Kostenlose Wachstumsanalyse
+- **„Wir brauchen kein Branding."** → Verstehe. Dann geht's auch nicht um Branding im klassischen Sinn — kein Logo, keine Farben, kein Agenturzeug. Mir geht's um die Frage: Wenn ein Kunde Sie und zwei Wettbewerber online vergleicht, gewinnt Ihr Auftritt dann sofort Vertrauen — oder wirken alle ähnlich? Weil genau da Preisdruck entsteht.
+- **„Wir bekommen genug Anfragen."** → Sehr gut, dann funktioniert schon einiges. Die Frage ist dann nicht *ob* Anfragen kommen, sondern welche Qualität — viele Preisvergleicher, oder die richtigen Kunden, die schon mit Vertrauen ankommen? Genau da ist Branding oft der Hebel: nicht mehr Anfragen, sondern hochwertigere mit weniger Preisdruck.
+- **„Unsere Kunden kommen über Empfehlung."** → Perfekt, dann ist der Online-Auftritt sogar noch wichtiger: Jemand bekommt Ihren Namen empfohlen, googelt Sie und entscheidet in Sekunden, ob das Vertrauen bestätigt wird — oder ob er doch zwei andere vergleicht. Die Empfehlung erzeugt Interesse, Ihr Auftritt muss es bestätigen.
+- **„Wir haben schon eine Website."** → Davon gehe ich aus. Die Frage ist nicht, ob Sie eine haben, sondern ob Ihr kompletter Außenauftritt stark genug verkauft, warum Sie hochwertiger und vertrauenswürdiger sind. Viele Websites informieren nur — wenige positionieren wirklich.
 
-**Reframe** → wie B2.
+**Qualifizierung**
+> 1. Wenn ein Kunde Sie und zwei Wettbewerber online vergleicht: Wird sofort klar, warum er sich für Sie entscheiden sollte?
+> 2. Haben Sie manchmal das Gefühl, dass Interessenten Ihre Leistung mit anderen vergleichen, obwohl Sie auf einem anderen Qualitätsniveau arbeiten?
+> 3. Kommen Ihre besten Kunden eher über Empfehlung, online oder über bestehende Kontakte?
+> 4. Wenn jemand Sie empfohlen bekommt und online prüft: Bestätigt Ihr Auftritt dieses Vertrauen stark genug?
+> 5. Was ist Ihnen bei Ihrer Außenwirkung besonders wichtig: Hochwertigkeit, Vertrauen, Klarheit, mehr Anfragen oder weniger Preisdruck?
+> 6. *(Personal-Fokus:)* Würden Sie sagen, Kunden bauen eher wegen der Firma oder auch wegen Ihnen als Person Vertrauen auf? Was möchten Sie auf keinen Fall — zu laut, zu künstlich, zu influencer-mäßig?
+> 7. Wie wichtig ist es Ihnen auf einer Skala von 1 bis 10, in Ihrer Region als die klar vertrauenswürdigere Wahl wahrgenommen zu werden?
 
-**Kontext-Fragen**
-> Wo wollen Sie in 12 Monaten stehen — und was müsste an Anfragen/Umsatz passieren, damit das aufgeht? Und wo hakt es aktuell am meisten?
+**Übergang + Termin**
+> Alles klar. Basierend auf dem, was Sie gesagt haben, ist das nichts, was ich nicht schon bei anderen Unternehmen gesehen habe. Bei Ihnen geht's nicht darum, irgendwas schön zu machen, sondern Ihre echte Qualität nach außen so klar zu zeigen, dass Kunden schneller verstehen, warum sie Ihnen vertrauen sollten. Damit ich Ihnen das an Ihrem Beispiel zeige — und wir uns auch anschauen, wie Ihre Konkurrenz aktuell wirkt — schauen Sie kurz in den Kalender: Anfang oder Ende nächster Woche? … Vormittags oder nachmittags? … [Tag] um [Uhrzeit] oder [Tag] um [Uhrzeit]?
 
-**Value-Block — die 5 Wachstums-Hebel (der Trichter)**
-> 1. **Positionierung (Fundament):** klar, warum Sie → sonst wirkt alles darüber schwächer.
-> 2. **Sichtbarkeit:** Content/Social bringt die richtigen Leute in den Trichter.
-> 3. **Conversion:** die Website macht aus Aufmerksamkeit Anfragen.
-> 4. **Nachfrage-Generierung:** gezielte Reichweite/Ads füllen planbar nach.
-> 5. **Nachverfolgung & Automation:** CRM + Automationen sorgen, dass kein Lead verloren geht.
->
-> *(Der Punkt: Diese fünf müssen als *ein* System laufen — deshalb ziehen Einzelmaßnahmen nicht.)*
-
-**Moderne Tools**
-> Umsetzung heute: ein integriertes System mit durchgängigem Tracking von der ersten Sichtbarkeit bis zur Anfrage — und KI in jeder Stufe. Sie sehen schwarz auf weiß, welcher Euro welche Anfrage bringt.
-
-**Sozialer Beweis + Future Pacing**
-> Sobald das System steht, wird Wachstum bei Betrieben wie Ihrem planbar statt zufällig. Stellen Sie sich vor, Sie könnten Anfragen hoch- und runterdrehen wie einen Hahn — was würden Sie als Erstes skalieren?
-
-**Transition zum Strategie-Call** → wie B2.
-
-### E3 · Stufe 3 — Strategie-Call (Gründer)
-
-**Recap & Bedarf bestätigen** → wie B3.
-
-**Verlust quantifizieren** *[Anchoring — verpufftes Budget + entgangenes Wachstum]*
-> Was haben Sie in den letzten 12 Monaten in einzelne Maßnahmen gesteckt, ohne dass ein System draus wurde? Plus das Wachstum, das ohne planbaren Anfragefluss liegen bleibt → **{{zahl_verlust}}**.
-
-**Ist-Ziel-Lücke → Lösung (System-Roadmap) → Preis → Einwände → Abschluss** → Struktur wie B3, Inhalte systembezogen. Preis erst im Call, aus Aufwand (A1 + A4).
+**Bestätigung + Anti-No-Show** *(→ Standard, siehe Master)*
 
 ---
 
-## Teil F — Quellen & Herkunft
+## 3. KI-Automationen & Prozesse
+*(Rechnungssysteme, CRM, Nachverfolgung — alles Mögliche an Automation)*
 
-- **Roh-/Originalwissen (unbearbeitet):** Google-Drive-Ordner *„Kortauer"* → „Korthauer wissen", „Korthauer wissen 2", „Jarvis Import – Korthauer Marketing Essentials".
-- **Erste bearbeitete Fassung (Ausgangspunkt):** Google-Doc *„Scripts mit kotrauer wissen"* (Ordner „Scripts") — Korthauer-Struktur auf HK Growth übertragen.
-- **Dieses Dokument:** konsolidiert, verkaufspsychologisch optimiert für Unternehmer, in die 3-Stufen-App-Architektur (Setter → kostenlose Analyse → Strategie-Call) über 4 Verticals gebracht.
+**Positionierung** — Nicht „Wir bauen Automationen.", sondern: „Wir sorgen dafür, dass Anfragen, Kontakte, Termine und Nachverfolgung nicht mehr manuell im Chaos verschwinden."
+**Methodenname** — Digitales Prozess-Wachstums-System *(Alt.: Anfrage-Nachverfolgungs-System · CRM-Wachstums-System)*
 
-*Diese Datei ist die Arbeits- und Integrationsgrundlage für die Sales-App. Preise/Pakete werden bewusst nicht hinterlegt — sie entstehen pro Kunde aus Bedarf → Aufwand → Preis im Strategie-Call.*
+**Opener**
+> Moin / Servus / Hallo Herr/Frau [Name], Luis Kummer hier.
+> Wir haben vor knapp zwei Monaten schon einmal miteinander gesprochen — damals war einfach ein bisschen zu viel los. Deshalb hab ich's mir heute nochmal auf die Agenda geschrieben, Sie als Kunden zu gewinnen.
+> Ich hab mir Ihren Betrieb und Ihre digitale Struktur ganz genau angeschaut, und mir sind zwei, drei Parallelen zu einem unserer Kunden aufgefallen, der mit uns in den letzten zwei Monaten sein digitales Wachstum auf die nächste Stufe bringen konnte.
+
+**Problem + Methodenfrage**
+> Viele Unternehmen bekommen zwar Anfragen, Kontakte oder Bewerbungen — aber dann fehlt ein sauberes System für Nachverfolgung, Terminierung, Angebote, Rechnungen oder Wiedervorlage. Da bleibt oft Umsatz liegen, ohne dass man's merkt.
+> Deshalb meine Frage: Haben Sie schon einmal etwas von einem digitalen Prozess-Wachstums-System gehört?
+
+**Wenn nein**
+> Dabei verbinden wir Kontaktwege, Formulare, CRM, Automationen, E-Mails, Erinnerungen und interne Abläufe — inklusive KI-Integration — so, dass weniger liegen bleibt und mehr aus bestehenden Kontakten entsteht.
+
+**Negative Close**
+> Wäre es die absolut schlechteste Idee, wenn ich Ihnen in einer kostenlosen Präsentation einmal zeige, wo Unternehmen typischerweise Anfragen oder Kontakte verlieren und wie das bei Ihnen sauberer laufen könnte?
+
+**Mechanismus + Wettbewerbsvorteil**
+> Es geht nicht um Automatisierung um ihrer selbst willen, sondern darum, dass kein guter Kontakt verloren geht: Anfrage kommt rein, wird sauber erfasst, zugeordnet, nachverfolgt und zum nächsten Schritt geführt. Ich spreche das bewusst zuerst mit Ihnen und nicht mit zehn Betrieben aus Ihrer Branche gleichzeitig — wenn es passt, wäre es sinnvoll, dass Sie vorne dran sind, bevor Ihre Mitbewerber ihre Abläufe digital sauberer aufstellen.
+
+**Qualifizierung**
+> 1. Was passiert aktuell, wenn eine neue Anfrage reinkommt?
+> 2. Gibt es ein CRM, oder läuft vieles über E-Mail, WhatsApp und Excel?
+> 3. Werden Interessenten automatisch nachverfolgt?
+> 4. Gibt es Termine, Angebote oder Rechnungen, die manchmal liegen bleiben?
+> 5. Was kostet es Sie ungefähr, wenn eine gute Anfrage nicht sauber bearbeitet wird?
+> 6. Wo ist aktuell am meisten Chaos: Vertrieb, Kundenservice, Projektstart, Rechnung oder Nachverfolgung?
+> 7. Wie wichtig ist mehr Struktur auf einer Skala von 1 bis 10?
+
+**Übergang + Termin**
+> Alles klar. Dann zeige ich Ihnen gerne einmal konkret, wie ein digitales Nachverfolgungssystem bei Ihnen aussehen könnte und welche manuellen Abläufe man vereinfachen kann. Passt eher Anfang oder Ende nächster Woche? … Vormittags oder nachmittags? … [Tag] um [Uhrzeit] oder [Tag] um [Uhrzeit]?
+
+**Bestätigung + Anti-No-Show** *(→ Standard, siehe Master)*
+
+---
+
+## 4. Ganzheitliches Wachstumssystem
+*(Komplettangebot — Recruiting, Paid Ads, weitere Bausteine werden bei Bedarf dazugenommen)*
+
+**Positionierung** — Nicht „Wir machen alles.", sondern: „Wir verbinden Sichtbarkeit, Vertrauen, Content, Website, Anfragen und Nachverfolgung zu einem digitalen Wachstumssystem."
+**Methodenname** — HK Growth System *(Alt.: digitales Wachstumssystem · digitale Wachstumsnachverfolgung)*
+
+**Opener**
+> Moin / Servus / Hallo Herr/Frau [Name], Luis Kummer hier von HK Growth. Schönen guten Tag.
+> Ich hab mir Ihren Betrieb ganz genau angeschaut: Website, Social Media, Google-Auftritt, Content und den Weg bis zur Anfrage. Dabei ist mir aufgefallen, dass bei Ihnen nicht nur ein einzelner Punkt interessant ist, sondern das Zusammenspiel.
+
+**Problem + Methodenfrage**
+> Viele Unternehmen haben irgendwo eine Website, posten gelegentlich, bekommen hier und da eine Anfrage und haben vielleicht Werbung ausprobiert. Aber es fehlt ein klares System, das Aufmerksamkeit, Vertrauen, Anfrage und Nachverfolgung sauber verbindet. Deshalb hab ich mir heute nochmal auf die Agenda geschrieben, zu prüfen, ob wir für Sie ein HK Growth System aufbauen können.
+> Deshalb meine Frage: Haben Sie schon einmal etwas von digitaler Wachstumsnachverfolgung gehört?
+
+**Wenn nein**
+> Dabei schauen wir uns an, wo Ihr Unternehmen digital aktuell Aufmerksamkeit verliert, wo Vertrauen nicht stark genug aufgebaut wird, wo Anfragen nicht entstehen und wo Kontakte nicht sauber nachverfolgt werden.
+
+**Negative Close**
+> Wäre es dann die absolut schlechteste Idee, wenn ich Ihnen in einer kostenlosen Präsentation einmal zeige, welche Hebel bei Ihnen aktuell am stärksten sind und ob sich daraus ein digitales Wachstumssystem bauen lässt?
+
+**Mechanismus + Wettbewerbsvorteil**
+> Wir bauen nicht einfach einzelne Posts, Webseiten, Anzeigen oder Videos. Wir schauen zuerst, wo Ihr Unternehmen online Wirkung verliert, und verbinden dann die richtigen Bausteine: Positionierung, Social Media, Website, Content, Google-Sichtbarkeit, Anzeigen, Automationen, Nachverfolgung — und bei Bedarf Recruiting. Ziel ist, dass ein Kunde, Bewerber oder Partner nicht nur irgendwie auf Sie aufmerksam wird, sondern schnell versteht, warum er Ihnen vertrauen sollte und welcher nächste Schritt sinnvoll ist.
+
+**Qualifizierung**
+> 1. Wenn Sie an Wachstum denken: Geht es eher um Kunden, Bewerber, Sichtbarkeit, Marke, Prozesse oder alles zusammen?
+> 2. Was ist aktuell der größte Engpass?
+> 3. Was haben Sie bisher im Marketing oder digitalen Bereich probiert — was hat funktioniert, was nicht?
+> 4. Welche Fehler dürfen wir auf keinen Fall wiederholen?
+> 5. Wie würde ein gutes Ergebnis in drei bis sechs Monaten aussehen?
+> 6. Wer müsste bei einer Entscheidung mit im Gespräch sein?
+> 7. Wie wichtig ist das Thema auf einer Skala von 1 bis 10?
+> 8. Gibt es aktuell eine Agentur oder interne Person, die sich darum kümmert?
+
+**Übergang + Termin**
+> Alles klar. Basierend auf dem, was Sie gesagt haben, sehe ich genug Ansatzpunkte, dass sich ein kurzes Gespräch lohnt. Damit ich Ihnen das an Ihrem Beispiel zeige und wir prüfen, welche Hebel für Sie wirklich Sinn ergeben, schauen Sie kurz in den Kalender: Anfang oder Ende nächster Woche? … Vormittags oder nachmittags? … [Tag] um [Uhrzeit] oder [Tag] um [Uhrzeit]?
+
+**Bestätigung + Anti-No-Show**
+> Perfekt. Die Bestätigung sende ich an [E-Mail], richtig? … Gibt es jemanden im Unternehmen, den Sie direkt dabeihätten — Geschäftsführung, Marketing, Vertrieb oder jemand aus der Familie? … Und nur als Routinefrage: Ist das Thema wirklich relevant genug für die 20 Minuten, oder eher ein Höflichkeitstermin? … Perfekt, dann freue ich mich auf [Datum] um [Uhrzeit]. Wir zeigen Ihnen konkret, wo Ihr Unternehmen aktuell online Wachstum verliert und welche Schritte am meisten Sinn ergeben. Vielen Dank für Ihr Vertrauen und einen schönen Tag.
+
+---
+
+## Quellen
+- **Roh-Original:** Google-Drive-Ordner *„Kortauer"* (Korthauer wissen 1 & 2).
+- **Vorlage-Scripts:** Google-Drive-Ordner *„Scripts"* (Genereller Master, Einzelbereiche, Psychologischer Ablauf, Gatekeeper) — hier konsolidiert, poliert und auf die 4 aktuellen Leistungsbereiche zusammengeführt.
