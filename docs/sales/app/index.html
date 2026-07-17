@@ -1,0 +1,476 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HK Growth · Call-Cockpit</title>
+<style>
+:root{
+  --bg:#F5F4EF; --panel:#FFFFFF; --ink:#232A31; --muted:#616B75; --line:#E2E0D8;
+  --accent:#0B6B57; --accent-ink:#FFFFFF;
+  --ice:#FFE873; --yes:#BCE5A9; --cue:#C6DAF8; --ph:#F9CB9C; --ph-ok:#D8EFE6;
+  --danger:#B3372F;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#141920; --panel:#1C232C; --ink:#E9ECEF; --muted:#9AA5B0; --line:#2B343F;
+    --accent:#43C99F; --accent-ink:#0E1418;
+    --ice:#6B5E1A; --yes:#2F5A2B; --cue:#28425F; --ph:#6E4A22; --ph-ok:#1F4A3D;
+    --danger:#E5766D;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F5F4EF; --panel:#FFFFFF; --ink:#232A31; --muted:#616B75; --line:#E2E0D8;
+  --accent:#0B6B57; --accent-ink:#FFFFFF;
+  --ice:#FFE873; --yes:#BCE5A9; --cue:#C6DAF8; --ph:#F9CB9C; --ph-ok:#D8EFE6;
+  --danger:#B3372F;
+}
+:root[data-theme="dark"]{
+  --bg:#141920; --panel:#1C232C; --ink:#E9ECEF; --muted:#9AA5B0; --line:#2B343F;
+  --accent:#43C99F; --accent-ink:#0E1418;
+  --ice:#6B5E1A; --yes:#2F5A2B; --cue:#28425F; --ph:#6E4A22; --ph-ok:#1F4A3D;
+  --danger:#E5766D;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem 1rem;padding:1rem 1.25rem .4rem}
+header h1{font-size:1.05rem;margin:0;letter-spacing:.02em}
+header .sub{color:var(--muted);font-size:.85rem}
+.wrap{display:grid;grid-template-columns:290px 1fr;gap:1rem;padding:0 1.25rem 2rem;max-width:1240px;margin:0 auto}
+@media (max-width:900px){.wrap{grid-template-columns:1fr}}
+.rail,.main{min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding: .9rem 1rem;margin-bottom:1rem}
+.card h2{font-size:.75rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:.1rem 0 .6rem}
+label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:.55rem 0 .2rem}
+input,select{width:100%;padding:.45rem .55rem;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font:inherit}
+input:focus,select:focus,button:focus{outline:2px solid var(--accent);outline-offset:1px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.seg{display:flex;flex-wrap:wrap;gap:.4rem}
+.seg button{flex:1 1 auto;padding:.5rem .6rem;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:inherit;font-size:.85rem;cursor:pointer;text-align:left}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+.tabs button{padding:.5rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink);font:inherit;font-size:.85rem;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:.45rem .9rem;font-size:.78rem;color:var(--muted);margin:-.2rem 0 .9rem}
+.legend i{font-style:normal;padding:.05rem .4rem;border-radius:4px}
+.goal{border-left:3px solid var(--accent);padding:.5rem .8rem;background:var(--panel);border-radius:0 8px 8px 0;margin-bottom:1rem;font-size:.9rem}
+.goal b{color:var(--accent)}
+.script{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.3rem}
+.script h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin:1.4rem 0 .45rem;border-top:1px solid var(--line);padding-top:1rem}
+.script h3:first-child{margin-top:0;border-top:0;padding-top:0}
+.script p{font-family:Georgia,"Times New Roman",serif;font-size:1.05rem;line-height:1.75;margin:.55rem 0;max-width:66ch}
+.script ol,.script ul{font-family:Georgia,serif;font-size:1.02rem;line-height:1.7;max-width:66ch;padding-left:1.3rem}
+.script li{margin:.35rem 0}
+.ice{background:var(--ice);border-radius:4px;padding:.06rem .22rem}
+.yes{background:var(--yes);border-radius:4px;padding:.06rem .22rem;font-weight:600}
+.cue{background:var(--cue);border-radius:4px;padding:.02rem .3rem;font-style:italic;font-family:system-ui,sans-serif;font-size:.85em}
+.ph{background:var(--ph);border-radius:4px;padding:.02rem .3rem;font-family:system-ui,sans-serif;font-size:.9em;font-weight:600}
+.ph.ok{background:var(--ph-ok)}
+u{text-underline-offset:3px;text-decoration-thickness:2px}
+details{border:1px solid var(--line);border-radius:8px;margin:.5rem 0;background:var(--panel)}
+details summary{cursor:pointer;padding:.6rem .8rem;font-weight:600;font-size:.92rem;list-style-position:inside}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .a{padding:.6rem .9rem;font-family:Georgia,serif;font-size:1rem;line-height:1.7;max-width:66ch}
+.note{font-size:.8rem;color:var(--muted);margin-top:.8rem}
+footer{max-width:1240px;margin:0 auto;padding:0 1.25rem 2rem;color:var(--muted);font-size:.78rem}
+@media (prefers-reduced-motion:no-preference){.tabs button,.seg button{transition:background .12s,color .12s}}
+</style>
+
+<header>
+  <h1>HK GROWTH · CALL-COCKPIT</h1>
+  <span class="sub">Korthauer-Struktur · 4 Pfeiler · Opener → Setter → Closer</span>
+</header>
+
+<div class="wrap">
+  <aside class="rail">
+    <div class="card">
+      <h2>Call-Daten (live im Skript)</h2>
+      <div class="row2">
+        <div><label for="fAnrufer">Anrufer</label><input id="fAnrufer" placeholder="Dein Name"></div>
+        <div><label for="fName">Kunde</label><input id="fName" placeholder="Nachname"></div>
+      </div>
+      <div class="row2">
+        <div><label for="fAnrede">Anrede</label><select id="fAnrede"><option>Herr</option><option>Frau</option></select></div>
+        <div><label for="fGruss">Gruß</label><select id="fGruss"><option>Moin</option><option>Servus</option><option>Hallo</option></select></div>
+      </div>
+      <div class="row2">
+        <div><label for="fTag1">Termin 1 – Tag</label><input id="fTag1" placeholder="Dienstag"></div>
+        <div><label for="fZeit1">Uhrzeit</label><input id="fZeit1" placeholder="11:00"></div>
+      </div>
+      <div class="row2">
+        <div><label for="fTag2">Termin 2 – Tag</label><input id="fTag2" placeholder="Donnerstag"></div>
+        <div><label for="fZeit2">Uhrzeit</label><input id="fZeit2" placeholder="14:00"></div>
+      </div>
+      <label for="fMail">E-Mail Kunde</label><input id="fMail" placeholder="fürs Bestätigen">
+    </div>
+    <div class="card">
+      <h2>Leistungspfeiler</h2>
+      <div class="seg" id="pillars" role="group" aria-label="Leistungspfeiler"></div>
+    </div>
+    <div class="card">
+      <h2>Tonalität (Merker)</h2>
+      <ul style="margin:.2rem 0;padding-left:1.1rem;font-size:.84rem;line-height:1.6">
+        <li><b>Ruhig</b> → langsamer, Pausen</li>
+        <li><b>Dominant</b> → direkt, nicht rechtfertigen</li>
+        <li><b>Gestresst</b> → kurz, sofort Termin</li>
+        <li><b>Skeptisch</b> → nicht diskutieren, prüfen lassen</li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="legend">
+      <span><i class="ice">Gelb</i> Icebreaker / Schlüsselsatz</span>
+      <span><i class="yes">Grün</i> Ja-Trigger → danach still sein</span>
+      <span><i class="cue">Blau</i> Regie – nicht vorlesen</span>
+      <span><i class="ph">Orange</i> Platzhalter – vor Call füllen</span>
+      <span><u>Unterstrichen</u> = Wort betonen</span>
+    </div>
+    <div class="goal" id="goal"></div>
+    <div class="script" id="script"></div>
+    <p class="note" id="note"></p>
+  </main>
+</div>
+
+<footer>Skripte sind rollen-basiert — jede:r passt Formulierungen der eigenen Sprache an. Vorbezug („wir haben schon gesprochen") nur nutzen, wenn wahr; sonst: „Ich hatte mir Ihren Betrieb notiert." · Quelle: Drive-Ordner „Skripts neu für Sales App".</footer>
+
+<script>
+"use strict";
+/* ---------- Platzhalter ---------- */
+const F = (id)=>document.getElementById(id);
+const fields = ["fAnrufer","fName","fAnrede","fGruss","fTag1","fZeit1","fTag2","fZeit2","fMail"];
+function ph(val, fallback){ return val ? '<span class="ph ok">'+esc(val)+'</span>' : '<span class="ph">'+fallback+'</span>'; }
+function esc(s){ return s.replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function sub(html){
+  const v = Object.fromEntries(fields.map(id=>[id, F(id).value.trim()]));
+  const gruss = F("fGruss").value, anrede = F("fAnrede").value;
+  return html
+    .replaceAll("{GRUSS}", '<span class="ph ok">'+gruss+'</span>')
+    .replaceAll("{ANREDE}", '<span class="ph ok">'+anrede+'</span>')
+    .replaceAll("{NAME}", ph(v.fName,"[Name]"))
+    .replaceAll("{ANRUFER}", ph(v.fAnrufer,"[Anrufer]"))
+    .replaceAll("{TAG1}", ph(v.fTag1,"[Tag 1]"))
+    .replaceAll("{ZEIT1}", ph(v.fZeit1,"[Uhrzeit 1]"))
+    .replaceAll("{TAG2}", ph(v.fTag2,"[Tag 2]"))
+    .replaceAll("{ZEIT2}", ph(v.fZeit2,"[Uhrzeit 2]"))
+    .replaceAll("{EMAIL}", ph(v.fMail,"[E-Mail]"));
+}
+/* ---------- Bausteine ---------- */
+const TERMIN = `<h3>Terminabschluss (Alternativfragen)</h3>
+<p>Schauen Sie kurz in den Kalender — ich hab meinen direkt offen. <span class="yes">Passt eher Anfang oder Ende nächster Woche?</span> <span class="cue">(antworten lassen)</span> <span class="yes">Eher vormittags oder nachmittags?</span> Ich könnte {TAG1} um {ZEIT1} oder {TAG2} um {ZEIT2} anbieten. <span class="yes">Was passt besser?</span></p>
+<h3>Bestätigung + Anti-No-Show</h3>
+<p>Perfekt. Die Bestätigung sende ich an {EMAIL}, richtig?</p>
+<p>Zwei kurze Fragen noch. Erstens: Gibt es jemanden, den Sie bei so einem Thema gerne direkt dabeihätten — jemand, der mitentscheidet, oder aus der Familie?</p>
+<p><span class="ice">Und ehrlich, aus Erfahrung: Ist das relevant genug, dass Sie sich die 20 Minuten wirklich nehmen — oder wäre es nur ein Termin, damit ich Ruhe gebe?</span> <span class="cue">(bestätigen lassen)</span></p>
+<p>Perfekt, dann bis {TAG1} um {ZEIT1}. Ich zeige Ihnen dann konkret, wo aktuell Potenzial liegt. Vielen Dank für Ihr Vertrauen und einen schönen Tag.</p>`;
+
+const SETTER_EXTRA = `<h3>Wenn im Setting kommt: „Schicken Sie mir erst mal Infos"</h3>
+<p>Kann ich machen — nur bringt eine allgemeine Mail erfahrungsgemäß wenig, weil ich Ihnen ja <u>konkret an Ihrem Beispiel</u> zeigen wollte, was mir aufgefallen ist. Lassen Sie uns die 20 Minuten direkt festmachen, die Bestätigung bekommen Sie sofort per Mail. <span class="yes">Passt eher morgen oder übermorgen?</span></p>`;
+
+const CLOSER_EINW = `<h3>Einwände im Abschluss (Reihenfolge: verstehen → isolieren → reframen)</h3>
+<ul>
+<li><b>„Zu teuer."</b> → Verstehe ich. <u>Verglichen womit</u> — mit dem Preis, oder mit dem, was Sie die aktuelle Situation jeden Monat kostet? Genau das haben wir ja gerade ausgerechnet.</li>
+<li><b>„Ich muss überlegen."</b> → Völlig legitim. Damit ich Sie richtig unterstütze: Überlegen Sie das <u>Ob</u> oder das <u>Wie</u>? <span class="cue">(echten Einwand isolieren, dann gezielt beantworten)</span></li>
+<li><b>„Ich muss das mit … besprechen."</b> → Absolut richtig. Was wäre für ihn/sie der wichtigste Punkt? Am besten holen wir ihn/sie kurz dazu — wann sitzen Sie beide vor dem Kalender?</li>
+<li><b>„Keine Zeit für die Umsetzung."</b> → Genau deshalb übernehmen wir das — Ihr Aufwand ist ein kurzes Onboarding, den Rest machen wir.</li>
+<li><b>„Wir sind schon mal verbrannt worden (Agentur)."</b> → Und genau deshalb haben wir das anders aufgebaut: Sie haben gesehen, <u>was</u> wir tun würden, bevor Sie einen Euro zahlen. Das Risiko liegt bis hierhin komplett bei uns.</li>
+<li><b>„Gerade kein Budget."</b> → Verstehe. Wenn das Budget da wäre — wäre es dann ein Ja? <span class="cue">(wenn ja → Start terminieren/staffeln; wenn nein → echten Einwand suchen)</span></li>
+<li><b>„Schicken Sie mir das Angebot per Mail."</b> → Bekommen Sie schriftlich. Lassen Sie uns nur die offenen Fragen <u>jetzt</u> klären, damit im Angebot nichts steht, was nicht passt. Was ist der eine Punkt, der Sie noch zögern lässt?</li>
+<li><b>„Was, wenn es nicht funktioniert?"</b> → Fair. Deshalb starten wir mit dem Baustein, der am schnellsten messbar ist — Sie sehen nach [X] Wochen schwarz auf weiß, ob die Richtung stimmt.</li>
+</ul>`;
+
+/* ---------- Inhalte ---------- */
+const P = {}; // pillars
+
+P.website = { label:"🌐 Website", methode:"Conversion-Website-Analyse",
+opener:{goal:"<b>Ziel Opener:</b> aufmachen + Interesse gewinnen. Kein Termin-Talk, kein Preis. Übergabe an Setter, sobald Interesse da ist.",html:`
+<h3>Einstieg</h3>
+<p>{GRUSS} {ANREDE} {NAME}, {ANRUFER} hier von HK Growth.</p>
+<p><span class="ice">Wir haben vor einiger Zeit schon einmal wegen Ihrer digitalen Außenwirkung gesprochen — damals war einfach ein bisschen viel los.</span></p>
+<p>Deshalb hab ich mir heute nochmal auf die Agenda geschrieben, <u>Sie als Kunden zu gewinnen</u>. <span class="cue">(lachen)</span> — also natürlich nicht genau heute. Aber ich hab mir Ihren Auftritt nochmal <u>ganz genau</u> angeschaut.</p>
+<p><span class="ice">Und mir sind zwei, drei Parallelen zu einem unserer Kunden aufgefallen, der mit uns in wenigen Wochen deutlich mehr Anfragen über die Seite bekommen hat.</span> <span class="cue">(kurze Pause)</span></p>
+<h3>Problem → Methodenfrage</h3>
+<p>Viele verlieren online keine Anfragen, weil sie schlecht sind — sondern weil in den ersten Sekunden nicht klar wird, <u>warum man genau bei Ihnen anfragen soll</u>. Oder weil der Weg bis zur Anfrage zu umständlich ist.</p>
+<p><span class="yes">Haben Sie schon einmal etwas von einer Conversion-Website-Analyse gehört?</span> <span class="cue">(still sein, antworten lassen)</span></p>
+<h3>Wenn „Was ist das?"</h3>
+<p>Dabei schauen wir nicht, ob die Seite schön aussieht — sondern ob sie Vertrauen aufbaut, Ihr Angebot klar macht, Besucher sauber zur Anfrage führt und ob Sie regional überhaupt gefunden werden.</p>
+<h3>Negative Close</h3>
+<p><span class="yes">Wäre es die absolut schlechteste Idee, wenn ich Ihnen einmal <u>kostenlos</u> zeige, welche Punkte auf Ihrer Seite gerade Anfragen kosten — und wo Sie regional gefunden werden könnten?</span></p>`},
+setter:{goal:"<b>Ziel Setter:</b> qualifizieren + festen, no-show-sicheren Termin. Kein Preis, keine Detail-Analyse am Telefon.",html:`
+<h3>Kurz-Qualifizierung <span class="cue">(Kunde nennt Bedarf selbst)</span></h3>
+<ol>
+<li>Bekommen Sie über Website oder Google aktuell regelmäßig Anfragen?</li>
+<li>Was soll die Seite vor allem besser können — <u>mehr Anfragen</u>, hochwertiger wirken, oder regional besser gefunden werden?</li>
+<li>Was stört Sie <u>selbst</u> am meisten daran?</li>
+<li>Wie wichtig ist Ihnen das Thema auf einer Skala von 1 bis 10? <span class="cue">(unter 7 → „Was würde bis zur 9 fehlen?")</span></li>
+</ol>
+<h3>Warum jetzt</h3>
+<p>Genau das schauen wir uns einmal konkret an Ihrem Beispiel an — <u>schwarz auf weiß</u>, wo Sie gerade Anfragen liegen lassen. Bevor Ihre Mitbewerber digital deutlich aktiver werden.</p>
+${SETTER_EXTRA}${TERMIN}`},
+closer:{goal:"<b>Ziel Closer:</b> Analyse zeigen → Bedarf → Lösung → Preis (erst jetzt!) → Abschluss. Zeigen, nicht verkaufen.",html:`
+<h3>Reframe</h3>
+<p><span class="ice">Kurz vorweg: Das ist kein Verkaufsgespräch. Ich zeige Ihnen ehrlich, was ich an Ihrer Seite anders machen würde — was Sie danach damit tun, entscheiden Sie frei.</span> Passt das? <span class="cue">(bestätigen lassen)</span></p>
+<h3>Kontext</h3>
+<p>Bevor ich einsteige: Was soll die Website vor allem leisten — mehr Anfragen, mehr Vertrauen, regional besser gefunden werden? Und was stört Sie selbst am meisten?</p>
+<h3>Analyse — die 5 Hebel</h3>
+<ol>
+<li><b>Erster Eindruck:</b> oben wird nicht klar, was Sie für wen machen und <u>warum Sie</u> → klare Aussage nach oben.</li>
+<li><b>Weg zur Anfrage:</b> nächster Schritt zu versteckt → sichtbare Handlungsführung.</li>
+<li><b>Vertrauen:</b> Bewertungen, Gesichter, Referenzen fehlen → Vertrauens-Elemente.</li>
+<li><b>Mobil &amp; Tempo:</b> auf dem Handy langsam/verschoben → schlanker, schneller.</li>
+<li><b>Google/regional:</b> bei „Leistung + Ort" weit unten → Profil + Texte ausrichten.</li>
+</ol>
+<p><span class="cue">(Regel: einen Punkt schenken, den der Kunde sofort selbst umsetzen kann — beweist „kein Pitch")</span></p>
+<h3>Moderne Tools</h3>
+<p>Heute umsetzbar mit schnellen Frameworks, KI-gestützten Texten, Online-Terminbuchung direkt auf der Seite und sauberem Tracking. <u>Sowas steht in Tagen, nicht Monaten.</u></p>
+<h3>Lücke rechnen <span class="cue">(Anker VOR dem Preis)</span></h3>
+<p>Was schätzen Sie: Wie viele Anfragen pro Monat gehen verloren, weil die Seite noch nicht überzeugt? … Bei Ihrem Auftragswert sind das über ein Jahr schnell <span class="ph">[große Zahl]</span> — <u>Geld, das liegen bleibt</u>.</p>
+<h3>Lösung — nur was nötig ist</h3>
+<p>Auf Basis der Analyse setze ich genau die Bausteine an, die den Hebel bringen — nicht mehr: <span class="ph">[Schritt 1 → 2 → 3]</span>, live in <span class="ph">[X]</span> Wochen.</p>
+<h3>Preis</h3>
+<p><span class="ice">Den Preis nenne ich bewusst erst jetzt, wo wir Ihren Bedarf kennen — nicht ins Blaue.</span> Für den Umfang liegen wir bei <span class="ph">[Preis]</span>. <span class="cue">(Preis nennen — dann still sein)</span></p>
+${CLOSER_EINW}
+<h3>Abschluss</h3>
+<p><span class="yes">Wenn's für Sie passt: Start <span class="ph">[Datum]</span>, Onboarding kommt direkt, in <span class="ph">[X]</span> Wochen live. Machen wir's so?</span></p>`}};
+
+P.branding = { label:"📣 Social & Branding", methode:"Regionale Marken-Dominanz",
+opener:{goal:"<b>Ziel Opener:</b> aufmachen mit starkem Pain (Vergleichbarkeit). Gabelung merken: Firma stärken → Firmen-Branding · Person ist Vertrauensfaktor → Personal-Branding. Gleicher Call.",html:`
+<h3>Einstieg</h3>
+<p>{GRUSS} {ANREDE} {NAME}, {ANRUFER} hier von HK Growth.</p>
+<p><span class="ice">Wir haben vor einiger Zeit schon mal wegen Ihrer digitalen Außenwirkung gesprochen — damals war einfach ein bisschen zu viel los.</span></p>
+<p>Deshalb hab ich es mir heute nochmal auf die Agenda geschrieben, <u>Sie als Kunden zu gewinnen</u>. <span class="cue">(lachen)</span> — also natürlich nicht genau heute. Aber ich hab mir Ihren Betrieb nochmal <u>ganz genau</u> angeschaut.</p>
+<p><span class="ice">Mir sind zwei, drei Parallelen zu einem unserer Kunden aufgefallen, bei dem wir durch einen klareren Auftritt in wenigen Wochen mehrere hochwertigere Anfragen erzeugen konnten.</span> <span class="cue">(kurze Pause)</span></p>
+<h3>Der Pain</h3>
+<p>Das Spannende bei Ihnen: Ihr Unternehmen wirkt fachlich stark. Aber wenn man Sie online mit zwei, drei Anbietern aus Ihrer Region vergleicht, wird in den ersten Sekunden <u>nicht klar genug, warum ausgerechnet Sie</u>. Und genau da verlieren Unternehmer Geld — nicht weil sie schlecht arbeiten, sondern weil Interessenten <u>vergleichen, bevor sie anrufen</u>. Ist der Unterschied nicht sichtbar, entscheidet der Kunde über den Preis, fragt gar nicht erst an — oder geht zu dem, der professioneller wirkt.</p>
+<p><span class="yes">Haben Sie schon mal etwas von regionaler Marken-Dominanz gehört?</span> <span class="cue">(antworten lassen)</span></p>
+<h3>Wenn „Was ist das?"</h3>
+<p>Eine Möglichkeit, mit der Unternehmen in ihrer Region nicht mehr als irgendein Anbieter wahrgenommen werden, sondern als die <u>deutlich vertrauenswürdigere und hochwertigere Wahl</u>. Nicht über ein neues Logo — sondern darüber, dass der komplette Auftritt sofort klar macht: Warum Ihnen vertrauen? Warum wirken Sie hochwertiger? Warum bei Ihnen anfragen, obwohl es drei andere gibt?</p>
+<h3>Wenn „Was ist Ihnen bei uns aufgefallen?"</h3>
+<p>Gute Frage, ich mach's kurz — drei Sachen. Erstens: Ihr Betrieb wirkt solide, aber online noch nicht so stark, wie er in der Realität ist. Zweitens: Im Vergleich wird nicht schnell genug klar, warum ein Kunde ausgerechnet bei Ihnen anfragen sollte. Drittens: Ihr Auftritt erklärt, <u>was</u> Sie machen — aber zu wenig, <u>warum Sie die bessere Wahl sind</u>. Deshalb wollte ich Ihnen das sauber zeigen, statt es am Telefon halb zu erklären.</p>
+<h3>Negative Close</h3>
+<p><span class="yes">Wäre es die absolut schlechteste Idee, wenn ich Ihnen einmal <u>kostenlos</u> zeige, wie wir das bei dem anderen Unternehmen aufgebaut haben — und wir prüfen, ob das auch für Ihren Betrieb funktioniert?</span></p>`},
+setter:{goal:"<b>Ziel Setter:</b> qualifizieren + Gabelung (Firmen/Personal) raushören + Termin setzen.",html:`
+<h3>Kurz-Qualifizierung</h3>
+<ol>
+<li>Wenn ein Kunde Sie und zwei Wettbewerber online vergleicht: Wird sofort klar, warum er sich für <u>Sie</u> entscheiden sollte?</li>
+<li>Kommen Ihre besten Kunden eher über Empfehlung, online oder Bestandskontakte?</li>
+<li>Was ist Ihnen am wichtigsten: Hochwertigkeit, Vertrauen, mehr Anfragen oder <u>weniger Preisdruck</u>?</li>
+<li><span class="cue">(Gabelung:)</span> Bauen Kunden eher wegen der Firma Vertrauen auf — oder auch wegen <u>Ihnen als Person</u>?</li>
+<li>Skala 1–10: Wie wichtig ist es, in Ihrer Region als die klar vertrauenswürdigere Wahl gesehen zu werden?</li>
+</ol>
+<h3>Warum jetzt</h3>
+<p>Bei Ihnen geht's nicht darum, irgendwas schön zu machen — sondern Ihre <u>echte Qualität</u> nach außen so klar zu zeigen, dass Kunden schneller verstehen, warum sie Ihnen vertrauen sollten. Das zeige ich Ihnen an Ihrem Beispiel — und wir schauen auch, <u>wie Ihre Konkurrenz gerade wirkt</u>.</p>
+${SETTER_EXTRA}${TERMIN}`},
+closer:{goal:"<b>Ziel Closer:</b> Marken-Analyse zeigen → Bedarf → Lösung (Drehtag-System) → Preis → Abschluss.",html:`
+<h3>Reframe</h3>
+<p><span class="ice">Kurz vorweg: kein Verkaufsgespräch. Ich zeige Ihnen ehrlich, wie Ihre Marke im Vergleich zum Wettbewerb wirkt und wo Sie am schnellsten unverwechselbar werden.</span> Passt das? <span class="cue">(bestätigen lassen)</span></p>
+<h3>Kontext</h3>
+<p>Was soll Ihre Außenwirkung vor allem bewirken — hochwertigere Kunden, weniger Preisdruck, bessere Bewerber? Und: Wofür sollen Menschen Sie <u>in einem Satz</u> kennen?</p>
+<h3>Analyse — die 5 Hebel</h3>
+<ol>
+<li><b>Positionierung:</b> Wofür stehen Sie in einem Satz? Aktuell austauschbar → spitze Kernbotschaft.</li>
+<li><b>Wettbewerbs-Vergleich:</b> neben zwei Anbietern — warum Sie? Wird nicht hart genug sichtbar.</li>
+<li><b>Vertrauen &amp; Gesicht:</b> Menschen folgen Menschen → Sie/Ihr Team, Referenzen, Bewertungen sichtbar.</li>
+<li><b>Wiedererkennbarkeit:</b> Website, Social, Google einheitlich und einprägsam.</li>
+<li><b>Regelmäßigkeit:</b> ohne Rhythmus kein Vertrauensaufbau → planbarer Content statt „ab und zu".</li>
+</ol>
+<h3>Moderne Tools</h3>
+<p>Ein Content-System, das aus <u>einem Drehtag</u> Wochen an Content macht — KI-gestützte Produktion, gezielte Distribution. Statt mühsam selbst posten.</p>
+<h3>Lücke rechnen <span class="cue">(Anker VOR dem Preis)</span></h3>
+<p>Was kostet es Sie, dass Sie über den <u>Preis</u> verglichen werden statt über Vertrauen? Schon <span class="ph">[X]</span> % mehr durchsetzbarer Preis oder <span class="ph">[X]</span> Wunschkunden im Jahr ergeben <span class="ph">[große Zahl]</span>.</p>
+<h3>Lösung — nur was nötig ist</h3>
+<p><span class="ph">[Positionierung → Content-Drehtag → Distribution/Rhythmus]</span> — in <span class="ph">[X]</span> Wochen sichtbar.</p>
+<h3>Preis</h3>
+<p><span class="ice">Den Preis nenne ich erst jetzt, wo wir den Bedarf kennen.</span> Für den Umfang liegen wir bei <span class="ph">[Preis]</span>. <span class="cue">(dann still sein)</span></p>
+${CLOSER_EINW}
+<h3>Abschluss</h3>
+<p><span class="yes">Wenn's passt: Start <span class="ph">[Datum]</span>, erster Drehtag <span class="ph">[Datum]</span>, in <span class="ph">[X]</span> Wochen sichtbar. Machen wir's so?</span></p>`}};
+
+P.ki = { label:"🤖 KI-Automation", methode:"Digitales Prozess-Wachstums-System",
+opener:{goal:"<b>Ziel Opener:</b> aufmachen + Interesse. Pain: liegengebliebene Anfragen, manuelles Chaos.",html:`
+<h3>Einstieg</h3>
+<p>{GRUSS} {ANREDE} {NAME}, {ANRUFER} hier von HK Growth.</p>
+<p><span class="ice">Wir haben vor knapp zwei Monaten schon einmal miteinander gesprochen — damals war einfach ein bisschen zu viel los.</span></p>
+<p>Deshalb hab ich's mir heute nochmal auf die Agenda geschrieben, <u>Sie als Kunden zu gewinnen</u>. <span class="cue">(lachen)</span> — also natürlich nicht genau heute. Aber ich hab mir Ihren Betrieb und Ihre digitale Struktur nochmal <u>ganz genau</u> angeschaut.</p>
+<p><span class="ice">Mir sind zwei, drei Parallelen zu einem unserer Kunden aufgefallen, der mit uns in den letzten zwei Monaten sein digitales Wachstum auf die nächste Stufe bringen konnte.</span> <span class="cue">(kurze Pause)</span></p>
+<h3>Problem → Methodenfrage</h3>
+<p>Viele Unternehmen <u>bekommen</u> Anfragen, Kontakte, Bewerbungen — aber dann fehlt ein sauberes System für Nachverfolgung, Terminierung, Angebote, Rechnungen oder Wiedervorlage. Da bleibt Umsatz liegen, ohne dass man's merkt.</p>
+<p><span class="yes">Haben Sie schon einmal etwas von einem digitalen Prozess-Wachstums-System gehört?</span> <span class="cue">(antworten lassen)</span></p>
+<h3>Wenn „Was ist das?"</h3>
+<p>Dabei verbinden wir Kontaktwege, Formulare, CRM, Automationen, E-Mails, Erinnerungen und interne Abläufe — inklusive KI — so, dass <u>weniger liegen bleibt</u> und mehr aus bestehenden Kontakten entsteht.</p>
+<h3>Negative Close</h3>
+<p><span class="yes">Wäre es die absolut schlechteste Idee, wenn ich Ihnen einmal <u>kostenlos</u> zeige, wo Unternehmen typischerweise Anfragen verlieren — und wie das bei Ihnen sauberer laufen könnte?</span></p>`},
+setter:{goal:"<b>Ziel Setter:</b> qualifizieren + Termin setzen. Exklusivität nur, wenn wahr.",html:`
+<h3>Kurz-Qualifizierung</h3>
+<ol>
+<li>Was passiert aktuell, wenn eine neue Anfrage reinkommt?</li>
+<li>Gibt es ein CRM — oder läuft vieles über E-Mail, WhatsApp und Excel?</li>
+<li>Gibt es Termine, Angebote oder Rechnungen, die manchmal <u>liegen bleiben</u>?</li>
+<li>Was kostet es Sie ungefähr, wenn eine gute Anfrage nicht sauber bearbeitet wird?</li>
+<li>Skala 1–10: Wie wichtig ist mehr Struktur gerade?</li>
+</ol>
+<h3>Warum jetzt</h3>
+<p>Ich spreche das bewusst zuerst mit Ihnen und nicht mit zehn Betrieben aus Ihrer Branche gleichzeitig — wenn es passt, wäre es sinnvoll, dass Sie <u>vorne dran</u> sind, bevor Ihre Mitbewerber ihre Abläufe digital sauberer aufstellen.</p>
+${SETTER_EXTRA}${TERMIN}`},
+closer:{goal:"<b>Ziel Closer:</b> Automations-Analyse → Zeit/Geld-Anker → Lösung → Preis → Abschluss.",html:`
+<h3>Reframe</h3>
+<p><span class="ice">Kurz vorweg: kein Verkaufsgespräch. Ich zeige Ihnen ehrlich, welche Abläufe bei Ihnen am meisten Zeit fressen und was davon heute automatisierbar wäre.</span> Passt das? <span class="cue">(bestätigen lassen)</span></p>
+<h3>Kontext</h3>
+<p>Was würde am meisten helfen — Zeit im Team freispielen, schneller reagieren, oder mehr aus bestehenden Anfragen machen? Und welcher Ablauf nervt Sie <u>selbst</u> am meisten?</p>
+<h3>Analyse — die 5 Hebel</h3>
+<ol>
+<li><b>Anfrage-Handling:</b> automatische Sofort-Reaktion → kein Lead bleibt liegen.</li>
+<li><b>Termine, Angebote, Rechnungen:</b> Buchung + Erinnerungen automatisch.</li>
+<li><b>Wiederkehrende Handarbeit:</b> Nachfassen, Datenpflege, Wiedervorlage → einmal aufsetzen, läuft.</li>
+<li><b>KI-Assistent:</b> FAQ, Erstauskunft, Vorqualifizierung — rund um die Uhr.</li>
+<li><b>Reporting:</b> Anfragen/Umsatz im Blick ohne Excel-Bastelei.</li>
+</ol>
+<h3>Moderne Tools</h3>
+<p>KI-Agenten und Workflow-Automationen, an Ihre bestehenden Tools angebunden — <u>kein Systemwechsel</u>, eine Schicht obendrauf. Das meiste ist in Tagen live.</p>
+<h3>Lücke rechnen <span class="cue">(Anker VOR dem Preis)</span></h3>
+<p>Rechnen wir kurz: <span class="ph">[X]</span> Stunden/Woche Routine × Stundenkosten + <span class="ph">[X]</span> verlorene Anfragen/Monat → über ein Jahr <span class="ph">[große Zahl]</span>. <u>Das verpufft aktuell.</u></p>
+<h3>Lösung — nur was nötig ist</h3>
+<p>Genau die Automationen, die den Hebel bringen: <span class="ph">[Ablauf 1 → 2 → 3]</span>, das meiste in <span class="ph">[X]</span> Wochen live.</p>
+<h3>Preis</h3>
+<p><span class="ice">Den Preis nenne ich erst jetzt, wo wir den Bedarf kennen.</span> Für den Umfang liegen wir bei <span class="ph">[Preis]</span>. <span class="cue">(dann still sein)</span></p>
+${CLOSER_EINW}
+<h3>Abschluss</h3>
+<p><span class="yes">Wenn's passt: Start <span class="ph">[Datum]</span>, in <span class="ph">[X]</span> Wochen läuft die erste Automation. Machen wir's so?</span></p>`}};
+
+P.system = { label:"📈 Wachstumssystem", methode:"HK Growth System",
+opener:{goal:"<b>Ziel Opener:</b> das Zusammenspiel verkaufen — für Kunden, die schon Einzelnes tun, aber ohne System.",html:`
+<h3>Einstieg</h3>
+<p>{GRUSS} {ANREDE} {NAME}, {ANRUFER} hier von HK Growth.</p>
+<p><span class="ice">Wir haben vor einiger Zeit schon einmal wegen Ihrer digitalen Außenwirkung gesprochen — damals war einfach ein bisschen viel los.</span></p>
+<p>Deshalb hab ich mir heute nochmal auf die Agenda geschrieben, <u>Sie als Kunden zu gewinnen</u>. <span class="cue">(lachen)</span> — also natürlich nicht genau heute. Aber ich hab mir Ihren Betrieb nochmal <u>ganz genau</u> angeschaut: Website, Social Media, Google, Content und den Weg bis zur Anfrage.</p>
+<p><span class="ice">Und dabei ist mir aufgefallen: Bei Ihnen ist nicht ein einzelner Punkt interessant — sondern das <u>Zusammenspiel</u>.</span> <span class="cue">(kurze Pause)</span></p>
+<h3>Problem → Methodenfrage</h3>
+<p>Viele Unternehmen haben eine Website, posten gelegentlich, bekommen hier und da eine Anfrage, haben vielleicht Werbung probiert. Aber es fehlt <u>ein System</u>, das Aufmerksamkeit, Vertrauen, Anfrage und Nachverfolgung sauber verbindet — deshalb verpufft die Energie in Einzelmaßnahmen.</p>
+<p><span class="yes">Haben Sie schon einmal etwas von digitaler Wachstumsnachverfolgung gehört?</span> <span class="cue">(antworten lassen)</span></p>
+<h3>Wenn „Was ist das?"</h3>
+<p>Dabei schauen wir, wo Ihr Unternehmen digital gerade Aufmerksamkeit verliert, wo Vertrauen nicht stark genug aufgebaut wird, wo Anfragen nicht entstehen — und wo Kontakte nicht sauber nachverfolgt werden.</p>
+<h3>Negative Close</h3>
+<p><span class="yes">Wäre es die absolut schlechteste Idee, wenn ich Ihnen einmal <u>kostenlos</u> zeige, welche Hebel bei Ihnen am stärksten sind — und ob sich daraus ein digitales Wachstumssystem bauen lässt?</span></p>`},
+setter:{goal:"<b>Ziel Setter:</b> Engpass + Historie qualifizieren, Termin setzen (30–45 Min., da größerer Scope).",html:`
+<h3>Kurz-Qualifizierung</h3>
+<ol>
+<li>Wenn Sie an Wachstum denken: eher Kunden, Bewerber, Sichtbarkeit, Marke, Prozesse — <u>oder alles zusammen</u>?</li>
+<li>Was ist aktuell der größte Engpass?</li>
+<li>Was haben Sie schon probiert — was hat funktioniert, was nicht?</li>
+<li>Welche Fehler dürfen wir auf keinen Fall wiederholen?</li>
+<li>Wer müsste bei einer Entscheidung mit im Gespräch sein? <span class="cue">(wichtig — direkt zum Termin einladen)</span></li>
+<li>Skala 1–10: Wie wichtig ist planbares Wachstum gerade?</li>
+</ol>
+<h3>Warum jetzt</h3>
+<p>Basierend auf dem, was Sie sagen, sehe ich <u>genug Ansatzpunkte</u>, dass sich ein kurzes Gespräch lohnt — wir prüfen gemeinsam, welche Hebel bei Ihnen wirklich Sinn ergeben.</p>
+${SETTER_EXTRA}${TERMIN}`},
+closer:{goal:"<b>Ziel Closer (Gründer-Level):</b> System-Analyse → der eine blockierende Hebel → Roadmap in Stufen → Preis → Abschluss.",html:`
+<h3>Reframe</h3>
+<p><span class="ice">Kurz vorweg: kein Verkaufsgespräch. Ich schaue mir das Zusammenspiel Ihrer Kanäle an und zeige ehrlich, wo es gerade am meisten blockiert.</span> Passt das? <span class="cue">(bestätigen lassen)</span></p>
+<h3>Kontext</h3>
+<p>Wo wollen Sie in 12 Monaten stehen — und was müsste an Anfragen/Umsatz passieren, damit das aufgeht? Wo hakt es aktuell am meisten?</p>
+<h3>Analyse — der Trichter (5 Stufen)</h3>
+<ol>
+<li><b>Positionierung</b> (Fundament): klar, warum Sie — sonst wirkt alles darüber schwächer.</li>
+<li><b>Sichtbarkeit:</b> Content/Social bringt die richtigen Leute in den Trichter.</li>
+<li><b>Conversion:</b> die Website macht aus Aufmerksamkeit Anfragen.</li>
+<li><b>Nachfrage:</b> gezielte Reichweite/Ads füllen planbar nach.</li>
+<li><b>Nachverfolgung:</b> CRM + Automationen — kein Lead geht verloren.</li>
+</ol>
+<p>Der Punkt: Diese fünf müssen als <u>ein System</u> laufen — deshalb ziehen Einzelmaßnahmen nicht. Bei Ihnen blockiert aktuell vor allem <span class="ph">[der eine Hebel]</span>.</p>
+<h3>Moderne Tools</h3>
+<p>Durchgängiges Tracking von der ersten Sichtbarkeit bis zur Anfrage, KI in jeder Stufe — Sie sehen <u>schwarz auf weiß</u>, welcher Euro welche Anfrage bringt.</p>
+<h3>Lücke rechnen <span class="cue">(Anker VOR dem Preis)</span></h3>
+<p>Was haben Sie in den letzten 12 Monaten in Einzelmaßnahmen gesteckt, ohne dass ein System draus wurde? Plus das Wachstum, das ohne planbaren Anfragefluss liegen bleibt → <span class="ph">[große Zahl]</span>.</p>
+<h3>Lösung — Roadmap in Stufen</h3>
+<p>Stufe 1: <span class="ph">[größter Hebel]</span>, dann <span class="ph">[nächste Bausteine]</span> — bei Bedarf später Recruiting oder Ads. Wir starten dort, wo <u>am schnellsten Wirkung</u> entsteht.</p>
+<h3>Preis</h3>
+<p><span class="ice">Den Preis nenne ich erst jetzt, wo Bedarf und Roadmap stehen.</span> Für den ersten sinnvollen Umfang liegen wir bei <span class="ph">[Preis]</span>. <span class="cue">(dann still sein)</span></p>
+${CLOSER_EINW}
+<h3>Abschluss</h3>
+<p><span class="yes">Wenn's passt: Wir starten <span class="ph">[Datum]</span> mit <span class="ph">[Stufe 1]</span> — in <span class="ph">[X]</span> Wochen sehen Sie die ersten Ergebnisse. Machen wir's so?</span></p>`}};
+
+/* ---------- Geteilte Tabs ---------- */
+const SHARED = {
+gate:{label:"Gatekeeper & Einwände", goal:"<b>Geteilt für alle Pfeiler.</b> Gatekeeper-Wege + die 7 Standard-Einwände im Erstkontakt.", html:`
+<h3>Gatekeeper</h3>
+<details open><summary>Direkter Einstieg</summary><div class="a">Hallo, {ANRUFER} von HK Growth. <span class="yes">Verbinden Sie mich einmal bitte direkt mit {ANREDE} {NAME}.</span> Dankeschön.</div></details>
+<details><summary>„Worum geht es?"</summary><div class="a">Es geht um die digitale Außenwirkung und darum, wie Ihr Unternehmen online von Kunden oder Bewerbern wahrgenommen wird. Wenn Sie mich direkt durchstellen, erkläre ich es kurz persönlich — <u>ich bleibe in der Leitung</u>. Dankeschön.</div></details>
+<details><summary>Entscheider nicht da</summary><div class="a">Ach, {ANREDE} {NAME} ist gerade nicht im Haus. Wann erreiche ich ihn/sie am besten — <span class="yes">eher in einer Stunde oder später am Nachmittag?</span></div></details>
+<details><summary>Gatekeeper blockt</summary><div class="a">Ich verstehe. Ich weiß nur nicht, inwieweit ich das mit Ihnen besprechen darf — es geht um die digitale Strategie des Unternehmens. Wenn {ANREDE} {NAME} wirklich nicht zu sprechen ist, melde ich mich später. Wenn er/sie im Haus ist, stellen Sie mich bitte kurz durch. Dankeschön.</div></details>
+<details><summary>„Schicken Sie eine E-Mail"</summary><div class="a">Kann ich machen — nur ist das schwer in einer allgemeinen Mail zu erklären, weil es um <u>konkrete Punkte bei Ihrem Auftritt</u> geht. Richten Sie bitte aus, dass {ANRUFER} von HK Growth angerufen hat, wegen der digitalen Außenwirkung. Meine Nummer: <span class="ph">[Nummer]</span>.</div></details>
+<h3>Einwände im Erstkontakt</h3>
+<details><summary>„Kein Interesse."</summary><div class="a">Verstehe ich. Darf ich kurz fragen: Kein Interesse, weil das Thema <u>grundsätzlich</u> nicht relevant ist — oder weil gerade der <u>Zeitpunkt</u> schlecht ist? <span class="cue">(bei Zeitpunkt:)</span> Dann macht ein kurzer Termin mehr Sinn als ein Telefonat zwischen Tür und Angel. <span class="yes">Passt eher Anfang oder Ende nächster Woche?</span></div></details>
+<details><summary>„Schicken Sie was per Mail."</summary><div class="a">Kann ich machen — nur bringt eine allgemeine Mail wenig, weil ich Ihnen ja <u>konkret</u> zeigen wollte, was mir aufgefallen ist. Lassen Sie uns vorher 20 Minuten reinschauen. <span class="yes">Eher morgen oder übermorgen?</span></div></details>
+<details><summary>„Wir haben schon eine Agentur."</summary><div class="a">Perfekt, dann sind Grundlagen da. Es geht nicht darum, jemanden zu ersetzen — ich zeige Ihnen, wo aus unserer Sicht <u>noch</u> Potenzial liegt. <span class="yes">Wäre es die schlechteste Idee, das einmal 20 Minuten neutral zu prüfen?</span></div></details>
+<details><summary>„Wir machen schon Social Media."</summary><div class="a">Sehr gut. Dann ist die Frage nicht <u>ob</u>, sondern ob daraus <u>planbar</u> Vertrauen, Anfragen oder Markenwirkung entsteht. Ich zeige Ihnen, wo Ihr Auftritt gut ist und wo Potenzial liegt.</div></details>
+<details><summary>„Aktuell kein Budget."</summary><div class="a">Verstehe ich. <u>Genau deshalb</u> erst kostenlos prüfen, welcher Hebel Sinn macht, bevor man Geld verbrennt. Der Termin ist kein Verkaufsgespräch — ein kurzer Wachstumscheck.</div></details>
+<details><summary>„Keine Zeit."</summary><div class="a">Verstehe ich. Genau deshalb erkläre ich jetzt nichts 30 Minuten am Telefon. <span class="yes">Fester 20-Minuten-Termin — eher morgen oder übermorgen?</span></div></details>
+<details><summary>„Wir brauchen sowas nicht."</summary><div class="a">Kann sein — genau das würde ich kurz prüfen. Mein Eindruck: Ihr Unternehmen wirkt fachlich stärker, als es online sichtbar wird. <u>Wenn ich falsch liege, haben Sie nach 20 Minuten die Gewissheit.</u></div></details>
+<h3>Stärkste Sätze</h3>
+<ul>
+<li>„Ich will Ihnen am Telefon nichts verkaufen. Ich zeige Ihnen, was mir aufgefallen ist — danach entscheiden Sie selbst."</li>
+<li>„Ihr Unternehmen wirkt fachlich stärker, als es online sichtbar wird."</li>
+<li>„Wenn ich falsch liege, haben Sie nach 20 Minuten zumindest die Gewissheit."</li>
+<li>„Die Frage ist nicht, ob Sie schon etwas machen — sondern ob daraus planbar Anfragen entstehen."</li>
+</ul>`},
+follow:{label:"Follow-up & Übergabe", goal:"<b>Geteilt.</b> Übergabe Opener → Experte, No-Show-Reaktivierung und Wiedervorlage — damit die Kette nie reißt.", html:`
+<h3>Übergabe Opener → Setter/Experte <span class="cue">(intern, 60 Sekunden)</span></h3>
+<ul>
+<li><b>Wer:</b> Name, Firma, Rolle, Region</li>
+<li><b>Pfeiler + Aufhänger:</b> was ist konkret aufgefallen (1–2 Punkte)</li>
+<li><b>Bedarf in Kundenworten:</b> was hat er selbst gesagt (Ziel + Störfaktor)</li>
+<li><b>Skala-Wert</b> (1–10) + wer noch mitentscheidet</li>
+<li><b>Termin</b> + besprochene Besonderheiten</li>
+</ul>
+<p><span class="cue">(Regel: Der Experte eröffnet den Termin mit einem Rückbezug — „Mein Kollege hat mir erzählt, dass bei Ihnen vor allem … Thema ist" — Kunde fühlt sich gehört, kein Neustart.)</span></p>
+<h3>No-Show — Reaktivierung <span class="cue">(gleicher Tag, freundlich, hoher Status)</span></h3>
+<p>{GRUSS} {ANREDE} {NAME}, {ANRUFER} von HK Growth. Wir waren gerade für <span class="ph">[Uhrzeit]</span> verabredet — ich vermute, bei Ihnen ist etwas dazwischengekommen. <span class="cue">(Pause, antworten lassen — kein Vorwurf)</span></p>
+<p>Kein Problem. Ich habe mir Ihre Unterlagen ja schon vorbereitet — <u>die Punkte liegen hier fertig</u>. <span class="yes">Passt es stattdessen morgen um {ZEIT1} oder übermorgen um {ZEIT2}?</span></p>
+<p><span class="cue">(Wenn zweites No-Show: nicht weiter jagen — in Wiedervorlage 4–6 Wochen, Status hoch halten.)</span></p>
+<h3>Wiedervorlage „damals war viel los" <span class="cue">(4–8 Wochen später — DAS ist der ehrliche Vorbezug fürs nächste Mal)</span></h3>
+<p>{GRUSS} {ANREDE} {NAME}, {ANRUFER} von HK Growth. <span class="ice">Wir hatten vor ein paar Wochen telefoniert — damals war bei Ihnen einfach viel los.</span> Deshalb hab ich mir heute nochmal auf die Agenda geschrieben, das Thema mit Ihnen zu Ende zu bringen. Inzwischen ist mir bei Ihrem Auftritt noch ein Punkt aufgefallen … <span class="cue">(→ zurück in den Opener des Pfeilers)</span></p>
+<h3>Nach dem Closer ohne Abschluss <span class="cue">(„muss überlegen" — Follow-up in 2–3 Tagen)</span></h3>
+<p>{GRUSS} {ANREDE} {NAME}, {ANRUFER} hier. Sie wollten das <span class="ph">[Ob/Wie]</span> noch durchdenken — ich halte Wort und melde mich wie besprochen. <span class="yes">Wo stehen Sie — eher beim Ob oder schon beim Wie?</span> <span class="cue">(dann gezielt den einen Punkt lösen, nicht neu pitchen)</span></p>`}
+};
+
+/* ---------- App ---------- */
+const pillarKeys = ["website","branding","ki","system"];
+const phaseKeys = [
+  {k:"opener", label:"1 · Opener"},
+  {k:"setter", label:"2 · Setter"},
+  {k:"closer", label:"3 · Closer"},
+  {k:"gate", label:"Gatekeeper & Einwände", shared:true},
+  {k:"follow", label:"Follow-up & Übergabe", shared:true}
+];
+let curPillar = "website", curPhase = "opener";
+
+function renderPillars(){
+  const el = document.getElementById("pillars"); el.innerHTML = "";
+  pillarKeys.forEach(k=>{
+    const b = document.createElement("button");
+    b.textContent = P[k].label; b.setAttribute("aria-pressed", String(k===curPillar));
+    b.onclick = ()=>{ curPillar=k; renderAll(); };
+    el.appendChild(b);
+  });
+}
+function renderTabs(){
+  const el = document.getElementById("tabs"); el.innerHTML = "";
+  phaseKeys.forEach(p=>{
+    const b = document.createElement("button");
+    b.textContent = p.label; b.setAttribute("role","tab");
+    b.setAttribute("aria-pressed", String(p.k===curPhase));
+    b.onclick = ()=>{ curPhase=p.k; renderAll(); };
+    el.appendChild(b);
+  });
+}
+function renderScript(){
+  const shared = phaseKeys.find(p=>p.k===curPhase)?.shared;
+  const src = shared ? SHARED[curPhase] : P[curPillar][curPhase];
+  document.getElementById("goal").innerHTML = (shared? "" : "<b>"+P[curPillar].label+"</b> · Methode: <b>"+P[curPillar].methode+"</b><br>") + src.goal;
+  document.getElementById("script").innerHTML = sub(src.html);
+  document.getElementById("note").textContent = shared ? "Gilt für alle Pfeiler." :
+    "Phase „"+curPhase+"" +"“ · Pfeiler „"+P[curPillar].label.replace(/^[^ ]+ /,"")+"“ — Regie-Hinweise (blau) nie vorlesen.";
+}
+function renderAll(){ renderPillars(); renderTabs(); renderScript(); }
+fields.forEach(id=>F(id).addEventListener("input", renderScript));
+renderAll();
+</script>
