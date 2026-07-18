@@ -7,7 +7,7 @@ export function getSiteUrl(): string {
   return url.replace(/\/+$/, '');
 }
 
-export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'தமிழ் News Radar';
+export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Tamil.de';
 
 export function escapeXml(text: string): string {
   return text

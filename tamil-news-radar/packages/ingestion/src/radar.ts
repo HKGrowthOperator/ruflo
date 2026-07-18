@@ -9,9 +9,9 @@ import { buildCandidate, findMatchingStory, type ClusterCandidate } from './clus
 
 /** Kategorie-Heuristik für neue Stories; der Admin kann sie ändern. */
 function inferCategory(item: RawItem, region: string | undefined): string {
-  if (region === 'LK') return 'இலங்கை';
-  if (region === 'INT') return 'உலகம்';
-  return 'தமிழ்நாடு';
+  if (region === 'DACH') return 'DACH & Diaspora';
+  if (region === 'LK') return 'Sri Lanka';
+  return 'Tamil Nadu';
 }
 
 function distinctSourceCount(items: RawItem[]): number {

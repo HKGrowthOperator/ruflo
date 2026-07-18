@@ -38,18 +38,18 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   return (
     <article>
-      {story.breaking && <><span className="badge breaking">🔴 பிரேக்கிங்</span>{' '}</>}
+      {story.breaking && <><span className="badge breaking">🔴 EILMELDUNG</span>{' '}</>}
       <span className="badge">{story.category}</span>
       <h1>{draft.headline}</h1>
       {draft.subheadline && <p className="meta" style={{ fontSize: '1.05rem' }}>{draft.subheadline}</p>}
       <div className="meta">
         {formatDate(story.publishedAt)}
-        {story.status === 'updated' ? ' · புதுப்பிக்கப்பட்டது (aktualisiert)' : ''}
+        {story.status === 'updated' ? ' · aktualisiert' : ''}
       </div>
       {draft.summary && <p><strong>{draft.summary}</strong></p>}
       <div className="article-body">{renderBody(draft.body)}</div>
       <section className="article-sources">
-        <h2>ஆதாரங்கள் (Quellen)</h2>
+        <h2>Quellen</h2>
         <ul>
           {draft.sources.map((source) => (
             <li key={source.itemId}>

@@ -5,6 +5,9 @@
 -- Radar-Lauf im Dashboard prüfen.
 
 insert into sources (id, name, homepage, feed_url, type, language, region, trust_score, enabled, notes) values
+  ('src_seed_21', 'Google News – „Tamilen" (DE)', 'https://news.google.com/?hl=de', 'https://news.google.com/rss/search?q=Tamilen&hl=de&gl=DE&ceid=DE:de', 'google-news', 'de', 'DACH', 65, true, null),
+  ('src_seed_22', 'Google News – „Sri Lanka Tamilen" (DE)', 'https://news.google.com/?hl=de', 'https://news.google.com/rss/search?q=Sri%20Lanka%20Tamilen&hl=de&gl=DE&ceid=DE:de', 'google-news', 'de', 'DACH', 65, true, null),
+  ('src_seed_23', 'Google News – „Tamil Nadu" (DE)', 'https://news.google.com/?hl=de', 'https://news.google.com/rss/search?q=%22Tamil%20Nadu%22&hl=de&gl=DE&ceid=DE:de', 'google-news', 'de', 'DACH', 65, true, null),
   ('src_seed_01', 'BBC Tamil', 'https://www.bbc.com/tamil', 'https://feeds.bbci.co.uk/tamil/rss.xml', 'rss', 'ta', 'INT', 90, true, null),
   ('src_seed_02', 'Google News (தமிழ்)', 'https://news.google.com/?hl=ta', 'https://news.google.com/rss?hl=ta&gl=IN&ceid=IN:ta', 'google-news', 'ta', 'IN', 70, true, null),
   ('src_seed_03', 'Google News – தமிழ்நாடு', 'https://news.google.com/?hl=ta', 'https://news.google.com/rss/search?q=%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D%E0%AE%A8%E0%AE%BE%E0%AE%9F%E0%AF%81&hl=ta&gl=IN&ceid=IN:ta', 'google-news', 'ta', 'IN', 70, true, null),

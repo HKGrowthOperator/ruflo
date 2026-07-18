@@ -1,6 +1,10 @@
-# Tamil News Radar
+# Tamil News Radar (Tamil.de)
 
-Automatisches News-Radar für tamilische Nachrichten mit redaktionellem
+Automatisches News-Radar für **Tamil.de** – das deutschsprachige
+Nachrichtenportal für die tamilische Community im DACH-Raum. Das Radar
+sammelt Meldungen mit Tamil-Bezug (Diaspora in DACH, Tamil Nadu,
+Sri Lanka) aus tamilischen, englischen und deutschen Quellen; Claude
+erstellt daraus **deutsche** Artikelentwürfe mit redaktionellem
 Freigabe-Workflow und öffentlicher Website.
 
 **Kernprinzip: Das System veröffentlicht nie selbst.** Das Radar sammelt,
@@ -9,15 +13,18 @@ durch den Admin.
 
 ## Was die V1 kann
 
-- **Radar**: ruft 20 vorkonfigurierte Quellen (RSS/Google News, Tamil +
-  Englisch, Indien + Sri Lanka) ab – automatisch alle 30 Minuten (Vercel
-  Cron bzw. `pnpm radar:loop`) und manuell per Button im Dashboard.
+- **Radar**: ruft 23 vorkonfigurierte Quellen ab (RSS/Google News –
+  Tamil + Englisch aus Indien/Sri Lanka als Rohmaterial, deutsche
+  Google-News-Suchen mit Tamil-Bezug für den DACH-Raum) – automatisch
+  alle 30 Minuten (Vercel Cron bzw. `pnpm radar:loop`) und manuell per
+  Button im Dashboard.
 - **Ereignis-Clustering**: Meldungen mehrerer Quellen zum selben Ereignis
   werden zu einer Story gebündelt (Titel-Ähnlichkeit; Embeddings sind der
   V2-Ausbau).
 - **Entwürfe**: Sobald genug unabhängige Quellen vorliegen (Standard 2,
-  sensible Kategorien 3), erstellt Claude einen tamilischen Artikelentwurf
-  mit Schlagzeilen-Varianten, SEO-Feldern, Social-Text, Quellenzuordnung
+  sensible Kategorien 3), erstellt Claude einen **deutschen**
+  Artikelentwurf (tamilische/englische Quellen werden übersetzt) mit
+  Schlagzeilen-Varianten, SEO-Feldern, Social-Text, Quellenzuordnung
   und markierten unsicheren Aussagen. Ohne `ANTHROPIC_API_KEY` läuft ein
   kostenfreier Mock-Provider (extraktiv), damit der Workflow testbar ist.
 - **Redaktions-Workflow**: erkannt → Entwurf → zur Prüfung → Änderungen
@@ -35,9 +42,10 @@ durch den Admin.
 - **Ähnlichkeitsprüfung**: Entwürfe, die Quelltext weitgehend unverändert
   übernehmen, bekommen eine Warnung zur Umformulierung.
 - **Styleguide & Glossar**: `docs/styleguide.md` und `docs/glossar.md`
-  definieren Stil, Attribution und tamilische Schreibweisen.
-- **Öffentliche Website**: Startseite + Artikelseiten mit öffentlichem
-  Quellenblock.
+  definieren deutschen Nachrichtenstil, Attribution und die verbindliche
+  Umschrift tamilischer Namen und Begriffe.
+- **Öffentliche Website (Deutsch)**: Startseite mit Kategorie-Filter und
+  Eilmeldungen + Artikelseiten mit öffentlichem Quellenblock.
 - **WordPress-Publishing (optional)**: freigegebene Artikel per Knopfdruck
   zusätzlich in ein WordPress pushen (REST API + Application Password).
 

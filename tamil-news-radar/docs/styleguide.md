@@ -1,4 +1,7 @@
-# Redaktioneller Styleguide (Fragen 35–37)
+# Redaktioneller Styleguide – Tamil.de
+
+Tamil.de ist ein **deutschsprachiges** Nachrichtenportal für die tamilische
+Community im DACH-Raum (Deutschland, Österreich, Schweiz).
 
 Diese Regeln sind die führende Fassung. Der KI-Prompt in
 `packages/ai/src/provider.ts` (`EDITORIAL_SYSTEM_PROMPT`) spiegelt sie –
@@ -6,11 +9,24 @@ bei Änderungen hier auch den Prompt anpassen.
 
 ## Grundhaltung
 
+- **Publikationssprache ist Deutsch.** Alle Artikel erscheinen auf Deutsch;
+  tamilische und englische Quellen sind Rohmaterial und werden inhaltlich
+  korrekt übersetzt (nie wörtlich).
 - **Sachlich und neutral, schnell und direkt.** Kein Boulevard, keine
   Emotionalisierung, keine Meinung im Nachrichtentext.
-- Publikationssprache ist **Tamil** (சுத்தமான செய்தித் தமிழ் –
-  klare Nachrichtensprache, keine übermäßig literarische Diktion).
-- Englische Quellen werden inhaltlich korrekt übersetzt, nicht wörtlich.
+- **Nur Themen mit Tamil-Bezug**: tamilische Diaspora im DACH-Raum,
+  Tamil Nadu, tamilische Bevölkerung Sri Lankas, tamilische Kultur,
+  Kino und Sport.
+
+## Zielgruppe und Einordnung
+
+- Leser:innen sind Tamil:innen und tamilisch Interessierte im DACH-Raum –
+  viele in zweiter/dritter Generation, nicht alle mit Detailwissen zu
+  Tamil Nadu oder Sri Lanka.
+- Ereignisse aus Tamil Nadu/Sri Lanka in 1–2 Sätzen einordnen
+  (Wer/Wo/Warum relevant), ohne belehrend zu wirken.
+- Tamilische Begriffe (Pongal, Kovil, Kolam …) beim ersten Auftreten kurz
+  erklären – siehe `docs/glossar.md`.
 
 ## Struktur
 
@@ -24,16 +40,19 @@ bei Änderungen hier auch den Prompt anpassen.
 
 - Jede Tatsachenbehauptung muss durch Quellen gedeckt sein.
 - Einzelquellige oder widersprüchliche Aussagen immer mit Attribution:
-  „… என்று X தெரிவித்துள்ளது" / „X கூறுகிறது".
+  „laut X", „wie X berichtet", „nach Angaben von X".
 - Unsichere Aussagen werden in `uncertainNotes` gelistet und im
   Dashboard als Warnung angezeigt – der Admin entscheidet.
-- Sensible Kategorien (அரசியல், இலங்கை) verlangen mindestens 3
+- Sensible Kategorien (Politik, Sri Lanka) verlangen mindestens 3
   unabhängige Quellen und aktive Prüfbestätigung.
 
 ## Sprache und Begriffe
 
-- Politische Begriffe neutral halten; keine wertenden Adjektive.
-- Eigennamen, Orts- und Parteinamen gemäß `docs/glossar.md`.
-- Zahlen: tamilische Konvention mit Lakh/Crore (லட்சம்/கோடி) plus
-  internationaler Angabe in Klammern, wenn nötig.
-- Datumsangaben ausgeschrieben (z. B. ஜூலை 15, 2026).
+- Politische Begriffe neutral halten – besonders zum Sri-Lanka-Konflikt
+  (keine wertenden Kollektivbegriffe, Konfliktparteien neutral benennen).
+- Tamilische Eigennamen und Ortsnamen in gängiger lateinischer Umschrift
+  gemäß `docs/glossar.md`; bei Bedarf tamilische Originalschreibweise in
+  Klammern beim ersten Auftreten.
+- Zahlen und Währungen in deutscher Konvention; indische Einheiten
+  (Lakh/Crore) in europäische Angaben umrechnen.
+- Datumsangaben deutsch (15. Juli 2026).

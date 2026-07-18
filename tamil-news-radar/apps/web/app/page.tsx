@@ -5,7 +5,7 @@ import { formatDate } from '../lib/format';
 
 export const dynamic = 'force-dynamic';
 
-/** Öffentliche Startseite: Breaking zuerst, Kategorie-Filter, neueste zuerst. */
+/** Öffentliche Startseite: Eilmeldungen zuerst, Kategorie-Filter, neueste zuerst. */
 export default async function HomePage({
   searchParams,
 }: {
@@ -24,7 +24,7 @@ export default async function HomePage({
   return (
     <>
       <nav className="category-nav">
-        <Link href="/" className={!category ? 'active' : ''}>அனைத்தும்</Link>
+        <Link href="/" className={!category ? 'active' : ''}>Alle Themen</Link>
         {CATEGORIES.map((cat) => (
           <Link
             key={cat}
@@ -36,19 +36,18 @@ export default async function HomePage({
         ))}
       </nav>
 
-      <h1>{category ?? 'சமீபத்திய செய்திகள்'}</h1>
+      <h1>{category ?? 'Aktuelle Nachrichten'}</h1>
 
       {stories.length === 0 && (
         <div className="notice">
-          இன்னும் செய்திகள் வெளியிடப்படவில்லை. – Noch keine Artikel veröffentlicht.
-          Artikel erscheinen hier, sobald sie im Admin-Dashboard freigegeben und
-          veröffentlicht wurden.
+          Noch keine Artikel veröffentlicht. Artikel erscheinen hier, sobald sie
+          im Admin-Dashboard freigegeben und veröffentlicht wurden.
         </div>
       )}
 
       {[...breaking, ...regular].map((story) => (
         <article className="card" key={story.id}>
-          {story.breaking && <span className="badge breaking">🔴 பிரேக்கிங்</span>}{' '}
+          {story.breaking && <span className="badge breaking">🔴 EILMELDUNG</span>}{' '}
           <span className="badge">{story.category}</span>
           <Link href={`/artikel/${encodeURIComponent(story.slug)}`}>
             <h3>{story.draft?.headline ?? story.workingTitle}</h3>

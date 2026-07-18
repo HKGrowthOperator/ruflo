@@ -7,6 +7,11 @@ import type { Source } from './types';
  * trustScore: 0–100, vom Admin anpassbar.
  */
 export const SEED_SOURCES: Omit<Source, 'id'>[] = [
+  // ── Deutschsprachig, DACH (Tamil-Bezug) ─────────────────────
+  { name: 'Google News – „Tamilen" (DE)', homepage: 'https://news.google.com/?hl=de', feedUrl: 'https://news.google.com/rss/search?q=Tamilen&hl=de&gl=DE&ceid=DE:de', type: 'google-news', language: 'de', region: 'DACH', trustScore: 65, enabled: true },
+  { name: 'Google News – „Sri Lanka Tamilen" (DE)', homepage: 'https://news.google.com/?hl=de', feedUrl: 'https://news.google.com/rss/search?q=Sri%20Lanka%20Tamilen&hl=de&gl=DE&ceid=DE:de', type: 'google-news', language: 'de', region: 'DACH', trustScore: 65, enabled: true },
+  { name: 'Google News – „Tamil Nadu" (DE)', homepage: 'https://news.google.com/?hl=de', feedUrl: 'https://news.google.com/rss/search?q=%22Tamil%20Nadu%22&hl=de&gl=DE&ceid=DE:de', type: 'google-news', language: 'de', region: 'DACH', trustScore: 65, enabled: true },
+
   // ── Tamilischsprachig, Indien / Tamil Nadu ──────────────────
   { name: 'BBC Tamil', homepage: 'https://www.bbc.com/tamil', feedUrl: 'https://feeds.bbci.co.uk/tamil/rss.xml', type: 'rss', language: 'ta', region: 'INT', trustScore: 90, enabled: true },
   { name: 'Google News (தமிழ்)', homepage: 'https://news.google.com/?hl=ta', feedUrl: 'https://news.google.com/rss?hl=ta&gl=IN&ceid=IN:ta', type: 'google-news', language: 'ta', region: 'IN', trustScore: 70, enabled: true },

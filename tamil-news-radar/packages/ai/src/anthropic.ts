@@ -38,7 +38,7 @@ export class AnthropicProvider implements AiProvider {
       seoTitle: str(parsed.seoTitle, str(parsed.headline, input.story.workingTitle)),
       metaDescription: truncate(str(parsed.metaDescription, str(parsed.summary, '')), 160),
       socialText: str(parsed.socialText, ''),
-      language: 'ta',
+      language: 'de',
       sources: input.items.map((i) => ({
         itemId: i.id, url: i.url, sourceName: i.sourceName, title: i.title,
       })),

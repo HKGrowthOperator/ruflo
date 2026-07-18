@@ -65,12 +65,19 @@ export default async function SourcesPage() {
       <h2>Neue Suche</h2>
       <form action={newSearchAction} className="card">
         <p className="meta">
-          Startet eine Websuche zu einem Thema (Google News, Tamil): legt eine
+          Startet eine Websuche zu einem Thema (Google News): legt eine
           Suchquelle an und lässt das Radar sofort laufen. Treffer erscheinen
           als Stories in der Redaktion.
         </p>
         <div className="grid-2">
-          <label>Suchbegriff (Tamil oder Englisch)<input type="text" name="term" required /></label>
+          <label>Suchbegriff<input type="text" name="term" required /></label>
+          <label>
+            Suchsprache
+            <select name="searchLang">
+              <option value="de">Deutsch (DACH-Nachrichten)</option>
+              <option value="ta">Tamil (Indien/Sri Lanka)</option>
+            </select>
+          </label>
         </div>
         <div className="actions">
           <button type="submit" className="primary">🔎 Suchen &amp; Radar starten</button>
@@ -93,6 +100,7 @@ export default async function SourcesPage() {
           <label>
             Sprache
             <select name="language">
+              <option value="de">Deutsch</option>
               <option value="ta">Tamil</option>
               <option value="en">Englisch</option>
               <option value="si">Singhalesisch</option>
@@ -101,6 +109,7 @@ export default async function SourcesPage() {
           <label>
             Region
             <select name="region">
+              <option value="DACH">DACH</option>
               <option value="IN">Indien</option>
               <option value="LK">Sri Lanka</option>
               <option value="INT">International</option>

@@ -12,8 +12,8 @@ export type StoryStatus =
   | 'archived';
 
 export type SourceType = 'rss' | 'google-news';
-export type Language = 'ta' | 'en' | 'si';
-export type Region = 'IN' | 'LK' | 'INT';
+export type Language = 'ta' | 'en' | 'si' | 'de';
+export type Region = 'IN' | 'LK' | 'INT' | 'DACH';
 
 export interface Source {
   id: string;
@@ -64,7 +64,8 @@ export interface ArticleDraft {
   seoTitle: string;
   metaDescription: string;
   socialText: string;
-  language: 'ta';
+  /** Publikationssprache: Deutsch (Tamil.de, DACH-Raum) */
+  language: 'de';
   sources: DraftSourceRef[];
   /** Als unsicher markierte Aussagen (Frage 41) */
   uncertainNotes: string[];
@@ -123,19 +124,17 @@ export interface RadarRunReport {
 }
 
 export const CATEGORIES = [
-  'தமிழ்நாடு',
-  'இலங்கை',
-  'இந்தியா',
-  'உலகம்',
-  'அரசியல்',
-  'பொருளாதாரம்',
-  'சினிமா',
-  'விளையாட்டு',
-  'தொழில்நுட்பம்',
+  'DACH & Diaspora',
+  'Tamil Nadu',
+  'Sri Lanka',
+  'Politik',
+  'Wirtschaft',
+  'Kultur & Kino',
+  'Sport',
 ] as const;
 
 /** Kategorien mit strengerer Prüfung (Frage 39): 3 Quellen + Pflichthinweis */
-export const SENSITIVE_CATEGORIES = ['அரசியல்', 'இலங்கை'] as const;
+export const SENSITIVE_CATEGORIES = ['Politik', 'Sri Lanka'] as const;
 
 export const STATUS_LABELS: Record<StoryStatus, string> = {
   detected: 'Erkannt',

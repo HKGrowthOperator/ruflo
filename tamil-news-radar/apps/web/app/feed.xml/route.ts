@@ -31,8 +31,8 @@ export async function GET(): Promise<Response> {
 <channel>
 <title>${escapeXml(SITE_NAME)}</title>
 <link>${escapeXml(site)}</link>
-<description>${escapeXml('தமிழ் செய்திகள் – redaktionell geprüft')}</description>
-<language>ta</language>
+<description>${escapeXml('Deutschsprachige Nachrichten für die tamilische Community im DACH-Raum')}</description>
+<language>de</language>
 ${items}
 </channel>
 </rss>`;

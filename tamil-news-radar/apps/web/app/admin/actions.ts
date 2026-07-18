@@ -159,20 +159,22 @@ export async function updateDraftAction(formData: FormData): Promise<void> {
  * "Neue Suche" (Frage 19): legt für einen Suchbegriff eine
  * Google-News-Suchquelle an und lässt das Radar sofort laufen –
  * so erschließt das System auf Wunsch neue Themen jenseits der
- * bekannten Feeds.
+ * bekannten Feeds. Suchsprache wählbar (Deutsch oder Tamil).
  */
 export async function newSearchAction(formData: FormData): Promise<void> {
   const term = String(formData.get('term') ?? '').trim();
   if (!term) throw new Error('Suchbegriff fehlt');
+  const tamil = formData.get('searchLang') === 'ta';
+  const params = tamil ? 'hl=ta&gl=IN&ceid=IN:ta' : 'hl=de&gl=DE&ceid=DE:de';
   const store = getStore();
   const source: Source = {
     id: newId('src'),
-    name: `Google News Suche – ${term}`,
-    homepage: 'https://news.google.com/?hl=ta',
-    feedUrl: `https://news.google.com/rss/search?q=${encodeURIComponent(term)}&hl=ta&gl=IN&ceid=IN:ta`,
+    name: `Google News Suche – ${term}${tamil ? ' (TA)' : ' (DE)'}`,
+    homepage: 'https://news.google.com',
+    feedUrl: `https://news.google.com/rss/search?q=${encodeURIComponent(term)}&${params}`,
     type: 'google-news',
-    language: 'ta',
-    region: 'IN',
+    language: tamil ? 'ta' : 'de',
+    region: tamil ? 'IN' : 'DACH',
     trustScore: 60,
     enabled: true,
     notes: 'Per „Neue Suche" angelegt – Treffer prüfen, ggf. sperren.',

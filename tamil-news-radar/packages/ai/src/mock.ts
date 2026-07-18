@@ -10,20 +10,20 @@ export class MockProvider implements AiProvider {
   readonly name = 'mock';
 
   async generateDraft(input: DraftInput): Promise<ArticleDraft> {
-    const taItem = input.items.find((i) => i.language === 'ta');
-    const lead = taItem ?? input.items[0];
+    const deItem = input.items.find((i) => i.language === 'de');
+    const lead = deItem ?? input.items[0];
     const headline = lead?.title ?? input.story.workingTitle;
 
     const bodyParts: string[] = [];
     if (lead?.summary) bodyParts.push(lead.summary);
-    bodyParts.push('## செய்தி விவரங்கள்');
+    bodyParts.push('## Meldungsübersicht');
     for (const item of input.items) {
       bodyParts.push(`${item.sourceName}: ${item.title}${item.summary ? ' — ' + item.summary : ''}`);
     }
     bodyParts.push(
-      '## குறிப்பு',
-      '[MOCK-ENTWURF] Dieser Entwurf wurde ohne KI-Provider extraktiv erstellt. ' +
-        'ANTHROPIC_API_KEY setzen, um echte tamilische Artikelentwürfe zu erhalten.'
+      '## Hinweis',
+      '[MOCK-ENTWURF] Dieser Entwurf wurde ohne KI-Provider extraktiv aus den Quellen erstellt ' +
+        '(Originalsprache unverändert). ANTHROPIC_API_KEY setzen, um echte deutsche Artikel zu erhalten.'
     );
 
     const summary = truncate(lead?.summary || headline, 240);
@@ -37,7 +37,7 @@ export class MockProvider implements AiProvider {
       seoTitle: truncate(headline, 60),
       metaDescription: truncate(summary, 160),
       socialText: truncate(`${headline} — ${summary}`, 240),
-      language: 'ta',
+      language: 'de',
       sources: input.items.map((i) => ({
         itemId: i.id, url: i.url, sourceName: i.sourceName, title: i.title,
       })),

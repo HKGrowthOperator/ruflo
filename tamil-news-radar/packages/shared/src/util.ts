@@ -12,11 +12,16 @@ export function sha1(input: string): string {
   return crypto.createHash('sha1').update(input).digest('hex');
 }
 
-/** Slug aus (tamilischem) Titel: Unicode-Buchstaben/Ziffern behalten. */
+/** Slug aus deutschem Titel (Umlaute transliteriert); Unicode bleibt erhalten,
+ *  falls tamilische Begriffe im Titel vorkommen. */
 export function slugify(title: string, fallback: string): string {
   const slug = title
     .normalize('NFC')
     .toLowerCase()
+    .replace(/ä/g, 'ae')
+    .replace(/ö/g, 'oe')
+    .replace(/ü/g, 'ue')
+    .replace(/ß/g, 'ss')
     .replace(/[^\p{L}\p{M}\p{N}]+/gu, '-')
     .replace(/^-+|-+$/g, '')
     .slice(0, 80);

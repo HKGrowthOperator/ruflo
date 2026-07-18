@@ -33,7 +33,7 @@ export default async function StoryPreviewPage({ params }: { params: { id: strin
         {draft.summary && <p><strong>{draft.summary}</strong></p>}
         <div className="article-body">{renderBody(draft.body)}</div>
         <section className="article-sources">
-          <h2>ஆதாரங்கள் (Quellen)</h2>
+          <h2>Quellen</h2>
           <ul>
             {draft.sources.map((source) => (
               <li key={source.itemId}>

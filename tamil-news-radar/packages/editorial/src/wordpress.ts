@@ -53,7 +53,7 @@ export async function pushToWordPress(
   if (!story.draft) throw new Error('Story hat keinen Entwurf');
 
   const sourcesHtml =
-    '<hr /><p><strong>ஆதாரங்கள் (Quellen):</strong></p><ul>' +
+    '<hr /><p><strong>Quellen:</strong></p><ul>' +
     story.draft.sources
       .map((s) => `<li><a href="${s.url}" rel="nofollow noopener">${escapeHtml(s.sourceName)}</a></li>`)
       .join('') +
