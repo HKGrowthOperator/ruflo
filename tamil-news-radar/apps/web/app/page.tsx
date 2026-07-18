@@ -1,11 +1,31 @@
 import Link from 'next/link';
 import { getStore } from '@tnr/database';
-import { CATEGORIES } from '@tnr/shared';
+import { CATEGORIES, type Story } from '@tnr/shared';
 import { formatDate } from '../lib/format';
 
 export const dynamic = 'force-dynamic';
 
-/** Öffentliche Startseite: Eilmeldungen zuerst, Kategorie-Filter, neueste zuerst. */
+function StoryCard({ story, lead }: { story: Story; lead?: boolean }) {
+  return (
+    <article className={lead ? 'card lead' : 'card'}>
+      {story.breaking && <><span className="badge breaking">🔴 EILMELDUNG</span>{' '}</>}
+      <span className="badge">{story.category}</span>
+      <Link href={`/artikel/${encodeURIComponent(story.slug)}`}>
+        {story.image && (
+          <div className="card-thumb">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={story.image.url} alt={story.image.caption ?? ''} />
+          </div>
+        )}
+        <h3>{story.draft?.headline ?? story.workingTitle}</h3>
+      </Link>
+      {story.draft?.summary && <p>{story.draft.summary}</p>}
+      <div className="meta">{formatDate(story.publishedAt)}</div>
+    </article>
+  );
+}
+
+/** Startseite: Eilmeldungen und Aufmacher zuerst, Rest im Raster. */
 export default async function HomePage({
   searchParams,
 }: {
@@ -18,8 +38,8 @@ export default async function HomePage({
     category: category || undefined,
     limit: 50,
   });
-  const breaking = stories.filter((s) => s.breaking);
-  const regular = stories.filter((s) => !s.breaking);
+  const sorted = [...stories.filter((s) => s.breaking), ...stories.filter((s) => !s.breaking)];
+  const [leadStory, ...rest] = sorted;
 
   return (
     <>
@@ -36,30 +56,23 @@ export default async function HomePage({
         ))}
       </nav>
 
-      <h1>{category ?? 'Aktuelle Nachrichten'}</h1>
+      {category && <h1>{category}</h1>}
 
-      {stories.length === 0 && (
+      {sorted.length === 0 && (
         <div className="notice">
           Noch keine Artikel veröffentlicht. Artikel erscheinen hier, sobald sie
           im Admin-Dashboard freigegeben und veröffentlicht wurden.
         </div>
       )}
 
-      {[...breaking, ...regular].map((story) => (
-        <article className="card" key={story.id}>
-          {story.breaking && <span className="badge breaking">🔴 EILMELDUNG</span>}{' '}
-          <span className="badge">{story.category}</span>
-          <Link href={`/artikel/${encodeURIComponent(story.slug)}`}>
-            <h3>{story.draft?.headline ?? story.workingTitle}</h3>
-          </Link>
-          {story.draft?.summary && <p>{story.draft.summary}</p>}
-          <div className="meta">{formatDate(story.publishedAt)}</div>
-        </article>
-      ))}
-
-      <p className="meta">
-        <a href="/feed.xml">RSS-Feed</a>
-      </p>
+      {leadStory && <StoryCard story={leadStory} lead />}
+      {rest.length > 0 && (
+        <div className="story-grid">
+          {rest.map((story) => (
+            <StoryCard story={story} key={story.id} />
+          ))}
+        </div>
+      )}
     </>
   );
 }

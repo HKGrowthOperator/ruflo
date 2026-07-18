@@ -14,9 +14,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <header className="site-header">
           <div className="inner">
-            <Link href="/" className="site-title">
-              Tamil.de
-            </Link>
+            <div>
+              <Link href="/" className="site-title">
+                Tamil.de
+              </Link>
+              <div className="site-tagline">
+                Nachrichten für die tamilische Community im deutschsprachigen Raum
+              </div>
+            </div>
             <nav className="site-nav">
               <Link href="/">Nachrichten</Link>
               <Link href="/admin">Admin</Link>
@@ -24,6 +29,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         <main>{children}</main>
+        <footer className="site-footer">
+          <div className="inner">
+            <span>Tamil.de</span>
+            <a href="/feed.xml">RSS-Feed</a>
+            <span>Alle Artikel redaktionell geprüft · Quellen am Artikelende</span>
+          </div>
+        </footer>
       </body>
     </html>
   );
