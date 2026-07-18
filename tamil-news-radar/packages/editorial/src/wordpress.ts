@@ -107,11 +107,13 @@ export async function pushToWordPress(
   const draft = story.draft;
 
   const sourcesHtml =
-    '<hr /><p><strong>Quellen:</strong></p><ul>' +
+    '<div class="article-sources"><hr />' +
+    '<p><strong>Quellen und weiterführende Informationen</strong></p><ul>' +
     draft.sources
-      .map((s) => `<li><a href="${s.url}" rel="nofollow noopener">${escapeHtml(s.sourceName)}</a></li>`)
+      .map((s) => `<li><a href="${s.url}" rel="nofollow noopener">${escapeHtml(s.sourceName)}</a>: ${escapeHtml(s.title)}</li>`)
       .join('') +
-    '</ul>';
+    '</ul><p><em>Redaktioneller Hinweis: Dieser Beitrag wurde auf Grundlage mehrerer ' +
+    'öffentlich zugänglicher Quellen durch die Tamil.de-Redaktion erstellt.</em></p></div>';
 
   const auth = Buffer.from(`${config.user}:${config.appPassword}`).toString('base64');
 

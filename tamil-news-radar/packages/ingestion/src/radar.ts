@@ -3,7 +3,9 @@ import { getStore, type Store } from '@tnr/database';
 import { fetchSource } from '@tnr/source-adapters';
 import {
   type RadarRunReport, type RadarSourceError, type RawItem, type Story,
-  SENSITIVE_CATEGORIES, getConfig, newId, nowIso, slugify, tokenContainment,
+  RELEVANCE_DISCARD_BELOW, RELEVANCE_WATCH_BELOW, SENSITIVE_CATEGORIES,
+  classifyRisk, getConfig, newId, nowIso, scoreRelevance, slugify,
+  tokenContainment,
 } from '@tnr/shared';
 import { buildCandidate, findMatchingStory, type ClusterCandidate } from './cluster';
 
@@ -16,6 +18,14 @@ function inferCategory(item: RawItem, region: string | undefined): string {
 
 function distinctSourceCount(items: RawItem[]): number {
   return new Set(items.map((i) => i.sourceId)).size;
+}
+
+function worseRisk(
+  a: Story['riskLevel'],
+  b: Story['riskLevel']
+): Story['riskLevel'] {
+  const order = { green: 0, yellow: 1, red: 2 } as const;
+  return order[b ?? 'green'] > order[a ?? 'green'] ? b : (a ?? b);
 }
 
 function requiredSources(category: string): number {
@@ -83,41 +93,79 @@ export async function runRadar(trigger: RadarRunReport['trigger']): Promise<Rada
 
   const sourceById = new Map(sources.map((s) => [s.id, s]));
   let newStories = 0;
+  let discardedItems = 0;
   const touchedStoryIds = new Set<string>();
+  const keptItems: RawItem[] = [];
 
   for (const item of newItems) {
+    const source = sourceById.get(item.sourceId);
+    const itemText = `${item.title} ${item.summary}`;
     const match = findMatchingStory(item, candidates, config.similarityThreshold);
-    if (match) {
-      match.itemIds = [...match.itemIds, item.id];
-      await store.updateStory(match.id, { itemIds: match.itemIds, updatedAt: nowIso() });
-      touchedStoryIds.add(match.id);
-    } else {
-      const id = newId('sty');
-      const story: Story = {
-        id,
-        slug: slugify(item.title, id),
-        workingTitle: item.title,
-        category: inferCategory(item, sourceById.get(item.sourceId)?.region),
-        region: sourceById.get(item.sourceId)?.region,
-        status: 'detected',
-        itemIds: [item.id],
-        warnings: [],
-        createdAt: nowIso(),
-        updatedAt: nowIso(),
-      };
-      await store.insertStory(story);
-      candidates.push(buildCandidate(story, [item.title]));
-      touchedStoryIds.add(id);
-      newStories++;
-    }
-  }
-  await store.insertItems(newItems);
 
-  // 4) Entwürfe für Stories mit genug unabhängigen Quellen
+    if (match) {
+      // Zu bestehender Story: Item zählt immer (bestätigt das Ereignis)
+      keptItems.push(item);
+      match.itemIds = [...match.itemIds, item.id];
+      const risk = worseRisk(match.riskLevel, classifyRisk(itemText));
+      await store.updateStory(match.id, {
+        itemIds: match.itemIds, riskLevel: risk, updatedAt: nowIso(),
+      });
+      match.riskLevel = risk;
+      touchedStoryIds.add(match.id);
+      continue;
+    }
+
+    // Neue Story: Relevanz bewerten (Redaktionsstandard Abschnitt 7)
+    const relevance = scoreRelevance({
+      text: itemText,
+      publishedAt: item.publishedAt,
+      sourceTrust: source?.trustScore,
+      sourceRegionDach: source?.region === 'DACH',
+    });
+    if (relevance.total < RELEVANCE_DISCARD_BELOW) {
+      discardedItems++;
+      continue;
+    }
+    keptItems.push(item);
+
+    const risk = classifyRisk(itemText);
+    const warnings: string[] = [];
+    if (relevance.total < RELEVANCE_WATCH_BELOW) {
+      warnings.push(`Relevanz niedrig (${relevance.total}/100) – nur beobachten oder Kurzmeldung.`);
+    }
+    if (risk === 'red') {
+      warnings.push('Risikoklasse ROT – kein automatischer Entwurf, redaktionelle Recherche nötig.');
+    }
+
+    const id = newId('sty');
+    const story: Story = {
+      id,
+      slug: slugify(item.title, id),
+      workingTitle: item.title,
+      category: inferCategory(item, source?.region),
+      region: source?.region,
+      status: 'detected',
+      relevanceScore: relevance.total,
+      riskLevel: risk,
+      itemIds: [item.id],
+      warnings,
+      createdAt: nowIso(),
+      updatedAt: nowIso(),
+    };
+    await store.insertStory(story);
+    candidates.push(buildCandidate(story, [item.title]));
+    touchedStoryIds.add(id);
+    newStories++;
+  }
+  await store.insertItems(keptItems);
+
+  // 4) Entwürfe für Stories mit genug unabhängigen Quellen.
+  //    Risikoklasse ROT bekommt nie einen automatischen Entwurf.
   let draftsCreated = 0;
   for (const storyId of touchedStoryIds) {
     const story = await store.getStory(storyId);
     if (!story || story.draft || !['detected', 'researching'].includes(story.status)) continue;
+    if (story.riskLevel === 'red') continue;
     const items = await store.listItemsByIds(story.itemIds);
     if (distinctSourceCount(items) >= requiredSources(story.category)) {
       await draftStory(store, story, items, 'radar');
@@ -132,7 +180,8 @@ export async function runRadar(trigger: RadarRunReport['trigger']): Promise<Rada
     sourcesTotal: sources.length,
     sourcesOk: sources.length - failed.length,
     sourcesFailed: failed,
-    newItems: newItems.length,
+    newItems: keptItems.length,
+    discardedItems,
     newStories,
     updatedStories: touchedStoryIds.size - newStories,
     draftsCreated,
@@ -160,6 +209,9 @@ export async function draftStory(
   if (distinct < 2) warnings.push('Nur eine unabhängige Quelle – Einzelquelle kennzeichnen.');
   if ((SENSITIVE_CATEGORIES as readonly string[]).includes(story.category)) {
     warnings.push('Sensible Kategorie – Pflichtprüfung vor Freigabe (mind. 3 Quellen).');
+  }
+  if (story.riskLevel === 'yellow') {
+    warnings.push('Risikoklasse GELB (Politik/Konflikt/Personen) – menschliche Freigabe zwingend, Fakten einzeln prüfen.');
   }
   if (draft.uncertainNotes.length > 0) {
     warnings.push(`${draft.uncertainNotes.length} unsichere Aussage(n) im Entwurf markiert.`);

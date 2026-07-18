@@ -53,10 +53,26 @@ export interface DraftSourceRef {
   title: string;
 }
 
+/** Stilmodi des Tamil.de-Redaktionsstandards (docs/styleguide.md) */
+export type StyleMode =
+  | 'NEWS_NEUTRAL'
+  | 'COMMUNITY_SUCCESS'
+  | 'CULTURE_IDENTITY'
+  | 'ENTERTAINMENT'
+  | 'EVENT_SERVICE';
+
 export interface ArticleDraft {
   headline: string;
   headlineVariants: string[];
   subheadline: string;
+  /** Dachzeile/Kicker, z. B. "Diaspora" oder "Kinostart" */
+  kicker?: string;
+  /** Gewählter Stilmodus */
+  styleMode?: StyleMode;
+  /** Explizit benannter Tamil-Bezug (Pflichtfrage der Redaktion) */
+  tamilConnection?: string;
+  /** Explizit benannter DACH-Bezug */
+  dachConnection?: string;
   summary: string;
   /** Markdown: Absätze, "## " für Zwischenüberschriften */
   body: string;
@@ -96,6 +112,10 @@ export interface Story {
   category: string;
   region?: Region;
   status: StoryStatus;
+  /** Relevanzscore 0–100 (Redaktionsstandard Abschnitt 7) */
+  relevanceScore?: number;
+  /** Risikoklasse: green = automatisierbar, yellow = Pflichtfreigabe, red = kein Auto-Entwurf */
+  riskLevel?: 'green' | 'yellow' | 'red';
   /** Breaking-News-Kennzeichnung (Frage 30), vom Admin gesetzt */
   breaking?: boolean;
   itemIds: string[];
@@ -132,6 +152,8 @@ export interface RadarRunReport {
   sourcesOk: number;
   sourcesFailed: RadarSourceError[];
   newItems: number;
+  /** Unter Relevanzschwelle automatisch verworfene Meldungen */
+  discardedItems?: number;
   newStories: number;
   updatedStories: number;
   draftsCreated: number;

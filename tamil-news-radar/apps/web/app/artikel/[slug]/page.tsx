@@ -61,7 +61,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
       )}
       <div className="article-body">{renderBody(draft.body)}</div>
       <section className="article-sources">
-        <h2>Quellen</h2>
+        <h2>Quellen und weiterführende Informationen</h2>
         <ul>
           {draft.sources.map((source) => (
             <li key={source.itemId}>
@@ -72,6 +72,10 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             </li>
           ))}
         </ul>
+        <p className="meta">
+          Redaktioneller Hinweis: Dieser Beitrag wurde auf Grundlage mehrerer
+          öffentlich zugänglicher Quellen durch die Tamil.de-Redaktion erstellt.
+        </p>
       </section>
       {draft.tags.length > 0 && (
         <p className="meta">

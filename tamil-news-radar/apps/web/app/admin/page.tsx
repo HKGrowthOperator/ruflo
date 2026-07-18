@@ -75,7 +75,9 @@ export default async function AdminPage() {
                 <tr>
                   <th>Story</th>
                   <th>Kategorie</th>
-                  <th>Quellen</th>
+                  <th className="num">Score</th>
+                  <th>Risiko</th>
+                  <th className="num">Quellen</th>
                   <th>Aktualisiert</th>
                 </tr>
               </thead>
@@ -89,7 +91,9 @@ export default async function AdminPage() {
                       {story.warnings.length > 0 && ' ⚠️'}
                     </td>
                     <td><span className="badge">{story.category}</span></td>
-                    <td>{story.itemIds.length}</td>
+                    <td className="num">{story.relevanceScore ?? '–'}</td>
+                    <td>{story.riskLevel === 'red' ? '🔴' : story.riskLevel === 'yellow' ? '🟡' : '🟢'}</td>
+                    <td className="num">{story.itemIds.length}</td>
                     <td className="meta">{formatDate(story.updatedAt)}</td>
                   </tr>
                 ))}

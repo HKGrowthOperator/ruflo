@@ -35,7 +35,15 @@ export default async function StoryDetailPage({ params }: { params: { id: string
       <p><Link href="/admin">← Zurück zur Redaktion</Link></p>
       <span className={`badge status-${story.status}`}>{STATUS_LABELS[story.status]}</span>{' '}
       <span className="badge">{story.category}</span>
-      {story.breaking && <> <span className="badge breaking">🔴 BREAKING</span></>}
+      {story.riskLevel && (
+        <> <span className={`badge risk-${story.riskLevel}`}>
+          {story.riskLevel === 'green' ? '🟢 Grün' : story.riskLevel === 'yellow' ? '🟡 Gelb – Pflichtfreigabe' : '🔴 Rot – manuelle Recherche'}
+        </span></>
+      )}
+      {typeof story.relevanceScore === 'number' && (
+        <> <span className="badge">Relevanz {story.relevanceScore}/100</span></>
+      )}
+      {story.breaking && <> <span className="badge breaking">🔴 EILMELDUNG</span></>}
       <h1>{story.draft?.headline ?? story.workingTitle}</h1>
       <div className="meta">
         Erkannt: {formatDate(story.createdAt)} · Aktualisiert: {formatDate(story.updatedAt)}
@@ -173,8 +181,20 @@ export default async function StoryDetailPage({ params }: { params: { id: string
           )}
           {story.draft && (
             <div className="card">
+              {(story.draft.kicker || story.draft.styleMode) && (
+                <div className="meta">
+                  {story.draft.kicker && <span className="badge">{story.draft.kicker}</span>}{' '}
+                  {story.draft.styleMode && <span className="mono">{story.draft.styleMode}</span>}
+                </div>
+              )}
               <h3>{story.draft.headline}</h3>
               {story.draft.subheadline && <p className="meta">{story.draft.subheadline}</p>}
+              {(story.draft.tamilConnection || story.draft.dachConnection) && (
+                <div className="notice">
+                  {story.draft.tamilConnection && <div><strong>Tamil-Bezug:</strong> {story.draft.tamilConnection}</div>}
+                  {story.draft.dachConnection && <div><strong>DACH-Bezug:</strong> {story.draft.dachConnection}</div>}
+                </div>
+              )}
               {story.draft.summary && <p><strong>{story.draft.summary}</strong></p>}
               <div className="article-body">{renderBody(story.draft.body)}</div>
               {story.draft.headlineVariants.length > 0 && (

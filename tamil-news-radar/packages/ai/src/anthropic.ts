@@ -31,6 +31,10 @@ export class AnthropicProvider implements AiProvider {
     return {
       headline: str(parsed.headline, input.story.workingTitle),
       headlineVariants: strArr(parsed.headlineVariants).slice(0, 3),
+      kicker: str(parsed.kicker, '') || undefined,
+      styleMode: parseStyleMode(parsed.styleMode),
+      tamilConnection: str(parsed.tamilConnection, '') || undefined,
+      dachConnection: str(parsed.dachConnection, '') || undefined,
       subheadline: str(parsed.subheadline, ''),
       summary: str(parsed.summary, ''),
       body: str(parsed.body, ''),
@@ -68,4 +72,14 @@ function str(v: unknown, fallback: string): string {
 
 function strArr(v: unknown): string[] {
   return Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string' && !!x.trim()) : [];
+}
+
+const STYLE_MODES = [
+  'NEWS_NEUTRAL', 'COMMUNITY_SUCCESS', 'CULTURE_IDENTITY', 'ENTERTAINMENT', 'EVENT_SERVICE',
+] as const;
+
+function parseStyleMode(v: unknown): (typeof STYLE_MODES)[number] | undefined {
+  return typeof v === 'string' && (STYLE_MODES as readonly string[]).includes(v)
+    ? (v as (typeof STYLE_MODES)[number])
+    : undefined;
 }

@@ -175,6 +175,8 @@ function rowToStory(r: any): Story {
   return {
     id: r.id, slug: r.slug, workingTitle: r.working_title, category: r.category,
     region: r.region ?? undefined, status: r.status, breaking: r.breaking ?? undefined,
+    relevanceScore: r.relevance_score ?? undefined,
+    riskLevel: r.risk_level ?? undefined,
     itemIds: r.item_ids ?? [],
     draft: r.draft ?? undefined, image: r.image ?? undefined, warnings: r.warnings ?? [],
     reviewNote: r.review_note ?? undefined, publishedAt: r.published_at ?? undefined,
@@ -192,6 +194,8 @@ function storyToRow(s: Partial<Story>): Record<string, unknown> {
   if (s.region !== undefined) row.region = s.region;
   if (s.status !== undefined) row.status = s.status;
   if (s.breaking !== undefined) row.breaking = s.breaking;
+  if (s.relevanceScore !== undefined) row.relevance_score = s.relevanceScore;
+  if (s.riskLevel !== undefined) row.risk_level = s.riskLevel;
   if (s.itemIds !== undefined) row.item_ids = s.itemIds;
   if (s.draft !== undefined) row.draft = s.draft;
   if ('image' in s) row.image = s.image ?? null;

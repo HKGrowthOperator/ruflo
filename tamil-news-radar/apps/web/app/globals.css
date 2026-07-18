@@ -84,6 +84,9 @@ h3 { font-size: 1.12rem; line-height: 1.3; margin: 0.3rem 0; text-wrap: balance;
 .badge.status-in_review, .badge.status-changes_requested { background: var(--warn-soft); color: var(--warn); }
 .badge.status-archived { background: var(--card); color: var(--muted); }
 .badge.breaking { background: var(--accent); color: #fff; }
+.badge.risk-green { background: var(--ok-soft); color: var(--ok); }
+.badge.risk-yellow { background: var(--warn-soft); color: var(--warn); }
+.badge.risk-red { background: var(--accent-soft); color: var(--accent-strong); }
 
 /* ── Karten / Startseite ── */
 .card {

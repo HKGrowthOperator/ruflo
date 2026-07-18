@@ -30,6 +30,10 @@ export class MockProvider implements AiProvider {
     return {
       headline,
       headlineVariants: input.items.slice(0, 3).map((i) => i.title),
+      kicker: input.story.category,
+      styleMode: 'NEWS_NEUTRAL',
+      tamilConnection: 'Mock-Entwurf – Tamil-Bezug wird vom KI-Provider benannt.',
+      dachConnection: '',
       subheadline: input.story.category,
       summary,
       body: bodyParts.join('\n\n'),
