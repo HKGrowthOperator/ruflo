@@ -121,6 +121,7 @@ export async function runRadar(trigger: RadarRunReport['trigger']): Promise<Rada
       publishedAt: item.publishedAt,
       sourceTrust: source?.trustScore,
       sourceRegionDach: source?.region === 'DACH',
+      sourceLanguageTamil: source?.language === 'ta',
     });
     if (relevance.total < RELEVANCE_DISCARD_BELOW) {
       discardedItems++;

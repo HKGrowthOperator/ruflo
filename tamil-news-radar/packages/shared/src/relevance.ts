@@ -80,11 +80,14 @@ export function scoreRelevance(input: {
   publishedAt?: string;
   sourceTrust?: number; // 0–100
   sourceRegionDach?: boolean;
+  /** Meldung stammt aus einer tamilischsprachigen Quelle → inhärenter Tamil-Bezug */
+  sourceLanguageTamil?: boolean;
 }): RelevanceScore {
   const text = normalize(input.text);
 
-  const tamil = containsAny(text, TAMIL_DIRECT) ? 30
+  let tamil = containsAny(text, TAMIL_DIRECT) ? 30
     : containsAny(text, TAMIL_INDIRECT) ? 15 : 0;
+  if (input.sourceLanguageTamil) tamil = Math.max(tamil, 25);
 
   const dach = containsAny(text, DACH_KEYWORDS) ? 20
     : input.sourceRegionDach ? 12 : 0;
