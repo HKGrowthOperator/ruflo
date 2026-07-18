@@ -173,16 +173,59 @@ form.inline { display: inline; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
 
-/* ── Admin-Navigation ── */
-.admin-nav {
-  display: flex; gap: 1.1rem; margin: 0 0 1.5rem;
-  border-bottom: 1px solid var(--border); padding-bottom: 0.8rem;
+/* ── Redaktions-Shell (Admin) ── */
+.admin-shell {
+  width: 100vw; margin-left: calc(50% - 50vw);
+  padding: 0 1.25rem;
 }
-.admin-nav a {
-  text-decoration: none; color: var(--muted); font-weight: 600; font-size: 0.88rem;
-  text-transform: uppercase; letter-spacing: 0.05em;
+.admin-shell > .sysbar {
+  max-width: 1400px; margin: 0 auto 1rem;
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; align-items: baseline;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--card); padding: 0.55rem 1rem;
+  font-size: 0.8rem; font-variant-numeric: tabular-nums;
 }
-.admin-nav a:hover { color: var(--accent); }
+.sys { color: var(--muted); white-space: nowrap; }
+.sys.ok { color: var(--ok); }
+.sys.warn { color: var(--warn); font-weight: 700; }
+.sys.idle { color: var(--muted); }
+
+.admin-body {
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 2rem;
+  align-items: start;
+}
+.admin-side { position: sticky; top: 1rem; display: grid; gap: 1.1rem; }
+.admin-side-title {
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--muted); margin-bottom: 0.3rem;
+}
+.admin-side a {
+  display: block; text-decoration: none; color: var(--fg);
+  font-size: 0.88rem; font-weight: 600;
+  padding: 0.32rem 0.6rem; border-radius: 7px; border-left: 3px solid transparent;
+}
+.admin-side a:hover { background: var(--card); }
+.admin-side a.active {
+  background: var(--accent-soft); color: var(--accent-strong);
+  border-left-color: var(--accent);
+}
+.admin-content { min-width: 0; }
+.admin-content h1 { margin-top: 0.2rem; }
+
+@media (max-width: 860px) {
+  .admin-body { grid-template-columns: 1fr; gap: 0.75rem; }
+  .admin-side { position: static; display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; }
+  .admin-side-title { display: none; }
+  .admin-side a { border-left: none; border-bottom: 2px solid transparent; border-radius: 0; }
+  .admin-side a.active { border-bottom-color: var(--accent); background: none; }
+}
+
+/* Aktivitätsfeed */
+.feed { border-left: 2px solid var(--border); padding-left: 1rem; display: grid; gap: 0.45rem; }
+.feed-item { font-size: 0.85rem; }
+.feed-item .t { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 0.5rem; }
+
 .mono { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.8rem; }
 
 /* ── Fußzeile ── */

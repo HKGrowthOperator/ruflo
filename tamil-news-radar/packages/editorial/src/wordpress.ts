@@ -43,6 +43,59 @@ export function isAutoPushEnabled(): boolean {
   return getWordPressConfig() !== null && process.env.WORDPRESS_AUTO_PUSH !== 'false';
 }
 
+export interface WordPressConnectionStatus {
+  configured: boolean;
+  ok: boolean;
+  /** Angemeldeter WP-Benutzer (bei Erfolg) */
+  user?: string;
+  categories?: Array<{ id: number; name: string; count: number }>;
+  error?: string;
+}
+
+/**
+ * Echter Verbindungstest gegen die WordPress-REST-API: authentifizierter
+ * Abruf des eigenen Benutzers + der Kategorien. Kein simulierter Status.
+ */
+export async function testWordPressConnection(): Promise<WordPressConnectionStatus> {
+  const config = getWordPressConfig();
+  if (!config) {
+    return {
+      configured: false, ok: false,
+      error: 'WORDPRESS_URL / WORDPRESS_USER / WORDPRESS_APP_PASSWORD nicht gesetzt',
+    };
+  }
+  const auth = Buffer.from(`${config.user}:${config.appPassword}`).toString('base64');
+  const headers = { Authorization: `Basic ${auth}` };
+  try {
+    const me = await fetch(`${config.url}/wp-json/wp/v2/users/me?context=edit`, {
+      headers, signal: AbortSignal.timeout(15_000),
+    });
+    if (!me.ok) {
+      return {
+        configured: true, ok: false,
+        error: `Authentifizierung fehlgeschlagen (HTTP ${me.status}) – Application Password prüfen`,
+      };
+    }
+    const user = (await me.json()) as { name?: string; slug?: string };
+
+    const cats = await fetch(`${config.url}/wp-json/wp/v2/categories?per_page=100`, {
+      headers, signal: AbortSignal.timeout(15_000),
+    });
+    const categories = cats.ok
+      ? ((await cats.json()) as Array<{ id: number; name: string; count: number }>).map(
+          (c) => ({ id: c.id, name: c.name, count: c.count })
+        )
+      : undefined;
+
+    return { configured: true, ok: true, user: user.name ?? user.slug, categories };
+  } catch (error) {
+    return {
+      configured: true, ok: false,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
 /**
  * Lädt das Artikelbild in die WordPress-Mediathek hoch und setzt
  * Bildunterschrift + Credit. Gibt die Media-ID zurück (wird an der

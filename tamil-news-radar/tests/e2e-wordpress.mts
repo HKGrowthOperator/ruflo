@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { DevStore } from '@tnr/database';
-import { pushToWordPress } from '@tnr/editorial';
+import { pushToWordPress, testWordPressConnection } from '@tnr/editorial';
 import { type ArticleDraft, type Story, newId, nowIso } from '@tnr/shared';
 
 const PORT = 8932;
@@ -39,6 +39,10 @@ const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'application/json');
     if (url === '/wp-json/wp/v2/media') {
       res.end(JSON.stringify({ id: 55, source_url: 'http://127.0.0.1:8932/media/55.jpg' }));
+    } else if (url.startsWith('/wp-json/wp/v2/users/me')) {
+      res.end(JSON.stringify({ name: 'Tamil.de Redaktion', slug: 'redaktion' }));
+    } else if (url.startsWith('/wp-json/wp/v2/categories')) {
+      res.end(JSON.stringify([{ id: 1, name: 'News', count: 12 }, { id: 2, name: 'Events', count: 4 }]));
     } else {
       res.end(JSON.stringify({ id: 123, link: 'http://localhost:8932/?p=123' }));
     }
@@ -72,6 +76,12 @@ const story: Story = {
   warnings: [], createdAt: nowIso(), updatedAt: nowIso(),
 };
 await store.insertStory(story);
+
+// 0) Echter Verbindungstest (users/me + categories)
+const connection = await testWordPressConnection();
+assert.equal(connection.ok, true, 'Verbindungstest fehlgeschlagen: ' + connection.error);
+assert.equal(connection.user, 'Tamil.de Redaktion');
+assert.equal(connection.categories?.length, 2);
 
 // 1) Erster Push → Bild-Upload + Beitrag anlegen
 const created = await pushToWordPress(store, story, 'test');

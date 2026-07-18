@@ -51,6 +51,14 @@ export default async function StoryDetailPage({ params }: { params: { id: string
         {story.wordpressPostId && <> · WordPress-Post #{story.wordpressPostId}</>}
       </div>
 
+      {story.draft?.generator.startsWith('mock') && (
+        <div className="warning-box">
+          🟡 <strong>Mock-Entwurf</strong> – dieser Text wurde ohne KI-Provider
+          extraktiv aus den Quellen erstellt (kein Tamil.de-Stil, keine
+          Übersetzung). <span className="mono">ANTHROPIC_API_KEY</span> setzen
+          und „Entwurf neu erstellen" klicken für einen echten Artikel.
+        </div>
+      )}
       {story.warnings.length > 0 && (
         <div className="warning-box">
           <strong>⚠️ Hinweise zur Prüfung:</strong>
