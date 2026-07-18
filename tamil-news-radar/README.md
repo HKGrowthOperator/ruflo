@@ -46,8 +46,13 @@ durch den Admin.
   Umschrift tamilischer Namen und Begriffe.
 - **Öffentliche Website (Deutsch)**: Startseite mit Kategorie-Filter und
   Eilmeldungen + Artikelseiten mit öffentlichem Quellenblock.
-- **WordPress-Publishing (optional)**: freigegebene Artikel per Knopfdruck
-  zusätzlich in ein WordPress pushen (REST API + Application Password).
+- **WordPress-Publishing (Hauptkanal)**: Beim Veröffentlichen wird der
+  Artikel automatisch nach WordPress (Tamil.de) gepusht – inkl.
+  Artikelbild als Beitragsbild in der Mediathek (REST API + Application
+  Password; `WORDPRESS_AUTO_PUSH=false` schaltet auf manuell).
+- **Artikelbilder**: Bild pro Story mit Bildunterschrift, Credit und
+  Lizenzvermerk; Anzeige auf Website + Vorschau, Upload nach WordPress.
+  KI-Retusche ist die nächste Ausbaustufe.
 
 ## Schnellstart (ohne jegliche Keys)
 

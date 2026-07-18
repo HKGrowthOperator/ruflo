@@ -176,7 +176,7 @@ function rowToStory(r: any): Story {
     id: r.id, slug: r.slug, workingTitle: r.working_title, category: r.category,
     region: r.region ?? undefined, status: r.status, breaking: r.breaking ?? undefined,
     itemIds: r.item_ids ?? [],
-    draft: r.draft ?? undefined, warnings: r.warnings ?? [],
+    draft: r.draft ?? undefined, image: r.image ?? undefined, warnings: r.warnings ?? [],
     reviewNote: r.review_note ?? undefined, publishedAt: r.published_at ?? undefined,
     wordpressPostId: r.wordpress_post_id ?? undefined,
     createdAt: r.created_at, updatedAt: r.updated_at,
@@ -194,6 +194,7 @@ function storyToRow(s: Partial<Story>): Record<string, unknown> {
   if (s.breaking !== undefined) row.breaking = s.breaking;
   if (s.itemIds !== undefined) row.item_ids = s.itemIds;
   if (s.draft !== undefined) row.draft = s.draft;
+  if ('image' in s) row.image = s.image ?? null;
   if (s.warnings !== undefined) row.warnings = s.warnings;
   if (s.reviewNote !== undefined) row.review_note = s.reviewNote;
   if (s.publishedAt !== undefined) row.published_at = s.publishedAt;

@@ -31,6 +31,18 @@ export default async function StoryPreviewPage({ params }: { params: { id: strin
         )}
         <div className="meta">{formatDate(story.publishedAt ?? story.updatedAt)}</div>
         {draft.summary && <p><strong>{draft.summary}</strong></p>}
+        {story.image && (
+          <figure className="article-figure">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={story.image.url} alt={story.image.caption ?? draft.headline} />
+            {(story.image.caption || story.image.credit) && (
+              <figcaption className="meta">
+                {story.image.caption}
+                {story.image.credit && <> · Bild: {story.image.credit}</>}
+              </figcaption>
+            )}
+          </figure>
+        )}
         <div className="article-body">{renderBody(draft.body)}</div>
         <section className="article-sources">
           <h2>Quellen</h2>

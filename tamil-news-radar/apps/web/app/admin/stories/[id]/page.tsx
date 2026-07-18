@@ -6,7 +6,8 @@ import { STATUS_LABELS } from '@tnr/shared';
 import { formatDate, renderBody } from '../../../../lib/format';
 import {
   detachItemAction, draftStoryAction, pushWordPressAction, refreshStoryAction,
-  toggleBreakingAction, transitionStoryAction, updateDraftAction,
+  removeImageAction, setImageAction, toggleBreakingAction, transitionStoryAction,
+  updateDraftAction,
 } from '../../actions';
 
 export const dynamic = 'force-dynamic';
@@ -109,6 +110,57 @@ export default async function StoryDetailPage({ params }: { params: { id: string
           </div>
         </form>
       )}
+
+      <section className="card">
+        <h2 style={{ marginTop: 0 }}>🖼️ Artikelbild</h2>
+        {story.image && (
+          <figure style={{ margin: '0 0 0.75rem' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={story.image.url}
+              alt={story.image.caption ?? ''}
+              style={{ maxWidth: '100%', maxHeight: '260px', borderRadius: '8px' }}
+            />
+            <figcaption className="meta">
+              {story.image.caption}
+              {story.image.credit && <> · Bild: {story.image.credit}</>}
+              {story.image.license && <> · Lizenz: {story.image.license}</>}
+              {story.image.wpMediaId && <> · WordPress-Media #{story.image.wpMediaId}</>}
+            </figcaption>
+          </figure>
+        )}
+        <form action={setImageAction}>
+          <input type="hidden" name="storyId" value={story.id} />
+          <div className="grid-2">
+            <label>Bild-URL (Rechte müssen geklärt sein!)
+              <input type="url" name="imageUrl" defaultValue={story.image?.url} required />
+            </label>
+            <label>Bildunterschrift
+              <input type="text" name="caption" defaultValue={story.image?.caption} />
+            </label>
+            <label>Credit / Urheber
+              <input type="text" name="credit" defaultValue={story.image?.credit} />
+            </label>
+            <label>Lizenz
+              <input type="text" name="license" defaultValue={story.image?.license} placeholder="z. B. CC BY-SA 4.0, eigenes Bild" />
+            </label>
+          </div>
+          <div className="actions">
+            <button type="submit">{story.image ? 'Bild aktualisieren' : 'Bild setzen'}</button>
+          </div>
+        </form>
+        {story.image && (
+          <form action={removeImageAction} className="inline">
+            <input type="hidden" name="storyId" value={story.id} />
+            <button type="submit">Bild entfernen</button>
+          </form>
+        )}
+        <p className="meta">
+          Beim Veröffentlichen wird das Bild automatisch in die
+          WordPress-Mediathek hochgeladen und als Beitragsbild gesetzt.
+          KI-Retusche/Zuschnitt ist als nächste Ausbaustufe vorgesehen.
+        </p>
+      </section>
 
       <div className="grid-2">
         <section>

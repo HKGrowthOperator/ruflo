@@ -3,7 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { getStore } from '@tnr/database';
 import {
-  applyTransition, canTransition, pushToWordPress, type TransitionAction,
+  applyTransition, canTransition, isAutoPushEnabled, pushToWordPress,
+  type TransitionAction,
 } from '@tnr/editorial';
 import { draftStory, refreshStory, runRadar } from '@tnr/ingestion';
 import { type Source, type Story, newId, nowIso, slugify } from '@tnr/shared';
@@ -39,7 +40,13 @@ export async function draftStoryAction(formData: FormData): Promise<void> {
   revalidateAll();
 }
 
-/** Statusübergang gemäß Statusmaschine (Frage 23/24). */
+/**
+ * Statusübergang gemäß Statusmaschine (Frage 23/24).
+ * Beim Veröffentlichen wird der Artikel automatisch nach WordPress
+ * gepusht (inkl. Beitragsbild), sofern WordPress konfiguriert ist –
+ * das ist der primäre Veröffentlichungskanal von Tamil.de.
+ * Abschaltbar mit WORDPRESS_AUTO_PUSH=false.
+ */
 export async function transitionStoryAction(formData: FormData): Promise<void> {
   const id = String(formData.get('storyId') ?? '');
   const action = String(formData.get('action') ?? '') as TransitionAction;
@@ -50,7 +57,61 @@ export async function transitionStoryAction(formData: FormData): Promise<void> {
   if (!canTransition(story, action)) {
     throw new Error(`"${action}" ist im Status "${story.status}" nicht erlaubt`);
   }
-  await applyTransition(store, story, action, ACTOR, note);
+  const updated = await applyTransition(store, story, action, ACTOR, note);
+
+  if (action === 'publish' && isAutoPushEnabled()) {
+    try {
+      await pushToWordPress(store, updated, ACTOR);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      await store.updateStory(id, {
+        warnings: [...updated.warnings, `WordPress-Push fehlgeschlagen: ${message}`],
+        updatedAt: nowIso(),
+      });
+      await store.addAudit({
+        id: newId('aud'), at: nowIso(), actor: ACTOR,
+        action: 'wordpress.error', storyId: id, detail: message.slice(0, 300),
+      });
+    }
+  }
+  revalidateAll();
+}
+
+/** Artikelbild setzen (Fragen 44–47). Rechte vorher klären! */
+export async function setImageAction(formData: FormData): Promise<void> {
+  const id = String(formData.get('storyId') ?? '');
+  const url = String(formData.get('imageUrl') ?? '').trim();
+  if (!/^https?:\/\//.test(url)) throw new Error('Bild-URL muss mit http(s):// beginnen');
+  const store = getStore();
+  const story = await store.getStory(id);
+  if (!story) throw new Error('Story nicht gefunden');
+  await store.updateStory(id, {
+    image: {
+      url,
+      caption: String(formData.get('caption') ?? '').trim() || undefined,
+      credit: String(formData.get('credit') ?? '').trim() || undefined,
+      license: String(formData.get('license') ?? '').trim() || undefined,
+      // Neue URL → neuer Upload beim nächsten WordPress-Push
+      wpMediaId: story.image?.url === url ? story.image?.wpMediaId : undefined,
+    },
+    updatedAt: nowIso(),
+  });
+  await store.addAudit({
+    id: newId('aud'), at: nowIso(), actor: ACTOR,
+    action: 'story.image_set', storyId: id, detail: url,
+  });
+  revalidateAll();
+}
+
+/** Artikelbild entfernen. */
+export async function removeImageAction(formData: FormData): Promise<void> {
+  const id = String(formData.get('storyId') ?? '');
+  const store = getStore();
+  await store.updateStory(id, { image: undefined, updatedAt: nowIso() });
+  await store.addAudit({
+    id: newId('aud'), at: nowIso(), actor: ACTOR,
+    action: 'story.image_removed', storyId: id,
+  });
   revalidateAll();
 }
 

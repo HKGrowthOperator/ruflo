@@ -48,15 +48,30 @@ Mal: ca. 1–2 Stunden.
 3. Erste Story öffnen → Entwurf prüfen → Vorschau → Freigeben →
    Veröffentlichen.
 
-## 5. WordPress anbinden (optional)
+## 5. WordPress anbinden (primärer Veröffentlichungskanal)
 
-1. In WordPress: Benutzer → Profil → **Anwendungspasswörter** → neues
-   Passwort erzeugen.
+1. In WordPress (Tamil.de): Benutzer → Profil → **Anwendungspasswörter**
+   → neues Passwort erzeugen.
 2. In Vercel setzen: `WORDPRESS_URL`, `WORDPRESS_USER`,
-   `WORDPRESS_APP_PASSWORD`, `WORDPRESS_PUBLISH_STATUS=draft`.
-3. Im Story-Detail erscheint dann „→ Nach WordPress pushen" für
-   freigegebene/veröffentlichte Artikel. Mit `draft` landen Beiträge
-   als WP-Entwurf und werden dort final veröffentlicht.
+   `WORDPRESS_APP_PASSWORD`, `WORDPRESS_PUBLISH_STATUS`
+   (`draft` = kommt als WP-Entwurf an, `publish` = geht sofort live).
+3. **Auto-Push**: Sobald WordPress konfiguriert ist, wird jeder im
+   Dashboard veröffentlichte Artikel automatisch nach WordPress
+   gepusht – inkl. Artikelbild als Beitragsbild (Upload in die
+   Mediathek mit Bildunterschrift/Credit). Abschaltbar mit
+   `WORDPRESS_AUTO_PUSH=false`; der manuelle Push-Button bleibt.
+4. Schlägt der Push fehl, bleibt der Artikel veröffentlicht und die
+   Story bekommt eine Warnung + Audit-Eintrag (`wordpress.error`) –
+   dann manuell erneut pushen.
+
+## 6. Artikelbilder
+
+- Bild pro Story im Story-Detail setzen: URL, Bildunterschrift,
+  Credit, Lizenz. **Rechte vorher klären** (eigene Mediathek,
+  Wikimedia Commons, lizenzfreie Datenbanken).
+- Beim WordPress-Push wird das Bild einmalig in die Mediathek
+  hochgeladen (Media-ID wird gespeichert, kein Doppel-Upload).
+- KI-Retusche/Zuschnitt: nächste Ausbaustufe (Schnittstelle vorbereitet).
 
 ## Betrieb ohne Vercel (eigener Server)
 

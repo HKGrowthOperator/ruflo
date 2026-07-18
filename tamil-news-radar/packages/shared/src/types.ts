@@ -76,6 +76,19 @@ export interface ArticleDraft {
   usage?: { inputTokens: number; outputTokens: number };
 }
 
+/** Artikelbild (Fragen 44–47): Rechte müssen geklärt sein, bevor es gesetzt wird. */
+export interface StoryImage {
+  /** Öffentlich erreichbare Bild-URL (eigene Mediathek, Wikimedia, lizenzfrei …) */
+  url: string;
+  caption?: string;
+  /** Urheber/Quelle, wird öffentlich angezeigt */
+  credit?: string;
+  /** Lizenzvermerk, z. B. "CC BY-SA 4.0" oder "eigenes Bild" */
+  license?: string;
+  /** Media-ID nach Upload in die WordPress-Mediathek */
+  wpMediaId?: number;
+}
+
 export interface Story {
   id: string;
   slug: string;
@@ -87,6 +100,7 @@ export interface Story {
   breaking?: boolean;
   itemIds: string[];
   draft?: ArticleDraft;
+  image?: StoryImage;
   warnings: string[];
   reviewNote?: string;
   publishedAt?: string;
