@@ -20,7 +20,9 @@
 
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import yaml from 'js-yaml';
+// Benannter Import statt Default: js-yaml@5 exportiert kein `default`
+// mehr aus dem ESM-Build; `load` existiert in v4 und v5.
+import { load as yamlLoad } from 'js-yaml';
 
 const WORKFLOWS_DIR = '.github/workflows';
 
@@ -37,7 +39,7 @@ const results = [];
 for (const file of files.sort()) {
   const full = join(WORKFLOWS_DIR, file);
   try {
-    const parsed = yaml.load(readFileSync(full, 'utf8'));
+    const parsed = yamlLoad(readFileSync(full, 'utf8'));
     const jobCount = parsed && parsed.jobs ? Object.keys(parsed.jobs).length : 0;
     results.push({ file, ok: true, jobs: jobCount });
   } catch (e) {
