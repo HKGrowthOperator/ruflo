@@ -231,7 +231,49 @@ inhaltlichen Details der jeweiligen Themen. Neuere Chat-Backups schlagen
 
 ---
 
-## 7. Checkliste für den Wiederaufbau
+## 7. Totalverlust-Szenario: Dienst-Daten und Account-Neuanlage
+
+Annahme: ALLE Accounts sind weg (Claude, GitHub, Google, Shopify, Supabase,
+Webflow, Onepage, Higgsfield, Canva, Figma, Descript, Asana, npm, Cloudflare,
+Pinata). Es existiert nur noch die Festplatte. Dann gilt:
+
+### Was die Festplatte abdeckt (Ordner `dienste/` im Backup)
+
+| Dienst | Gesichert auf der Festplatte | Bei Neuanlage |
+|---|---|---|
+| GitHub | Komplette Repos als Bundles (`repos/`) | Neue Org `HKGrowthOperator` anlegen, Repos pushen (RESTORE.md) |
+| npm | Paket-Metadaten + fertige Tarballs v3.32.26 (`dienste/npm/`) | Neuen npm-Account anlegen; Paketnamen ggf. neu registrieren; aus Repo oder Tarballs neu publishen |
+| Pinata/IPFS | Plugin-Registry-JSON + CID (`dienste/pinata-registry/`) | Neuer Pinata-Account, registry.json neu pinnen, neue CID in `discovery.ts` eintragen |
+| Shopify | Produkt-/Kollektions-/Shop-Export (`dienste/shopify/`) | Neuen Shop anlegen, Daten per Import/Claude wieder einspielen |
+| Supabase | Schemata, Edge-Function-Code, Daten-Dumps kleiner Tabellen (`dienste/supabase/`) | Neues Projekt, Schema + Daten wieder einspielen |
+| Onepage | Site-/Page-Struktur + Vibe-Section-Quellcode (`dienste/onepage/`) | Neue Site anlegen, Sections aus Code wieder aufbauen |
+| Webflow | Inventar/Struktur (`dienste/webflow/`) | Site nach Inventar neu aufbauen |
+| Asana | Projekte + Tasks als JSON (`dienste/asana/`) | Neu anlegen (per Claude aus JSON) |
+| Google Calendar | Termin-Export (`dienste/google-calendar/`) | Termine neu anlegen |
+| Google Drive | Datei-INVENTAR (`dienste/google-drive/`) | Inhalte nur via manuellem Takeout-Backup (siehe unten) |
+| Higgsfield | Inventar: Websites, Voices, Characters, Generierungen (`dienste/higgsfield/`) | Assets nur wiederherstellbar, wenn Medien manuell gesichert wurden |
+| Canva / Figma / Descript | Inventare (`dienste/...`) | Designs/Projekte nach Inventar neu aufbauen |
+
+### Was NUR manuell sicherbar ist — regelmäßig selbst auf die Festplatte laden
+
+- **Google Drive-Inhalte**: Google Takeout (https://takeout.google.com) → Export auf die Festplatte
+- **Higgsfield-Medien**: generierte Videos/Bilder herunterladen; **Quell-Audios der Custom Voices und Quell-Bilder der Characters** unbedingt lokal aufheben — ohne sie sind Voices/Characters bei Account-Verlust unwiederbringlich
+- **Canva-Designs**: als PDF/PNG/SVG exportieren
+- **Descript-Projekte**: Timeline-Export (EDL/FCPXML) + veröffentlichte Videos herunterladen
+- **Shopify-Theme und Produktbilder**: Theme-Export + Bilder-Download
+- **Domains**: Domains liegen beim Registrar, nicht in diesem Backup — Registrar-Zugang und Domain-Liste in `secrets/` notieren; Auth-Codes für Domain-Umzug bereithalten
+- **E-Mail-Postfach** info@hkgrowth-operator.de: eigenes Backup (IMAP-Export), denn ALLE Account-Wiederherstellungen laufen über diese Adresse — sie ist der wichtigste Single Point of Failure. Empfehlung: Zugang zum Mail-Hosting getrennt sichern (in `secrets/`), 2FA-Wiederherstellungscodes auf Papier/Festplatte
+
+### Reihenfolge der Account-Neuanlage
+
+1. **E-Mail-Postfach** wieder betriebsbereit machen (alles hängt daran)
+2. **Claude-Account** → Projekt `HKGO Main` + Einspiel-Protokoll (Abschnitt 6)
+3. **GitHub** → Repos aus Bundles pushen (Abschnitt 2a)
+4. **npm + Pinata** → Pakete/Registry wieder veröffentlichen
+5. **Betriebs-Dienste** nach Bedarf: Shopify, Supabase, Onepage/Webflow (+ Domains umziehen), Higgsfield, Asana, Google
+6. Jeden neuen Zugang sofort in `secrets/` auf der Festplatte nachtragen
+
+## 8. Checkliste für den Wiederaufbau
 
 - [ ] Neuen Claude-Account mit info@hkgrowth-operator.de einrichten
 - [ ] Dieses Main Backup hochladen
@@ -240,4 +282,6 @@ inhaltlichen Details der jeweiligen Themen. Neuere Chat-Backups schlagen
 - [ ] Skills `higgsfield-prompt-engineer` und `logo-consistency-guard` wieder anlegen (Abschnitt 4)
 - [ ] Secrets/API-Keys neu hinterlegen (Abschnitt 5)
 - [ ] Chat-Backups von der Festplatte nachladen (Abschnitt 6)
+- [ ] Dienst-Daten aus `dienste/` wieder einspielen (Reihenfolge: Abschnitt 7)
+- [ ] Domains beim Registrar prüfen/umziehen und neu verbinden
 - [ ] Testlauf: eine Higgsfield-Generierung inkl. Logo-Check, ein Claude-Code-Task auf ruflo
