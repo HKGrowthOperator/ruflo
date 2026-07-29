@@ -271,7 +271,7 @@ jobs:
         with: { node-version: '22' }
       # js-yaml + tsx are needed by the smokes — install only those.
       - name: Install smoke deps
-        run: npm install --no-save --no-package-lock js-yaml tsx
+        run: npm install --no-save --no-package-lock js-yaml@^4 tsx
       - name: "#2267 — every .github/workflows/*.yml must parse"
         run: node scripts/smoke-workflows-yaml.mjs
       - name: "#2257 — router patterns must be word-boundary-anchored"
