@@ -172,17 +172,62 @@ Diese Marken-Regeln gelten unabhängig vom Skill immer für alle Generierungen.
 
 ---
 
-## 6. Chat-Backups auf der externen Festplatte
+## 6. Einspiel-Protokoll: Wohin mit den Daten im neuen Account
 
-Aus allen großen aktuellen Chats wurden separate Backups gezogen und auf einer
-externen Festplatte gesichert. Wiederherstellung:
+**Der richtige Ort ist ein Claude-Projekt mit Projekt-Wissen — nicht ein
+einzelner Chat.** Ein einzelner Chat hat begrenzten Kontext und vergisst nichts
+dauerhaft Hochgeladenes über Chat-Grenzen hinweg. Projekt-Wissen dagegen ist
+persistent, wird von JEDEM neuen Chat im Projekt automatisch mitgelesen und
+ist genau dafür gebaut, dass sich „das System wieder neu aufbaut".
 
-1. Zuerst dieses **Main Backup** hochladen (macht Claude die Struktur bekannt).
-2. Danach die einzelnen Chat-Backups von der Festplatte jeweils in einen neuen
-   Chat bzw. das passende Projekt hochladen und Claude bitten, den Kontext des
-   jeweiligen Chats daraus zu übernehmen.
-3. Bei Konflikten gilt: **Dieses Main Backup definiert die Struktur**, die
-   Einzel-Backups liefern die inhaltlichen Details der jeweiligen Themen.
+### Schritt für Schritt
+
+1. **Projekt anlegen:** Im neuen Account ein Projekt erstellen, Name:
+   `HKGO Main`.
+2. **Projekt-Anweisung setzen** (Custom Instructions des Projekts) — diesen
+   Text einfügen:
+   > Dies ist der wiederaufgebaute Account von HK Growth Operator
+   > (info@hkgrowth-operator.de). Im Projekt-Wissen liegt MAIN-BACKUP.md —
+   > das ist die maßgebliche Beschreibung meiner Struktur, Repos, Connectoren,
+   > Skills und Marken-Regeln (Logo: H und K lesbar, Baum erkennbar, zentriert,
+   > aufrecht; AI niemals in der Krone). Die übrigen Dateien im Projekt-Wissen
+   > sind Backups meiner früheren Chats. Richte dich in allen Antworten nach
+   > MAIN-BACKUP.md; bei Widersprüchen gilt MAIN-BACKUP.md vor den
+   > Chat-Backups. Antworte auf Deutsch.
+3. **MAIN-BACKUP.md als erste Datei** ins Projekt-Wissen hochladen.
+4. **Chat-Backups einzeln dazu** — als `.md`- oder `.txt`-Dateien direkt ins
+   Projekt-Wissen. **Wichtig: kein ZIP** — Projekt-Wissen liest ZIP-Inhalte
+   nicht; die Dateien müssen einzeln rein. (Das ZIP von der Festplatte vorher
+   auf dem Rechner entpacken.)
+5. **Erste Nachricht im Projekt:**
+   > Lies MAIN-BACKUP.md und verschaffe dir einen Überblick über alle
+   > Chat-Backups im Projekt-Wissen. Bestätige mir kurz, welche Themen du
+   > wiederhergestellt hast, und baue ab jetzt auf diesem Stand auf.
+6. **Bei sehr viel Material:** thematische Projekte zusätzlich anlegen
+   (z. B. `HKGO Content/Higgsfield`, `HKGO Entwicklung`, `HKGO Business`) und
+   die jeweiligen Chat-Backups dort einspielen — MAIN-BACKUP.md kommt in
+   **jedes** dieser Projekte mit hinein.
+7. **Die Code-Repos** gehören NICHT ins Projekt-Wissen — sie werden über die
+   Bundles wiederhergestellt und über die GitHub-Integration/Claude Code
+   verbunden (Abschnitt 2a).
+
+### Format der Chat-Backups auf der Festplatte
+
+Damit die automatische Integration gut funktioniert, jedes Chat-Backup so
+ablegen:
+
+- **Format:** Markdown oder reiner Text (`.md`/`.txt`) — keine Screenshots,
+  kein reines PDF, wenn vermeidbar.
+- **Dateiname:** `JJJJ-MM-TT_thema.md` (z. B. `2026-07-15_higgsfield-kampagne.md`).
+- **Kopfzeilen** (3–5 Zeilen am Dateianfang): Thema, Zeitraum, wichtigste
+  Entscheidungen/Ergebnisse. Das hilft Claude, die Datei sofort richtig
+  einzuordnen.
+
+### Rangfolge bei Konflikten
+
+**Dieses Main Backup definiert die Struktur.** Die Einzel-Backups liefern die
+inhaltlichen Details der jeweiligen Themen. Neuere Chat-Backups schlagen
+ältere zum selben Thema.
 
 ---
 
