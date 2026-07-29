@@ -13,20 +13,34 @@
 
 ## 1. Zweck und Wiederherstellungs-Reihenfolge
 
+**Dieses Backup ist GitHub-unabhängig.** Es funktioniert auch dann vollständig,
+wenn es keinerlei Zugriff mehr auf GitHub gibt (Account weg, Organisation weg,
+Verbindung weg). Alle vier Repositories liegen als Offline-Kopien
+(`.bundle`-Dateien mit kompletter Git-Historie, allen Branches und Tags) neben
+diesem Dokument auf der externen Festplatte im Ordner
+`HKGO-MAIN-BACKUP-2026-07-29/repos/`.
+
 1. **Main Backup (dieses Dokument) hochladen** — Claude kennt danach die
    Gesamtstruktur: Repos, Connectoren, Skills, Marken-Regeln, Arbeitsweise.
-2. **GitHub-Integration verbinden** und die vier Repos freigeben (Abschnitt 2).
-   Die Repos enthalten die eigentlichen Konfigurationen (CLAUDE.md, Skills,
-   Agents, Hooks) — sie sind selbst Teil des Backups, weil alles in Git liegt.
-3. **Connectoren neu verbinden** (Abschnitt 3). Auth-Tokens lassen sich nicht
+2. **Repos aus den Offline-Bundles wiederherstellen** (siehe `RESTORE.md` auf
+   der Festplatte, Kurzform in Abschnitt 2a). Die Repos enthalten die
+   eigentlichen Konfigurationen (CLAUDE.md, Skills, Agents, Hooks). Falls
+   GitHub noch/wieder existiert, können die Repos alternativ von dort geklont
+   werden — die Bundles sind aber die maßgebliche Sicherung.
+3. **Neues Git-Hosting einrichten** (GitHub-Account/Organisation neu anlegen
+   oder Alternative wie GitLab/Codeberg) und die wiederhergestellten Repos
+   dorthin pushen. Danach die Git-Integration im Claude-Account verbinden.
+4. **Connectoren neu verbinden** (Abschnitt 3). Auth-Tokens lassen sich nicht
    sichern — jede Verbindung muss einmal neu autorisiert werden.
-4. **Chat-Backups von der Festplatte** einzeln in neue Projekte/Chats laden
+5. **Chat-Backups von der Festplatte** einzeln in neue Projekte/Chats laden
    (Abschnitt 6), damit die inhaltlichen Kontexte der großen Chats zurückkommen.
 
-**Was dieses Backup abdeckt:** Struktur, Konfiguration, Regeln, Workflows.
+**Was dieses Backup abdeckt:** Struktur, Konfiguration, Regeln, Workflows und
+den kompletten Code samt Git-Historie aller vier Repos (offline).
 **Was es nicht abdecken kann:** Chat-Verläufe (liegen separat auf der
 Festplatte), Login-Daten/Tokens der Connectoren, Abo- und Account-Einstellungen
-bei Anthropic. Diese müssen manuell neu eingerichtet werden.
+bei Anthropic, GitHub-Metadaten (Issues, PR-Diskussionen, Actions-Logs,
+Repo-Einstellungen). Diese müssen manuell neu eingerichtet werden.
 
 ---
 
@@ -45,7 +59,34 @@ Alle vier Repos für Claude (GitHub-App / Claude Code) freigeben:
 `CLAUDE.local.md`) mit den verbindlichen Projektregeln. Nach dem Klonen gelten
 diese automatisch — sie müssen nicht aus diesem Dokument rekonstruiert werden.
 Dieses Dokument liegt in `ruflo/docs/MAIN-BACKUP.md` und ist damit selbst
-git-gesichert.
+git-gesichert (und zusätzlich als eigenständige Datei auf der Festplatte).
+
+### 2a. Offline-Wiederherstellung der Repos (ohne GitHub)
+
+Auf der Festplatte liegen im Backup-Ordner unter `repos/` vier Dateien:
+`ruflo.bundle`, `claude-code-best-practice.bundle`, `impeccable.bundle`,
+`taste-skill.bundle`. Jede enthält das **komplette** Repository — alle Commits,
+alle Branches, alle Tags. Wiederherstellung auf einem beliebigen Rechner mit
+Git (kein Internet nötig):
+
+```bash
+git clone ruflo.bundle ruflo
+git clone claude-code-best-practice.bundle claude-code-best-practice
+git clone impeccable.bundle impeccable
+git clone taste-skill.bundle taste-skill
+```
+
+Danach optional auf neues Hosting pushen:
+
+```bash
+cd ruflo
+git remote set-url origin <neue-git-url>
+git push --all origin && git push --tags origin
+```
+
+Integrität prüfen (vor dem Restore empfohlen): `git bundle verify <datei>.bundle`
+sowie Abgleich mit `SHA256SUMS.txt` im Backup-Ordner
+(`sha256sum -c SHA256SUMS.txt`).
 
 ### Kernregeln aus den CLAUDE.md-Dateien (Kurzfassung)
 
