@@ -254,6 +254,46 @@ Pinata). Es existiert nur noch die Festplatte. Dann gilt:
 | Higgsfield | Inventar: Websites, Voices, Characters, Generierungen (`dienste/higgsfield/`) | Assets nur wiederherstellbar, wenn Medien manuell gesichert wurden |
 | Canva / Figma / Descript | Inventare (`dienste/...`) | Designs/Projekte nach Inventar neu aufbauen |
 
+### Konkrete Bestandsaufnahme (Stand 2026-07-29)
+
+Was tatsächlich existiert und wiederhergestellt werden muss:
+
+**Onepage — 4 Live-Sites, 48 Seiten** (`dienste/onepage/`)
+- `HK Growth Operator` (9 Seiten) — eigene Firmenseite
+- `Kummer Werkzeugbau GmbH` (12 Seiten) — Kunde
+- `Kummer Werkzeugbau v2` (24 Seiten) — Kunde, mit interaktiven Tools
+  (ISO-Passungsrechner, Härte-Umrechner, Verfahrens-Finder, Toleranztabellen,
+  Glossar, Wissens-Artikel)
+- `Kfz-Service Oberberg` (3 Seiten) — Kunde
+- Gesichert: Seiten-/Sektionsstruktur, Branding (Farben/Fonts) und der
+  **React-Quellcode der Vibe-Sections** — bei Account-Verlust sonst weg
+
+**Supabase — `hk-sales-cockpit`** (`dienste/supabase/`)
+- Projekt `retnwoheiapthsmncycd`, eu-central-1, Postgres 17, aktiv
+- **Voll gesichert:** Schema (22 Tabellen, 10 ENUMs, 8 Funktionen, 9 Trigger,
+  45 Indizes), 57 RLS-Policies, alle 464 Datenzeilen (größte Tabellen:
+  decision_makers 153, radar_targets 133, leads 92), Migrationen, Extensions
+- Keine Edge Functions
+- **Nicht exportierbar, im Bericht dokumentiert:** `auth.users` (3 Konten —
+  müssen beim Restore ZUERST neu angelegt werden, sonst schlägt der
+  Datenimport fehl; UUIDs stehen im Bericht), Storage, Vault/Secrets
+- ⚠️ Zweites Projekt `Luis App Hk App` (`uaadcvgqlxzxlkwmjrcr`) ist
+  **pausiert** und damit nicht exportierbar. **Achtung: Pausierte
+  Free-Tier-Projekte werden nach längerer Inaktivität endgültig gelöscht** —
+  zeitnah im Dashboard reaktivieren und dann sichern (oder bewusst aufgeben)
+
+**Shopify — `plantceylon`** (`dienste/shopify/`)
+- Domain plantceylon.com, Pflanz-Patenschaften Sri Lanka
+- **Wichtig: Shop-E-Mail ist `livingcharity@kbs-consulting.tv`**, nicht die
+  Hauptadresse — dieser Mail-Zugang gehört zwingend in `secrets/`
+
+**npm / IPFS** (`dienste/npm/`, `dienste/pinata-registry/`)
+- Aktuelle Version aller drei Pakete: **3.32.26** (Tarballs liegen im Backup)
+- Plugin-Registry-CID: `QmeXmAdbWVvT84GfDXPD2Vg1HWhiTW2VdZfRLhkS96KkX2` (20 Plugins)
+
+**Figma** — Account-Tier `starter`, Seat `View` (nur Betrachter): keine eigenen
+Design-Systeme zu sichern; wichtige Dateien manuell als `.fig` exportieren.
+
 ### Was NUR manuell sicherbar ist — regelmäßig selbst auf die Festplatte laden
 
 - **Google Drive-Inhalte**: Google Takeout (https://takeout.google.com) → Export auf die Festplatte
