@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { jsonError, withUser } from '@/lib/api-helpers';
+import { jsonError, withPaidUser } from '@/lib/api-helpers';
 import { loadQuestion } from '@/lib/services/questions';
 
 const zLevel = z.coerce.number().int().min(1).max(5);
@@ -9,6 +9,10 @@ const zLevel = z.coerce.number().int().min(1).max(5);
  * Gestufte Hilfen (§18): 1 Denkimpuls … 5 vollständige Erklärung.
  * Deterministisch aus Frage-Metadaten erzeugt — keine Lösungsverrat-Stufen
  * unterhalb von Stufe 4.
+ *
+ * Vollzugang erforderlich: Stufe 4/5 enthalten Erwartungshorizont bzw.
+ * Musterlösung — ohne Gate wäre das ein Paywall-Bypass für den ganzen
+ * Fragenpool. (Die Diagnose nutzt ohnehin keine Hilfen.)
  */
 export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }): Promise<NextResponse> {
   const { id } = await ctx.params;
@@ -17,7 +21,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   if (!parsed.success) return jsonError('level 1–5 erforderlich');
   const level = parsed.data;
 
-  return withUser(async () => {
+  return withPaidUser(async () => {
     const q = loadQuestion(id);
     if (!q) throw new Error('Frage nicht gefunden');
 

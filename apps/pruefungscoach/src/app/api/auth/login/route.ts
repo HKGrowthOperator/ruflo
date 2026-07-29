@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getDb } from '@/lib/db';
-import { createSession, verifyPassword } from '@/lib/auth';
+import { createSession, hashPassword, verifyPassword } from '@/lib/auth';
 import { jsonError, parseBody } from '@/lib/api-helpers';
 import { rateLimit } from '@/lib/rate-limit';
 
 const schema = z.object({ email: z.string().email().max(200), password: z.string().min(1).max(200) });
+
+// Dummy-Hash, damit unbekannte E-Mails dieselbe Antwortzeit haben wie falsche
+// Passwörter (kein Nutzer-Enumeration über Timing).
+const DUMMY_HASH = hashPassword('dummy-timing-equalizer');
 
 export async function POST(req: Request): Promise<NextResponse> {
   if (!rateLimit(req, 'login', 10, 60_000)) return jsonError('Zu viele Anmeldeversuche, bitte kurz warten.', 429);
@@ -15,7 +19,8 @@ export async function POST(req: Request): Promise<NextResponse> {
   const user = db.prepare('SELECT id, password_hash FROM users WHERE email = ?').get(body.email.toLowerCase()) as
     | { id: number; password_hash: string }
     | undefined;
-  if (!user || !verifyPassword(body.password, user.password_hash)) {
+  const valid = verifyPassword(body.password, user?.password_hash ?? DUMMY_HASH) && Boolean(user);
+  if (!user || !valid) {
     return jsonError('E-Mail oder Passwort falsch', 401);
   }
   await createSession(user.id);

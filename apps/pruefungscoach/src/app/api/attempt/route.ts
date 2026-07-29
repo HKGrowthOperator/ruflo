@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { getDb } from '@/lib/db';
 import { parseBody, PaymentRequiredError, withUser, zAnswerPayload } from '@/lib/api-helpers';
 import { submitAttempt } from '@/lib/services/attempts';
-import { markDiagnosed } from '@/lib/services/diagnosis';
+import { isDiagnosed, markDiagnosed } from '@/lib/services/diagnosis';
 import { hasFullAccess } from '@/lib/services/entitlements';
+
+/** Obergrenze an Gratis-Diagnoseversuchen (Diagnose umfasst ~28 Aufgaben). */
+const FREE_DIAGNOSE_ATTEMPT_LIMIT = 60;
 
 const schema = z.object({
   questionId: z.string().max(60),
@@ -22,7 +26,19 @@ export async function POST(req: Request): Promise<NextResponse> {
   if (body instanceof NextResponse) return body;
   return withUser(async (user) => {
     // Diagnose ist Teil des kostenlosen Probierteils; Lernsessions sind bezahlpflichtig.
-    if (body.context !== 'diagnose' && !hasFullAccess(user.id)) throw new PaymentRequiredError();
+    if (!hasFullAccess(user.id)) {
+      if (body.context !== 'diagnose') throw new PaymentRequiredError();
+      // Ohne Vollzugang gilt der Diagnose-Kontext nur für die eigentliche
+      // Eingangsdiagnose: danach (und über einem Versuchslimit) wäre er sonst
+      // ein Bypass, um den ganzen Fragenpool inkl. Musterlösungen abzugrasen.
+      if (isDiagnosed(user.id)) throw new PaymentRequiredError();
+      const attempts = (
+        getDb()
+          .prepare("SELECT COUNT(*) n FROM attempts WHERE user_id = ? AND context = 'diagnose'")
+          .get(user.id) as { n: number }
+      ).n;
+      if (attempts >= FREE_DIAGNOSE_ATTEMPT_LIMIT) throw new PaymentRequiredError();
+    }
     const feedback = await submitAttempt({
       userId: user.id,
       questionId: body.questionId,
