@@ -1,0 +1,76 @@
+{
+  "_hinweis": "Vorlage. Echte Dateien heißen competencies-<prefix>.json (Schlüssel 'competencies') bzw. questions-<prefix>.json (Schlüssel 'questions').",
+  "competencies": [
+    {
+      "id": "FBE-001",
+      "parent_id": null,
+      "main_area": "fussboden",
+      "topic": "Randdämmstreifen",
+      "title": "Erklärt die Funktion des Randdämmstreifens",
+      "description": "Kann erklären, dass der Randdämmstreifen den schwimmenden Estrich von flankierenden Bauteilen entkoppelt, Schallbrücken verhindert und Bewegungen aufnimmt.",
+      "prerequisites": [],
+      "exam_relevance": 5,
+      "dependency_value": 2,
+      "points_potential": 3,
+      "learning_effort": 2,
+      "criticality": 1,
+      "mastery_threshold": 0.7,
+      "status": "freigegeben"
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-FBE-001-A1",
+      "source_ref": "wissensbuendelung",
+      "source_level": 4,
+      "exam_part": "tk",
+      "competency_ids": ["FBE-001"],
+      "family": "function",
+      "operator": "erklaeren",
+      "qtype": "short_text",
+      "difficulty": 2,
+      "exam_relevance": 5,
+      "time_seconds": 120,
+      "points": 4,
+      "prompt": "Erklären Sie die Funktion des Randdämmstreifens beim schwimmenden Estrich.",
+      "context": null,
+      "choices": [],
+      "number_answer": null,
+      "ordering_solution": null,
+      "matching_pairs": null,
+      "model_answer": "Der Randdämmstreifen trennt den schwimmenden Estrich von allen flankierenden Bauteilen (Wände, Stützen). Dadurch werden Schallbrücken vermieden (Trittschallschutz bleibt wirksam) und Bewegungen/Ausdehnungen des Estrichs können aufgenommen werden, ohne dass Zwängungsrisse entstehen.",
+      "criteria": [
+        {
+          "id": "K1",
+          "text": "Entkopplung von flankierenden Bauteilen genannt",
+          "points": 1.5,
+          "required": true,
+          "keywords": ["entkoppel", "trenn", "flankierend"],
+          "synonyms": ["kein Kontakt zur Wand", "berührt die Wand nicht"],
+          "misconception_codes": []
+        },
+        {
+          "id": "K2",
+          "text": "Schallschutzwirkung (Schallbrücken vermeiden) erklärt",
+          "points": 1.5,
+          "required": true,
+          "keywords": ["schallbrücke", "trittschall", "körperschall"],
+          "synonyms": ["Schall wird nicht übertragen"],
+          "misconception_codes": ["F3"]
+        },
+        {
+          "id": "K3",
+          "text": "Bewegungsaufnahme / Rissvermeidung genannt",
+          "points": 1,
+          "required": false,
+          "keywords": ["bewegung", "ausdehnung", "riss"],
+          "synonyms": ["Estrich kann arbeiten"],
+          "misconception_codes": []
+        }
+      ],
+      "typical_errors": ["Nur 'wegen Dämmung' ohne Schallbezug (F3)", "Verwechslung mit Fugenbewehrungsstreifen (F2)"],
+      "status": "freigegeben",
+      "version": 1
+    }
+  ]
+}
